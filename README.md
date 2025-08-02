@@ -1,5 +1,4 @@
 # MoBox
-#test
 
 **Sample Project**
 
