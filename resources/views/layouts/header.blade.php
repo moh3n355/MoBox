@@ -38,6 +38,6 @@
     </nav>
 
     <div class="icons">
-        <button class="login-btn">ورود</button>
+        <a href="{{ route('login') }}" alt="" class="login-btn">ورود</a>
     </div>
 </header>
