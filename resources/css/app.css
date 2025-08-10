@@ -220,6 +220,11 @@ body {
     text-align: center;
     font-size: 1.8rem;
 }
+.category img {
+     width: 100%;
+    object-fit: contain;
+    display: block;
+}
 
 /* Products Section */
 .products {
