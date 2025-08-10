@@ -11,6 +11,306 @@
 
 html {
     font-size: 62.5%;
+}@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ریست ساده */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+    /* 1rem = 10px */
+}
+
+body {
+    font-family: sans-serif;
+    background-color: #f2f2f2;
+    direction: rtl;
+    line-height: 1.6;
+    font-size: 1.6rem;
+    /* معادل 16px */
+}
+
+/* Header */
+.main-header {
+    background-color: white;
+    padding: 1.2rem 3vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.1);
+    flex-wrap: wrap;
+
+
+}
+
+.main-header .logo {
+    display: flex;
+    align-items: center;
+    position: relative;
+    font-size: 2.4rem;
+    font-weight: bold;
+    color: #0077b6;
+}
+
+.main-header .logo img {
+
+    height: 10vh;
+
+}
+
+.main-header .logo-text {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.main-header .logo span {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #0077b6;
+}
+
+.main-header .nav {
+    display: flex;
+    gap: 2.5vw;
+    flex-wrap: wrap;
+}
+.main-header .nav-item {
+    position: relative;
+    display: flex;
+}
+
+.main-header .nav a {
+    padding: 0.4rem;
+    color: #333;
+    text-decoration: none;
+    font-size: 1.8rem;
+    font-weight: 700;
+    transition:  all 0.5s ease-in-out;
+
+}
+/* _______drop down menu______ */
+.dropdown-menu {
+    position: absolute;
+    top: 5vh;
+    background-color: white;
+    border-radius: 0.6rem;
+    box-shadow: 0 1rem 1.3rem rgba(0, 0, 0, 0.5);
+    min-width: 16rem;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.3s ease, opacity 0.4s ease;
+    z-index: 1000;
+}
+
+.dropdown-menu.active {
+    max-height: 50vh;
+    opacity: 1;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 0.8rem 1.2rem;
+    color: #333;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.dropdown-menu a:hover {
+    background-color: #b2e59f;
+    color: #000;
+    cursor: pointer;
+}
+
+
+    /* ___hover navbar___ */
+
+.main-header .nav a::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 0.3rem;
+    margin-top: 0.3rem;
+    background-color: transparent;
+    border-radius: 2px;
+    transition: background-color 0.5s ease-in-out;
+
+}
+
+.main-header .nav a:hover {
+    transform: translate(0 ,-0.5rem);
+    transition:  transform 0.3s ease-in-out;
+}
+
+.main-header .nav a:hover::after {
+    background-color: #0077b6;
+
+}
+    /* ___________________ */
+
+
+.main-header .icons {
+    display: flex;
+    align-items: center;
+    gap: 1.5vw;
+    margin-top: 1rem;
+}
+
+.main-header .icons button {
+    background-color: #0077b6;
+    color: white;
+    border: none;
+    padding: 0.6em 1.2em;
+    border-radius: 0.5em;
+    font-size: 1.4rem;
+    cursor: pointer;
+}
+
+/* Hero Section */
+.hero {
+    background-color: #caf0f8;
+    padding: 10vh 5vw;
+    text-align: center;
+}
+
+.hero h1 {
+
+    font-size: 3.2rem;
+    color: #023e8a;
+}
+
+.hero p {
+    margin: 2rem 0;
+    font-size: 1.8rem;
+}
+.hero .buynow-btn {
+    padding: 1em 2em;
+    background-color: #0077b6;
+    color: white;
+    border: none;
+    border-radius: 0.5em;
+    font-size: 1.6rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.hero .buynow-btn:hover {
+    background-color: #023e8a;
+    transform: translateY(-3px);
+}
+
+
+/* Categories */
+.categories {
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+    gap: 10vw;
+    padding: 3vh 2vw;
+    background-color: white;
+    overflow-x: auto;
+    scrollbar-width:none;
+    -ms-overflow-style: none;
+}
+.categories::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+}
+
+.category {
+    background-color: #e0e0e0;
+    padding: 0.5rem;
+    border-radius: 1rem;
+    width: 9rem;
+    flex-shrink: 0;
+    text-align: center;
+    font-size: 1.8rem;
+}
+
+/* Products Section */
+.products {
+    padding: 8vh 4vw;
+    background-color: #f9f9f9;
+}
+
+.products h2 {
+    text-align: center;
+    margin-bottom: 4vh;
+    font-size: 2.4rem;
+    color: #333;
+}
+
+.product-list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 4vw;
+}
+
+.product-card {
+    background-color: white;
+    padding: 2rem;
+    width: 40vw;
+    max-width: 220px;
+    min-width: 150px;
+    border-radius: 1rem;
+    text-align: center;
+    box-shadow: 0 0.2rem 0.8rem rgba(0, 0, 0, 0.05);
+}
+
+.product-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+}
+
+.product-card h3 {
+    font-size: 1.6rem;
+    margin: 1rem 0;
+}
+
+.product-card .price {
+    color: #e63946;
+    font-weight: bold;
+    font-size: 1.4rem;
+}
+
+.product-card button {
+    margin-top: 1rem;
+    background-color: #0077b6;
+    color: white;
+    border: none;
+    padding: 0.6em 1.2em;
+    border-radius: 0.5em;
+    font-size: 1.4rem;
+    cursor: pointer;
+}
+
+/* Footer */
+.footer {
+    background-color: #333;
+    color: white;
+    padding: 4vh 2vw;
+    text-align: center;
+    font-size: 1.4rem;
+}
+
+.footer-links {
+    margin-top: 2vh;
+}
+
+.footer-links a {
+    color: #ddd;
+    margin: 0 1vw;
+    text-decoration: none;
+    font-size: 1.3rem;
 }
 
 body {
