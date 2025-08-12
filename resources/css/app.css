@@ -173,6 +173,7 @@ body {
     border-radius: 0.5em;
     font-size: 1.4rem;
     cursor: pointer;
+    text-decoration: none;
 }
 
 /* Hero Section */
