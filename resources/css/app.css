@@ -194,6 +194,7 @@ body {
 }
 
 .hero .buynow-btn {
+    text-decoration: none;
     padding: 1em 2em;
     background-color: #0077b6;
     color: white;
@@ -201,12 +202,11 @@ body {
     border-radius: 0.5em;
     font-size: 1.6rem;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    transition: background-color 0.3s ease;
 }
 
 .hero .buynow-btn:hover {
     background-color: #023e8a;
-    transform: translateY(-3px);
 }
 
 
