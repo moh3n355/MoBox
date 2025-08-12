@@ -19,6 +19,11 @@ body {
     padding: 20px;
 }
 
+.error-forms{
+    color: red;
+    font-weight: 700;
+}
+
 .container {
     background-color: white;
     border-radius: 10px;
@@ -76,6 +81,7 @@ header h2 {
     border-radius: 5px;
     font-size: 14px;
     transition: border-color 0.3s;
+    text-align: left;
 }
 
 .input-group input:focus {
@@ -104,6 +110,16 @@ header h2 {
 
 .login-btn:hover {
     background-color: #3a7bc8;
+}
+
+.login-email{
+    color:#3a7bc8 ;
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    /* text-shadow: 1px 1px 20px #000000; */
 }
 
 .terms {

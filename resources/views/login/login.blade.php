@@ -9,6 +9,7 @@
 </head>
 
 <body>
+
     <div class="container">
         <header>
             <img src="/images/logo-mobbox3.png" alt="">
@@ -17,23 +18,27 @@
         </header>
 
         <main>
-            <form id="loginForm">
 
+
+            <form id="loginForm" action="" method="">
+                @csrf
 
                 <div class="input-group">
-                    <label for="username">لطفا شماره موبایل یا ایمیل خود را وارد کنید</label>
+                    <label for="username">لطفا شماره موبایل را وارد کنید</label>
 
-                    <form action="{{ route('login-post') }}" method="POST">
-                        @csrf
-                        <input type="text" name="phone_or_email" required>
-                        <button type="submit" class="login-btn">ورود</button>
-                    </form>
 
-                    <div class="error-message">لطفا این قسمت را خالی نگذارید</div>
+
+                    <input type="text" name="phone" value="{{ old('phone') }}" required pattern="^(09\d{9})$"
+                        title="شماره تلفن باید ۱۱ رقم داشته باشد و برای ایران باشد">
+
+                    @error('phone')
+                        <span class="error-forms">{{ $message }}</span>
+                    @enderror
+
 
 
                 </div>
-
+                <button type="submit" class="login-btn">ورود</button>
 
 
                 <div class="terms">
@@ -43,7 +48,6 @@
         </main>
     </div>
 
-    <script src="script.js"></script>
 </body>
 
 </html>

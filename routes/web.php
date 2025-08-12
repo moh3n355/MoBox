@@ -1,17 +1,15 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('home');
 })->name('home');
 
-Route::get('/form', function () {
-    return view('form');
-})->name('form');
-
 
 
 Route::get('/login', function () {
-    return view('login');
+    return view('login.login');
 })->name('login');
+

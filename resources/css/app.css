@@ -10,7 +10,7 @@
 }
 
 html {
-    font-size: 62.5%;
+    font-size: 0.7vw;
     /* 1rem = 10px */
 }
 
@@ -21,6 +21,11 @@ body {
     line-height: 1.6;
     font-size: 1.6rem;
     /* معادل 16px */
+}
+
+.error-forms {
+    color: red;
+    font-weight: 700;
 }
 
 /* Header */
@@ -44,7 +49,8 @@ body {
     font-weight: bold;
     color: #0077b6;
 }
-.main-header .logo h1{
+
+.main-header .logo h1 {
 
     font-size: 1.2em;
 
@@ -73,6 +79,7 @@ body {
     gap: 2.5vw;
     flex-wrap: wrap;
 }
+
 .main-header .nav-item {
     position: relative;
     display: flex;
@@ -84,9 +91,10 @@ body {
     text-decoration: none;
     font-size: 1.8rem;
     font-weight: 700;
-    transition:  all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
 
 }
+
 /* _______drop down menu______ */
 .dropdown-menu {
     position: absolute;
@@ -123,7 +131,7 @@ body {
 }
 
 
-    /* ___hover navbar___ */
+/* ___hover navbar___ */
 
 .main-header .nav a::after {
     content: "";
@@ -138,15 +146,16 @@ body {
 }
 
 .main-header .nav a:hover {
-    transform: translate(0 ,-0.5rem);
-    transition:  transform 0.3s ease-in-out;
+    transform: translate(0, -0.5rem);
+    transition: transform 0.3s ease-in-out;
 }
 
 .main-header .nav a:hover::after {
     background-color: #0077b6;
 
 }
-    /* ___________________ */
+
+/* ___________________ */
 
 
 .main-header .icons {
@@ -183,6 +192,7 @@ body {
     margin: 2rem 0;
     font-size: 1.8rem;
 }
+
 .hero .buynow-btn {
     padding: 1em 2em;
     background-color: #0077b6;
@@ -209,54 +219,83 @@ body {
     padding: 3vh 2vw;
     background-color: white;
     overflow-x: auto;
-    scrollbar-width:none;
+    scrollbar-width: none;
     -ms-overflow-style: none;
 }
+
 .categories::-webkit-scrollbar {
-    display: none; /* Chrome/Safari */
+    display: none;
+    /* Chrome/Safari */
 }
 
 .category {
     background-color: #e0e0e0;
     padding: 0.5rem;
     border-radius: 1rem;
-    width: 9rem;
+    width: 4vw;
     flex-shrink: 0;
     text-align: center;
     font-size: 1.8rem;
 }
+
 .category img {
-     width: 100%;
+    width: 100%;
     object-fit: contain;
     display: block;
 }
 
 /* Products Section */
 .products {
-    padding: 8vh 4vw;
+    padding: 0 1vw;
     background-color: #f9f9f9;
 }
 
 .products h2 {
     text-align: center;
-    margin-bottom: 4vh;
+    margin-bottom: 2vh;
     font-size: 2.4rem;
     color: #333;
+}
+
+.products .product-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60%;
+    overflow: hidden;
+    background-size: cover;
 }
 
 .product-list {
     display: flex;
     justify-content: center;
-    flex-wrap: wrap;
-    gap: 4vw;
+    padding: 1rem;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 1vw;
+}
+
+.product-list .see-all {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    padding: 1rem;
+    box-sizing: border-box;
+    background-color: #0077b6;
+    color: white;
+    border-radius: 1.5rem 0.3rem 0.3rem 1.5rem;
+    box-shadow: #000 1px 1px 5px;
+    font-weight: 700;
 }
 
 .product-card {
     background-color: white;
     padding: 2rem;
-    width: 40vw;
-    max-width: 220px;
-    min-width: 150px;
+    width: 10vw;
+    max-width: 20vw;
+    min-width: 13vw;
     border-radius: 1rem;
     text-align: center;
     box-shadow: 0 0.2rem 0.8rem rgba(0, 0, 0, 0.05);
@@ -309,7 +348,3 @@ body {
     text-decoration: none;
     font-size: 1.3rem;
 }
-
-
-
-
