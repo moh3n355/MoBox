@@ -65,19 +65,38 @@ body {
 .main-header .logo-text {
     display: flex;
     flex-direction: column;
+    text-shadow:
+    1px 2px 0 #000;
 
 }
 
 .main-header .logo span {
+    text-shadow:none;
     font-size: 1rem;
     font-weight: bold;
     color: #0077b6;
+    font-weight: 700;
+
 }
 
 .main-header .nav {
     display: flex;
     gap: 2.5vw;
     flex-wrap: wrap;
+}
+
+.main-header .nav .search-box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
+    width: 30vw;
+}
+.main-header .nav .search-box input{
+    border: 1px solid black;
+    padding: 0.6rem;
+    border-radius: 0.7rem;
+    width: 100%;
 }
 
 .main-header .nav-item {
@@ -125,15 +144,15 @@ body {
 }
 
 .dropdown-menu a:hover {
-    background-color: #b2e59f;
-    color: #000;
+    background-color: #36aae34d;
+    color: #000000;
     cursor: pointer;
 }
 
 
 /* ___hover navbar___ */
 
-.main-header .nav a::after {
+.main-header .nav-link::after {
     content: "";
     display: block;
     width: 100%;
@@ -145,7 +164,7 @@ body {
 
 }
 
-.main-header .nav a:hover {
+.main-header .nav-link:hover {
     transform: translate(0, -0.5rem);
     transition: transform 0.3s ease-in-out;
 }
@@ -166,7 +185,7 @@ body {
 }
 
 .main-header .icons a {
-    background-color: #0077b6;
+    background: linear-gradient(45deg, #0077b6, #00b4d8);
     color: white;
     border: none;
     padding: 0.6em 1.2em;
@@ -174,11 +193,20 @@ body {
     font-size: 1.4rem;
     cursor: pointer;
     text-decoration: none;
+    font-weight: 700;
 }
 
 /* Hero Section */
 .hero {
-    background-color: #caf0f8;
+    background:
+        linear-gradient(0deg,
+            rgba(0, 119, 182, 0.7),
+            rgba(202, 240, 248, 0.7)
+        ),
+        url('/public/images/hero.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     padding: 10vh 5vw;
     text-align: center;
 }
@@ -197,7 +225,8 @@ body {
 .hero .buynow-btn {
     text-decoration: none;
     padding: 1em 2em;
-    background-color: #0077b6;
+    background-color: #3d00b6;
+    box-shadow: white 0px 0px 15px;
     color: white;
     border: none;
     border-radius: 0.5em;
@@ -248,7 +277,7 @@ body {
 /* Products Section */
 .products {
     padding: 0 1vw;
-    background-color: #f9f9f9;
+    background-color: #e6e5e5;
 }
 
 .products h2 {
@@ -284,7 +313,7 @@ body {
     text-decoration: none;
     padding: 1rem;
     box-sizing: border-box;
-    background-color: #0077b6;
+    background: linear-gradient(90deg , #0077b6 , #159ee8) ;
     color: white;
     border-radius: 1.5rem 0.3rem 0.3rem 1.5rem;
     box-shadow: #000 1px 1px 5px;
@@ -327,6 +356,7 @@ body {
     padding: 0.6em 1.2em;
     border-radius: 0.5em;
     font-size: 1.4rem;
+    font-weight: 700;
     cursor: pointer;
 }
 
