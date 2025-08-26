@@ -4,10 +4,14 @@
         <div class="logo logo-text">
             <h1>موبوکس</h1>
             <span>فروشگاه دیجیتال</span>
+
         </div>
     </div>
 
     <nav class="nav">
+        <div class="search-box">
+            <input type="text" name="" id="" placeholder="جست و جو">
+         </div>
 
         <div class="nav-item">
             <a href="#" class="nav-link" id="home">خانه</a>
