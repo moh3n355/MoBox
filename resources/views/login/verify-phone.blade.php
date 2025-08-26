@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>موبوکس تایید شماره تلفن</title>
-    @vite(['resources/css/login.css', 'resources/js/verify-phone.js'])
+    @vite(['resources/css/login.css'])
 </head>
 
 <body>
