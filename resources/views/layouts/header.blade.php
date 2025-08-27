@@ -2,7 +2,7 @@
     <div class="logo">
         <img src="/images/logo-mobbox3.png" alt="">
         <div class="logo logo-text">
-            <h1>موبوکس</h1>
+            <h1>موباکس</h1>
             <span>فروشگاه دیجیتال</span>
 
         </div>

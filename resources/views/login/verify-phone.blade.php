@@ -13,7 +13,7 @@
     <div class="container">
         <header>
             <img src="/images/logo-mobbox3.png" alt="">
-            <h1>موبوکس</h1>
+            <h1>موباکس</h1>
             <h2>تایید شماره تلفن</h2>
             <div class="show-and-edit-phone">
                 <p>7750 891 993 98+</p>
@@ -28,10 +28,24 @@
                 @csrf
 
                 <div class="input-group">
+
+                    <label>نام کاربری:</label>
+                    <input type="text" name="username" value="{{ old('') }}" required pattern=""
+                        title="">
+
+                    @error('username')
+                        <span class="error-forms">{{ $message }}</span>
+                    @enderror
+
+                    <label>رمز عبور:</label>
+                    <input type="text" name="password" value="{{ old('') }}" required pattern=""
+                        title="">
+
+                    @error('password')
+                        <span class="error-forms">{{ $message }}</span>
+                    @enderror
+
                     <label>لطفا کد تایید ارسال شده را وارد کنید</label>
-
-
-
                     <input type="text" name="verify-code" value="{{ old('verify-code') }}" required
                         pattern="^(09\d{9})$" title="کد تایید ارسال شده را وارد کنید">
 
