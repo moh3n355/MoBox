@@ -9,12 +9,29 @@ Route::get('/', function () {
 
 
 
+Route::get('/register', function () {
+    return view('auth.register');
+})->name('register');
+
+
 Route::get('/login', function () {
-    return view('login.login');
+    return view('auth.login');
 })->name('login');
 
 
 Route::get('/login/verify-phone', function () {
-    return view('login.verify-phone');
+    return view('auth.verify-phone');
 })->name('verify-phone');
 
+
+
+
+
+
+
+
+
+
+Route::get('/auth', function () {
+    return view('auth.auth');
+})->name('auth');
