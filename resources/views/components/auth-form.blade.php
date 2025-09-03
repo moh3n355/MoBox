@@ -32,7 +32,7 @@
             @if ($type === 'verify')
                 <div class="show-and-edit-phone">
                     <p>+98 993 891 7750</p>
-                    <a href="{{ route('login') }}">
+                    <a href="">
                         <img id="edit-icon" src="/images/edit.png" alt="">
                     </a>
                 </div>
@@ -121,16 +121,16 @@
                 {{-- لینک‌های پایین فرم --}}
                 @if ($type === 'login')
                     <div class="register-forgetpass">
-                        <a href="{{ route('register') }}">ثبت‌نام</a>
+                        <a href="">ثبت‌نام</a>
                         <a href="">فراموشی رمز عبور</a>
                     </div>
                 @elseif ($type === 'register')
                     <div class="register-forgetpass">
-                        <a href="{{ route('login') }}">ورود</a>
+                        <a href="">ورود</a>
                     </div>
                 @elseif ($type === 'forgot')
                     <div class="register-forgetpass">
-                        <a href="{{ route('login') }}">بازگشت به ورود</a>
+                        <a href="">بازگشت به ورود</a>
                     </div>
                 @endif
 
