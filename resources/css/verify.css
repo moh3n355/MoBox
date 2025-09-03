@@ -85,14 +85,13 @@ header h2 {
 }
 
 .input-group {
-    direction: rtl;
   margin-bottom: 20px;
 }
 
 .input-group label {
   font-weight: 700;
   display: block;
-  margin: 8px 4px;
+  margin-bottom: 8px;
   font-size: 14px;
   color: var(--color-muted);
 }
@@ -135,33 +134,6 @@ header h2 {
   background-color: var(--color-primary-hover);
 }
 
-.login-email {
-  color: var(--color-primary-hover);
-  margin-top: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  /* text-shadow: 1px 1px 20px #000000; */
-}
-
-
-
-
-.register-forgetpass {
-  display: flex;
-  justify-content: right;
-  align-items: flex-start;
-  flex-direction: column;
-  margin: 10px 5px;
-  gap: 3px;
-}
-
-.register-forgetpass a {
-  text-decoration: none;
-  color: var(--color-primary-hover);
-}
-
 .terms {
   font-size: 12px;
   color: #999;
@@ -169,3 +141,47 @@ header h2 {
   margin-top: 20px;
   line-height: 1.5;
 }
+
+/* ___________________________________ */
+/* ____________verify page__________ */
+/* ___________________________________ */
+
+.problem-to-verify {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .problem-to-verify a {
+    margin-top: 0.3rem;
+    display: none;
+    text-decoration: none;
+    color: var(--color-primary-hover);
+  }
+
+  .problem-to-verify a:hover {
+    color: var(--color-primary-hover);
+  }
+
+  .show-and-edit-phone {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    background-color: var(--chip-bg);
+    border-radius: 0.7rem;
+    gap: 3px;
+    width: fit-content;
+    margin: 0.3rem auto;
+    padding: 0.1rem 0.5rem;
+  }
+
+  .show-and-edit-phone a {
+    width: 2rem;
+  }
+
+  .show-and-edit-phone img {
+    margin: 0;
+  }
