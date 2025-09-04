@@ -40,7 +40,7 @@
         </header>
 
         <main>
-            <form method="POST" action="">
+            <form method="" action="{{ route('verify') }}">
                 @csrf
 
                 <div class="input-group">
@@ -121,16 +121,16 @@
                 {{-- لینک‌های پایین فرم --}}
                 @if ($type === 'login')
                     <div class="register-forgetpass">
-                        <a href="">ثبت‌نام</a>
-                        <a href="">فراموشی رمز عبور</a>
+                        <a href="{{ route('register') }}">ثبت‌نام</a>
+                        <a href="{{ route('forget') }}">فراموشی رمز عبور</a>
                     </div>
                 @elseif ($type === 'register')
                     <div class="register-forgetpass">
-                        <a href="">ورود</a>
+                        <a href="{{ route('login') }}">ورود</a>
                     </div>
                 @elseif ($type === 'forgot')
                     <div class="register-forgetpass">
-                        <a href="">بازگشت به ورود</a>
+                        <a href="{{ route('login') }}">بازگشت به ورود</a>
                     </div>
                 @endif
 

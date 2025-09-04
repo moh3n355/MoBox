@@ -11,7 +11,7 @@
 
 
 
-<x-auth-form type="verify" />
+<x-auth-form :type="$type ?? 'login'" />
 
 
 
