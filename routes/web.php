@@ -4,15 +4,23 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('home');
-})->name('home');
+        return view('home');
+    })->name('home');
 
+Route::get('/auth/{type}', function ($type) {
+    $allowed = [
+        'login'    => 'login',
+        'register' => 'register',
+        'forgot'   => 'forgot',
+        'verify'   => 'verify',
+    ];
 
+    if (! array_key_exists($type, $allowed)) {
+        abort(404);
+    }
 
-
-
-
-
+    return view('auth.auth', ['type' => $type]);
+})->name('auth.dynamic');
 
 Route::get('/auth', function () {
     return view('auth.auth');
@@ -20,26 +28,3 @@ Route::get('/auth', function () {
 
 
 
-Route::get('/login', function () {
-    return view('auth.auth',[
-        'type' => 'login'
-     ]);
-})->name('login');
-
-Route::get('/register', function () {
-    return view('auth.auth',[
-        'type' => 'register'
-     ]);
-})->name('register');
-
-Route::get('/forget-password', function () {
-    return view('auth.auth',[
-       'type' => 'forgot'
-    ]);
-})->name('forget');
-
-Route::get('/verify', function () {
-    return view('auth.auth',[
-       'type' => 'verify'
-    ]);
-})->name('verify');
