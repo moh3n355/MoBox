@@ -47,7 +47,7 @@
         </header>
 
         <main>
-            <form method="" action="{{ route('auth.dynamic', ['type' => 'set-username-password']) }}">
+            <form method="" action="{{ route('auth.dynamic', ['type' => 'verify']) }}">
                 @csrf
 
                 <div class="input-group">
@@ -107,14 +107,13 @@
                         <div class="profile-upload-section">
 
                             <div class="profile-preview">
-                                <img id="profilePreviewImg" src="{{ auth()->user()->profile_photo_url ?? '' }}"
-                                    alt="پیش‌نمایش عکس پروفایل"
-                                    @if (!(auth()->user()->profile_photo_url ?? false)) style="display:none;" @endif>
+                                <img id="profilePreviewImg" src=""
+                                    alt="">
                             </div>
 
                             <div class="file-upload-wrapper">
                                 <input id="profile_photo" type="file" name="profile_photo" accept="image/*" hidden>
-                                <label for="profile_photo" class="file-upload-label">انتخاب عکس پروفایل</label>
+                                <label for="profile_photo" class="file-upload-label" id="upload-btn">انتخاب عکس پروفایل</label>
                             </div>
                             {{-- <small class="muted">فرمت‌های مجاز: jpg, jpeg, png, webp — حداکثر 2 مگابایت</small> --}}
 
