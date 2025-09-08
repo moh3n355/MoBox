@@ -17,7 +17,7 @@
         <header>
 
             @if ($type !== 'set-username-password')
-                <img src="/images/logo-mobbox3.png" alt="">d
+                <img src="/images/logo-mobbox3.png" alt="">
                 <h1>موبوکس</h1>
             @endif
 
@@ -53,12 +53,21 @@
                 <div class="input-group">
                     {{-- حالت verify --}}
                     @if ($type === 'verify')
-                        <label>لطفا کد تایید ارسال شده را وارد کنید</label>
-                        <input type="text" name="verify-code" value="{{ old('verify-code') }}" required
-                            pattern="\d{4,6}" title="کد تایید ارسال شده را وارد کنید">
-                        @error('verify-code')
+                    <label>لطفا کد تایید ارسال شده را وارد کنید</label>
+                    <div class="otp-container">
+                        <div class="otp-inputs">
+                            @for ($i = 0; $i < 5; $i++)
+                            <input type="text" name="verify_code[]" maxlength="1"
+                            pattern="[0-9]*" inputmode="numeric"
+                            value="{{ old('verify_code.' . $i) }}"
+                            style="text-align:center;">
+                            @endfor
+                        </div>
+                        @error('verify_code')
                             <span class="error-forms">{{ $message }}</span>
                         @enderror
+                    </div>
+
 
 
                         {{-- حالت login --}}

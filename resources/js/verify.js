@@ -26,4 +26,29 @@ document.addEventListener("DOMContentLoaded", function () {
             resendLink.style.display = "block"; // نمایش لینک دریافت دوباره
         }
     }, 1000);
+
+
+
+
+
+// حرکت خودکار بین خانه های کد تایید
+    const inputs = document.querySelectorAll('.otp-inputs input');
+
+    inputs.forEach((input, index) => {
+        input.addEventListener('input', function () {
+            if (input.value.length > 0 && index < inputs.length - 1) {
+                inputs[index + 1].focus();
+            }
+        });
+
+        input.addEventListener('keydown', function(e) {
+            if (e.key === 'Backspace' && input.value === '' && index > 0) {
+                inputs[index - 1].focus();
+            }
+        });
+    });
+
 });
+
+
+

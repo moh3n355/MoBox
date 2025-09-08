@@ -185,3 +185,32 @@ header h2 {
   .show-and-edit-phone img {
     margin: 0;
   }
+
+  .otp-container {
+    margin-top: 1rem;
+}
+
+.otp-inputs {
+    display: flex;
+    direction: ltr;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.otp-inputs input {
+    width: 2.5rem;
+    height: 2.5rem;
+    text-align: center;
+    font-size: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    padding: 0;
+}
+
+.otp-inputs input:focus {
+    border-color: #357abd;
+    outline: none;
+    box-shadow: 0 0 4px rgba(53, 122, 189, 0.4);
+}
