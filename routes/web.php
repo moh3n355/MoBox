@@ -17,6 +17,7 @@ Route::get('/auth/{type}', function ($type) {
         'register' => 'register',
         'forgot'   => 'forgot',
         'verify'   => 'verify',
+        'set-username-password'=> 'set-username-password',
     ];
 
     if (! array_key_exists($type, $allowed)) {
@@ -51,7 +52,7 @@ Route::get('/ResumeAuth/{type}', function ($type) {
         return app(SendVerifyCode::class)->CreateAndSendVerifyCode(request());
     }
     else if($type == 'login') {
-        
+
     }
     else if($type == 'verify') {
         return app(SendVerifyCode::class)->VerifyCode(request());
