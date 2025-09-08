@@ -1,6 +1,9 @@
 <div>
-    {{-- فایل‌های CSS/JS متناسب با نوع فرم --}}
+    @php
+        session(['type' => "$type"]);
+    @endphp
 
+    {{-- فایل‌های CSS/JS متناسب با نوع فرم --}}
     @if ($type === 'login')
     @vite(['resources/css/login.css', 'resources/js/login.js'])
 @elseif ($type === 'register')
@@ -8,7 +11,7 @@
 @elseif ($type === 'forgot')
     @vite(['resources/css/forgot.css', 'resources/js/forgot.js'])
 @elseif ($type === 'verify')
-    @vite(['resources/css/verify.css', 'resources/js/verify.js'])
+    @vite(entrypoints: ['resources/css/verify.css', 'resources/js/verify.js'])
 @endif
 
     <div class="container">
@@ -31,7 +34,7 @@
             {{-- مخصوص verify --}}
             @if ($type === 'verify')
                 <div class="show-and-edit-phone">
-                    <p>+98 993 891 7750</p>
+                    <p>{{session()->get('phone')}}</p>
                     <a href="">
                         <img id="edit-icon" src="/images/edit.png" alt="">
                     </a>
@@ -40,7 +43,7 @@
         </header>
 
         <main>
-            <form method="" action="{{ route('auth.dynamic', ['type' => 'verify']) }}">
+            <form method="" action="{{ route('ResumeAuth', ['type' => $type]) }}">
                 @csrf
 
                 <div class="input-group">
