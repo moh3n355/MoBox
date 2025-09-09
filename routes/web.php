@@ -3,12 +3,12 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\RigesterController;
 use App\Http\Controllers\ForgotController;
 use App\Http\Controllers\SendVerifyCode;
 
 Route::get('/', function () {
-        return view('home');
+        return view(view: 'home');
     })->name('home');
 
 Route::get('/auth/{type}', function ($type) {
@@ -56,6 +56,9 @@ Route::get('/ResumeAuth/{type}', function ($type) {
     }
     else if($type == 'verify') {
         return app(SendVerifyCode::class)->VerifyCode(request());
+    }
+    else if($type == 'set-username-password') {
+        return app(RigesterController::class)->PutData(request());
     }
     else{
         abort(404);

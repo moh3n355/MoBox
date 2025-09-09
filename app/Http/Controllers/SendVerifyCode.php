@@ -11,7 +11,8 @@ class SendVerifyCode extends Controller
 {
     public function CreateAndSendVerifyCode(Request $request){
         $targetNumber = $request->input("phone");
-        $randomNumber = mt_rand(10000, max: 99999);
+        // $randomNumber = mt_rand(10000, max: 99999);
+        $randomNumber = 12345;
 
         //برای بررسی در ادامه
         session([
