@@ -21,7 +21,7 @@ class forgotController extends Controller
     public function CreateAndUpdatePassword($request){
 
     $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    $password = '';
+    $NwePassword = '';
 
     for ($i = 0; $i <8; $i++) {
         $NwePassword .= $characters[rand(0, strlen($characters) - 1)];
@@ -29,6 +29,8 @@ class forgotController extends Controller
 
     $user = User::where('phone', $request->input('phone'))->first();
     $user->userpassword = bcrypt($NwePassword);
-    return redirect()->route('')->with('NwePassword', $NwePassword);
+
+    return redirect()->route('auth.dynamic', ['type' => 'show-password'])
+    ->with('NwePassword',$NwePassword);
     }
 }

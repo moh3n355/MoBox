@@ -168,7 +168,7 @@
 
                         <div class="new-password">
 
-                            <div id="serverText">{{ $NewPassword }}</div>
+                            <div id="serverText">{{ session('NwePassword') }}</div>
 
                         </div>
 
