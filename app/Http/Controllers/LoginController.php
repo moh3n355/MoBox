@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use User;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -13,15 +13,16 @@ class LoginController extends Controller
         $UserNameInputed = $request->input('username');
         $UserPassInputed = $request->input('password');
 
+        $user = new User();
+
         $user = User::where('username', $UserNameInputed)->first();
 
-        if($user->username == $UserNameInputed && $user->password == $UserPassInputed){
+        if($user && Hash::check($UserPassInputed, $user->userpassword)){
             auth::login($user);
-
             return redirect()->route('home');
         }
         else{
-            return back()->witherrors('password','رمز یا نام کاربری اشتباه است');
+            return back()->withErrors(['password' => 'رمز یا نام کاربری اشتباه است']);  
         }
     }
 }

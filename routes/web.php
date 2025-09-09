@@ -70,6 +70,7 @@ Route::get('/ResumeAuth/{type}', function ($type) {
         }
     }
     else if($type == 'login') {
+        return app(LoginController::class)->check(request());
 
     }
     else if($type == 'verify') {
