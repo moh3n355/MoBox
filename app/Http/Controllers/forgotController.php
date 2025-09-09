@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 
 
-class forgot extends Controller
+class forgotController extends Controller
 {   
     public function CheckUserNumber($request){
         if(User::where('phone', $request->input('phone'))->exists()){
@@ -18,7 +18,7 @@ class forgot extends Controller
         }
     }
 
-    public function CreatePassword($request){
+    public function CreateAndUpdatePassword($request){
 
     $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     $password = '';

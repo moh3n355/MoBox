@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use User;
 
-class Login extends Controller
+class LoginController extends Controller
 {
     Public function check($request){
         $UserNameInputed = $request->input('username');
