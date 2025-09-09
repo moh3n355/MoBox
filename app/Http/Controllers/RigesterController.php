@@ -18,8 +18,8 @@ class RigesterController extends Controller
             , bcrypt($request->input('set-password')));
 
             return redirect()->route('auth.dynamic', ['type' => 'login'])
-                 ->withErrors([
-                     'password' => 'ثبت نام با موفقیت انجام شد!'
+                 ->with([
+                     'success' => 'ثبت نام با موفقیت انجام شد!'
                 ]);
 
 
