@@ -42,8 +42,13 @@
             {{-- مخصوص verify --}}
             @if ($type === 'verify')
                 <div class="show-and-edit-phone">
+<<<<<<< HEAD
                     <p>{{ session('phone') }}</p>
                     <a href="">
+=======
+                    <p>+98 993 891 7750</p>
+                    <a href="{{  route('auth.dynamic', ['type' => 'login'])  }}">
+>>>>>>> cd671e1a94b12287b27695db03739c667bdebd35
                         <img id="edit-icon" src="/images/edit.png" alt="">
                     </a>
                 </div>
@@ -165,7 +170,6 @@
 
                         {{-- نمایش پسوورد --}}
                     @elseif($type === 'show-password')
-
                         <div class="new-password">
 
                             <div id="serverText">{{ session('NwePassword') }}</div>
@@ -184,6 +188,12 @@
 
 
                 {{-- دکمه تایید --}}
+                @if ($type === 'show-password')
+                    <a href="{{ route('auth.dynamic', ['type' => 'login']) }}" class="login-btn">
+                        برگشت به صفحه ورود
+                    </a>
+                @else
+
                 <button type="submit" class="login-btn">
                     @if ($type === 'login')
                         ورود
@@ -193,13 +203,11 @@
                         تایید
                     @elseif ($type === 'set-username-password')
                         تایید اطلاعات
-                    @elseif ($type === 'show-password')
-                       برگشت به صفحه ورود
                     @else
                         ارسال کد تأیید
                     @endif
                 </button>
-
+                @endif
                 {{-- تایمر برای حالت وریفای --}}
                 @if ($type === 'verify')
                     <div class="problem-to-verify">
