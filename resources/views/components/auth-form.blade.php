@@ -42,13 +42,8 @@
             {{-- مخصوص verify --}}
             @if ($type === 'verify')
                 <div class="show-and-edit-phone">
-<<<<<<< HEAD
                     <p>{{ session('phone') }}</p>
-                    <a href="">
-=======
-                    <p>+98 993 891 7750</p>
                     <a href="{{  route('auth.dynamic', ['type' => 'login'])  }}">
->>>>>>> cd671e1a94b12287b27695db03739c667bdebd35
                         <img id="edit-icon" src="/images/edit.png" alt="">
                     </a>
                 </div>
