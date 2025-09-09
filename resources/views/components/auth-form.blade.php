@@ -42,7 +42,7 @@
             {{-- مخصوص verify --}}
             @if ($type === 'verify')
                 <div class="show-and-edit-phone">
-                    <p>+98 993 891 7750</p>
+                    <p>{{ session('phone') }}</p>
                     <a href="">
                         <img id="edit-icon" src="/images/edit.png" alt="">
                     </a>

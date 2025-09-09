@@ -69,8 +69,13 @@ class SendVerifyCode extends Controller
         if(!Hash::check($VerifyCodeInputed, $VerifyCodeHashed) || now()->diffInSeconds($TimeCreditCode) > 60){
            return back()->withErrors(['verify_code' => 'کد تایید صحیح نمیباشد']);
         }
-        else{   
-            return redirect()->route('auth.dynamic', ['type' => "set-username-password"]);;
+        else{ 
+            if(session('TypeForAfterVerify') == 'rigester'){
+                return redirect()->route('auth.dynamic', ['type' => "set-username-password"]);
+            }
+            elseif(session("TypeForAfterVerify") == "forgot"){
+                return app(ForgotController::class)->CreateAndUpdatePassword( $request);
+            }
         };
     }
 }

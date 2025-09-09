@@ -45,7 +45,7 @@ Route::get('/ResumeAuth/{type}', function ($type) {
     }
 
     return view('auth.auth', ['type' => $type]);
-})->name('auth.dynamic');
+})->name('auth.dynamic');    
 
 
 
@@ -55,7 +55,9 @@ Route::get('/ResumeAuth/{type}', function ($type) {
 
     if ($type == 'register') {
         if(!app(ForgotController::class)->CheckUserNumber(request())){
-        return app(SendVerifyCode::class)->CreateAndSendVerifyCode(request());
+            session(['TypeForAfterVerify' => 'register',]);
+
+            return app(SendVerifyCode::class)->CreateAndSendVerifyCode(request());
         }
         else{
             return back()->withErrors(['phone' => 'این شماره قبلا ثبت نام شده است']);
@@ -63,7 +65,10 @@ Route::get('/ResumeAuth/{type}', function ($type) {
     }
     else if ($type == 'forgot') {
         if(app(ForgotController::class)->CheckUserNumber(request())){
-            return app(ForgotController::class)->CreateAndUpdatePassword(request());
+            session(['TypeForAfterVerify' => 'forgo t',]);
+
+            return app(SendVerifyCode::class)->CreateAndSendVerifyCode(request());
+
         }
         else{
             return back()->withErrors(['phone' => 'این شماره ثبت نام نشده']);

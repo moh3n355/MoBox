@@ -19,11 +19,10 @@ class forgotController extends Controller
     }
 
     public function CreateAndUpdatePassword($request){
-
     $lower = 'abcdefghijklmnopqrstuvwxyz';
     $upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $digits = '0123456789';
-    $special = '@_-';
+    $special = '@';
 
     // حداقل یک کاراکتر از هر دسته
     $NwePassword = [];
@@ -44,7 +43,7 @@ class forgotController extends Controller
     // تبدیل آرایه به رشته
     $NwePassword = implode('', $NwePassword);
 
-    $user = User::where('phone', $request->input('phone'))->first();
+    $user = User::where('phone', session('phone'))->first();
     $user->userpassword = bcrypt($NwePassword);
     $user->save();
 
