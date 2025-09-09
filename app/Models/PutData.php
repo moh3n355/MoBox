@@ -15,4 +15,12 @@ class PutData extends Model
         'phone',
         'userpassword',
     ];
+
+     public static function AddNweUser($username, $phone, $userpassword){
+        return self::create([
+                'username' => $username,
+                'phone' => $phone,
+                'userpassword' => bcrypt($userpassword), // هش کردن پسورد
+            ]);
+    }
 }

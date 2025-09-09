@@ -14,17 +14,13 @@ class RigesterController extends Controller
         $putData = new PutData();
   
         try {
-            PutData::create([
-                'username' => $request->input('set-username'),
-                'phone' => session()->get('phone'),
-                'userpassword' => bcrypt($request->input('set-password')),
-                'role' => 'user'
-            ]);
+            PutData::AddNweUser( $request->input('set-username'), session()->get('phone')
+            , bcrypt($request->input('set-password')));
 
             return redirect()->route('auth.dynamic', ['type' => 'login'])
                  ->withErrors([
                      'password' => 'ثبت نام با موفقیت انجام شد!'
-                 ]);
+                ]);
 
 
         } 
