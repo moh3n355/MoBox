@@ -11,6 +11,8 @@
         @vite(['resources/css/verify.css', 'resources/js/verify.js'])
     @elseif ($type === 'set-username-password')
         @vite(['resources/css/set-username-password.css', 'resources/js/set-username-password.js'])
+    @elseif ($type === 'show-password')
+        @vite(['resources/css/show-password.css', 'resources/js/show-password.js'])
     @endif
 
     <div class="container">
@@ -32,6 +34,8 @@
                     تایید شماره تلفن
                 @elseif ($type === 'set-username-password')
                     تکمیل پروفایل
+                @elseif ($type === 'show-password')
+                    نمایش پسوورد جدید
                 @endif
             </h2>
 
@@ -73,8 +77,8 @@
                     @elseif ($type === 'login')
                         <label for="username">لطفا نام کاربری خود را وارد کنید:</label>
                         <input type="text" name="username" value="{{ old('username') }}" required
-                        pattern="[A-Za-z][A-Za-z0-9]{3,20}"
-                        title="نام کاربری باید فقط شامل حروف و اعداد باشد و بین ۳ تا ۲۰ کاراکتر باشد و نمی تواند با عدد شروع شود">
+                            pattern="[A-Za-z][A-Za-z0-9]{3,20}"
+                            title="نام کاربری باید فقط شامل حروف و اعداد باشد و بین ۳ تا ۲۰ کاراکتر باشد و نمی تواند با عدد شروع شود">
 
                         @error('username')
                             <span class="error-forms">{{ $message }}</span>
@@ -83,8 +87,8 @@
 
                         <label for="password">رمز عبور:</label>
                         <input type="password" name="password" value="{{ old('password') }}" required id="password"
-                        pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
-                        title="رمز عبور باید حداقل ۸ کاراکتر باشد و شامل حداقل یک حرف بزرگ، یک حرف کوچک، یک عدد و یک کاراکتر خاص (@$!%*?&) باشد">
+                            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                            title="رمز عبور باید حداقل ۸ کاراکتر باشد و شامل حداقل یک حرف بزرگ، یک حرف کوچک، یک عدد و یک کاراکتر خاص (@$!%*?&) باشد">
 
 
                         @error('password')
@@ -116,8 +120,8 @@
                     @elseif($type === 'set-username-password')
                         <label for="set-username">لطفا نام کاربری خود را تنظیم کنید:</label>
                         <input type="text" name="set-username" value="{{ old('set-username') }}" required
-                        pattern="[A-Za-z][A-Za-z0-9]{3,20}"
-                        title="نام کاربری باید فقط شامل حروف و اعداد باشد و بین ۳ تا ۲۰ کاراکتر باشد و نمی تواند با عدد شروع شود">
+                            pattern="[A-Za-z][A-Za-z0-9]{3,20}"
+                            title="نام کاربری باید فقط شامل حروف و اعداد باشد و بین ۳ تا ۲۰ کاراکتر باشد و نمی تواند با عدد شروع شود">
 
                         @error('set-username')
                             <span class="error-forms">{{ $message }}</span>
@@ -125,8 +129,8 @@
 
 
                         <label for="set-password">تنظیم رمز عبور:</label>
-                        <input type="password" id="set-password" name="set-password" value="{{ old('set-password') }}" required
-                            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                        <input type="password" id="set-password" name="set-password" value="{{ old('set-password') }}"
+                            required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
                             title="رمز عبور باید حداقل ۸ کاراکتر باشد و شامل حداقل یک حرف بزرگ، یک حرف کوچک، یک عدد و یک کاراکتر خاص (@$!%*?&) باشد">
 
 
@@ -158,8 +162,27 @@
                         @error('set-password')
                             <span class="error-forms">{{ $message }}</span>
                         @enderror
+
+                        {{-- نمایش پسوورد --}}
+                    @elseif($type === 'show-password')
+
+                        <div class="new-password">
+
+                            <div id="serverText">{{ $NewPassword }}</div>
+
+                        </div>
+
+                        @error('set-username')
+                            <span class="error-forms">{{ $message }}</span>
+                        @enderror
+
+
                     @endif
                 </div>
+
+
+
+
                 {{-- دکمه تایید --}}
                 <button type="submit" class="login-btn">
                     @if ($type === 'login')
@@ -170,6 +193,8 @@
                         تایید
                     @elseif ($type === 'set-username-password')
                         تایید اطلاعات
+                    @elseif ($type === 'show-password')
+                       برگشت به صفحه ورود
                     @else
                         ارسال کد تأیید
                     @endif

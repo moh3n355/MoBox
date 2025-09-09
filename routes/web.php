@@ -18,6 +18,7 @@ Route::get('/auth/{type}', function ($type) {
         'forgot'   => 'forgot',
         'verify'   => 'verify',
         'set-username-password'=> 'set-username-password',
+        'show-password' => 'show-password',
     ];
 
     if (! array_key_exists($type, $allowed)) {
