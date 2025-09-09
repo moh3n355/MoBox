@@ -11,30 +11,31 @@ class SendVerifyCode extends Controller
 {
     public function CreateAndSendVerifyCode(Request $request){
         $targetNumber = $request->input("phone");
-        $randomNumber = mt_rand(10000, 99999);
+        $randomNumber = mt_rand(10000, max: 99999);
 
         //برای بررسی در ادامه
         session([
             'VerifyCode' => Hash::make($randomNumber),
+            //برای اعمال یک دقیقه تایم کد تایید
             'TimeCreditCode' => now(),
             'phone' => $targetNumber
         ]);
 
         try {
             //شروع ارسال پیامک
-            $data = array('username' => "09944327803", 'password' => "27ed78fa-c421-4077-b155-84a076141067",
-            'text' => "$randomNumber",'to' =>"$targetNumber" ,"bodyId"=>"364662");
-            $post_data = http_build_query($data);
-            $handle = curl_init('https://rest.payamak-panel.com/api/SendSMS/BaseServiceNumber');
-            curl_setopt($handle, CURLOPT_HTTPHEADER, array(
-                'content-type' => 'application/x-www-form-urlencoded'
-            ));
-            curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($handle, CURLOPT_SSL_VERIFYHOST, false);
-            curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($handle, CURLOPT_POST, true);
-            curl_setopt($handle, CURLOPT_POSTFIELDS, $post_data);
-            $response = curl_exec($handle);
+            // $data = array('username' => "09944327803", 'password' => "27ed78fa-c421-4077-b155-84a076141067",
+            // 'text' => "$randomNumber",'to' =>"$targetNumber" ,"bodyId"=>"364662");
+            // $post_data = http_build_query($data);
+            // $handle = curl_init('https://rest.payamak-panel.com/api/SendSMS/BaseServiceNumber');
+            // curl_setopt($handle, CURLOPT_HTTPHEADER, array(
+            //     'content-type' => 'application/x-www-form-urlencoded'
+            // ));
+            // curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
+            // curl_setopt($handle, CURLOPT_SSL_VERIFYHOST, false);
+            // curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, false);
+            // curl_setopt($handle, CURLOPT_POST, true);
+            // curl_setopt($handle, CURLOPT_POSTFIELDS, $post_data);
+            // $response = curl_exec($handle);
             //var_dump($response);
             //پایان ارسال پیامک
 
@@ -46,6 +47,7 @@ class SendVerifyCode extends Controller
             // تلاش برای تبدیل به آرایه
             $data = json_decode($message, true);
 
+            //ارور 11 ینی شماره مورد نظر در شبکه موجود نمیباشد
             if (json_last_error() === JSON_ERROR_NONE && isset($data['Value']) && $data['Value'] == 11) {
                 return back()->withErrors([
                     'phone' => 'شماره یافت نشد'
@@ -60,14 +62,14 @@ class SendVerifyCode extends Controller
 
     public function VerifyCode(Request $request){
         $VerifyCodeHashed = session()->get('VerifyCode');
-        $VerifyCodeInputed = $request->input('verify-code');
+        $VerifyCodeInputed = implode('', $request->input('verify_code'));
         $TimeCreditCode = session()->get('TimeCreditCode');
 
-        if(!Hash::check($VerifyCodeInputed, $VerifyCodeHashed) || now()->diffInSeconds()){
-            echo 3;
+        if(!Hash::check($VerifyCodeInputed, $VerifyCodeHashed) || now()->diffInSeconds($TimeCreditCode) > 60){
+           return back()->withErrors(['verify_code' => 'کد تایید صحیح نمیباشد']);
         }
-        else{
-            return back()->withErrors(['VerifyCode' => 'کد تایید صحیح نمیباشد']);
+        else{   
+            return redirect()->route('auth.dynamic', ['type' => "set-username-password"]);;
         };
     }
 }

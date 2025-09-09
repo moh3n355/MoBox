@@ -47,7 +47,7 @@
         </header>
 
         <main>
-            <form method="" action="{{ route('auth.dynamic', ['type' => 'verify']) }}">
+            <form method="" action="{{ route('ResumeAuth', ['type' => $type]) }}">
                 @csrf
 
                 <div class="input-group">
