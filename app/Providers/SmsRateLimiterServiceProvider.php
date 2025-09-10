@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Http\Request;
 
 class SmsRateLimiterServiceProvider extends ServiceProvider
-{
+    {
     /**
      * Register services.
      */
@@ -18,13 +18,11 @@ class SmsRateLimiterServiceProvider extends ServiceProvider
     }
 
     /**
-     * Bootstrap services.
-     */
+    * Bootstrap services.
+      */
     public function boot(): void
     {
-        RateLimiter::for('verify-sms', function (Request $request) {
-            $phone = $request->input('phone');
-
+        RateLimiter::for('verify-sms', function ($phone) {
             return [
                 // حداکثر ۵ بار در هر ۱۰ دقیقه برای هر شماره تلفن
                 Limit::perMinutes(10, 5)->by($phone)

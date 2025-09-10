@@ -24,11 +24,13 @@ class SendVerifyCode extends Controller
             'phone' => $targetNumber
         ]);
 
-        if (RateLimiter::remaining('verify-sms', $targetNumber) <= 0) {
-        return back()->withErrors([
-            'phone' => 'تعداد درخواست بیش از حد مجاز است. لطفاً بعد از 10 دقیقه دوباره تلاش کنید.'
-        ]);
+        // dd(RateLimiter::remaining($targetNumber, 5));
+        if (RateLimiter::remaining($targetNumber, 5) <= 0) {
+            return back()->withErrors([
+            'phone' => 'تعداد درخواست بیش از حد مجاز است. لطفاً بعد از ۱۰ دقیقه دوباره تلاش کنید.'
+            ]);
         }
+
 
         else {
             try {
@@ -49,7 +51,7 @@ class SendVerifyCode extends Controller
                 //var_dump($response);
                 //پایان ارسال پیامک
 
-                RateLimiter::hit('verify-sms', 600);
+                RateLimiter::hit($targetNumber, 600);
 
                 return redirect()->route('auth.dynamic', ['type' => "verify"]);
                 } catch (Throwable $error) {
