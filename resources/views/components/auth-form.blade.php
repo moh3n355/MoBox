@@ -2,7 +2,7 @@
     @php
        $lastPart = basename(parse_url(url()->previous(), PHP_URL_PATH));
     @endphp
-    
+
     {{-- فایل‌های CSS/JS متناسب با نوع فرم --}}
 
     @if ($type === 'login')
@@ -32,7 +32,7 @@
                 return redirect()->route('home');
             }
         @endphp
-        
+
         @vite(['resources/css/show-password.css', 'resources/js/show-password.js'])
     @endif
 
@@ -64,7 +64,7 @@
             @if ($type === 'verify')
                 <div class="show-and-edit-phone">
                     <p>{{ session('phone') }}</p>
-                    <a href="{{  route('auth.dynamic', ['type' => 'login'])  }}">
+                    <a href="{{ url()->previous() }}">
                         <img id="edit-icon" src="/images/edit.png" alt="">
                     </a>
                 </div>
@@ -121,7 +121,7 @@
                         {{-- حالت register --}}
                     @elseif ($type === 'register')
                         <label for="phone">شماره موبایل:</label>
-                        <input type="text" name="phone" value="{{ old('phone') }}" required pattern="^(09\d{9})$"
+                        <input type="text" name="phone" value="{{ old('phone', session('phone')) }}" required pattern="^(09\d{9})$"
                             title="شماره تلفن باید ۱۱ رقم داشته باشد و برای ایران باشد">
                         @error('phone')
                             <span class="error-forms">{{ $message }}</span>
