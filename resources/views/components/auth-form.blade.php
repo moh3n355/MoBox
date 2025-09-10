@@ -121,7 +121,7 @@
                         {{-- حالت register --}}
                     @elseif ($type === 'register')
                         <label for="phone">شماره موبایل:</label>
-                        <input type="text" name="phone" value="{{ old('phone') }}" required pattern="^(09\d{9})$"
+                        <input type="text" name="phone" value="{{ old('phone', session('phone')) }}" required pattern="^(09\d{9})$"
                             title="شماره تلفن باید ۱۱ رقم داشته باشد و برای ایران باشد">
                         @error('phone')
                             <span class="error-forms">{{ $message }}</span>
