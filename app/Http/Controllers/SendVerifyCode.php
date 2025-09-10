@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PhoneRequest;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Http\Request;
 use Melipayamak\MelipayamakApi;
@@ -10,7 +11,7 @@ use Throwable;
 use Hash;
 class SendVerifyCode extends Controller
 {
-    public function CreateAndSendVerifyCode(Request $request){
+    public function CreateAndSendVerifyCode(PhoneRequest $request){
 
         $targetNumber = $request->input("phone");
         // $randomNumber = mt_rand(10000, max: 99999);
