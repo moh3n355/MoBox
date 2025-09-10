@@ -13,7 +13,7 @@
         @vite(['resources/css/forgot.css', 'resources/js/forgot.js'])
     @elseif ($type === 'verify')
         @php
-            if($lastPart !== 'forgot' && $lastPart !== 'register'){
+            if($lastPart !== 'forgot' && $lastPart !== 'register' && $lastPart !== 'verify'){
                 return redirect()->route('home');
             }
         @endphp
