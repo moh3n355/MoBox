@@ -21,7 +21,7 @@
         @vite(['resources/css/verify.css', 'resources/js/verify.js'])
     @elseif ($type === 'set-username-password')
         @php
-            if($lastPart !== 'verify'){
+            if($lastPart !== 'verify' && $lastPart !== 'set-username-password'){
                 return redirect()->route('home');
             }
         @endphp
