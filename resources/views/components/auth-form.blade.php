@@ -14,7 +14,7 @@
     @elseif ($type === 'verify')
         @php
             if($lastPart !== 'forgot' && $lastPart !== 'register' && $lastPart !== 'verify'){
-                return redirect()->route('home');
+                abort(403);
             }
         @endphp
 
@@ -22,7 +22,7 @@
     @elseif ($type === 'set-username-password')
         @php
             if($lastPart !== 'verify' && $lastPart !== 'set-username-password'){
-                return redirect()->route('home');
+                abort(403);
             }
         @endphp
         @vite(['resources/css/set-username-password.css', 'resources/js/set-username-password.js'])
