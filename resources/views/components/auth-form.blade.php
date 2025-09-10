@@ -2,7 +2,7 @@
     @php
        $lastPart = basename(parse_url(url()->previous(), PHP_URL_PATH));
     @endphp
-    
+
     {{-- فایل‌های CSS/JS متناسب با نوع فرم --}}
 
     @if ($type === 'login')
@@ -32,7 +32,7 @@
                 return redirect()->route('home');
             }
         @endphp
-        
+
         @vite(['resources/css/show-password.css', 'resources/js/show-password.js'])
     @endif
 
@@ -64,7 +64,7 @@
             @if ($type === 'verify')
                 <div class="show-and-edit-phone">
                     <p>{{ session('phone') }}</p>
-                    <a href="{{  route('auth.dynamic', ['type' => 'login'])  }}">
+                    <a href="{{ url()->previous() }}">
                         <img id="edit-icon" src="/images/edit.png" alt="">
                     </a>
                 </div>
