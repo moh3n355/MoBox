@@ -44,7 +44,7 @@ class forgotController extends Controller
         $NwePassword = implode('', $NwePassword);
 
         $user = User::where('phone', session('phone'))->first();
-        
+
         $UserName = $user->username;
 
         $user->userpassword = bcrypt($NwePassword);
@@ -52,7 +52,7 @@ class forgotController extends Controller
 
         return redirect()->route('auth.dynamic', ['type' => 'show-password'])
         ->with([
-            'NewPassword' => $NwePassword,
+            'NwePassword' => $NwePassword,
             'UserName' => $UserName,
         ]);
     }
