@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 
 class RigesterController extends Controller
 {
-    public function PutData(RegisterRequest $request){
+    public function PutData($request){
 
         $putData = new PutData();
   

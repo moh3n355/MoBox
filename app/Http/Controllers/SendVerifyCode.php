@@ -11,7 +11,7 @@ use Throwable;
 use Hash;
 class SendVerifyCode extends Controller
 {
-    public function CreateAndSendVerifyCode(PhoneRequest $request){
+    public function CreateAndSendVerifyCode($request){
 
         $targetNumber = $request->input("phone");
         // $randomNumber = mt_rand(10000, max: 99999);
