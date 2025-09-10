@@ -1,4 +1,8 @@
 <div>
+    @php
+       $lastPart = basename(parse_url(url()->previous(), PHP_URL_PATH));
+    @endphp
+    
     {{-- فایل‌های CSS/JS متناسب با نوع فرم --}}
 
     @if ($type === 'login')
@@ -8,10 +12,27 @@
     @elseif ($type === 'forgot')
         @vite(['resources/css/forgot.css', 'resources/js/forgot.js'])
     @elseif ($type === 'verify')
+        @php
+            if($lastPart !== 'forgot' && $lastPart !== 'register'){
+                return redirect()->route('home');
+            }
+        @endphp
+
         @vite(['resources/css/verify.css', 'resources/js/verify.js'])
     @elseif ($type === 'set-username-password')
+        @php
+            if($lastPart !== 'verify'){
+                return redirect()->route('home');
+            }
+        @endphp
         @vite(['resources/css/set-username-password.css', 'resources/js/set-username-password.js'])
     @elseif ($type === 'show-password')
+        @php
+            if($lastPart !== 'verify'){
+                return redirect()->route('home');
+            }
+        @endphp
+        
         @vite(['resources/css/show-password.css', 'resources/js/show-password.js'])
     @endif
 

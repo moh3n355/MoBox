@@ -70,7 +70,7 @@ class SendVerifyCode extends Controller
            return back()->withErrors(['verify_code' => 'کد تایید صحیح نمیباشد']);
         }
         else{ 
-            if(session('TypeForAfterVerify') == 'rigester'){
+            if(session('TypeForAfterVerify') == 'register'){
                 return redirect()->route('auth.dynamic', ['type' => "set-username-password"]);
             }
             elseif(session("TypeForAfterVerify") == "forgot"){

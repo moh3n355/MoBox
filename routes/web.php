@@ -65,7 +65,7 @@ Route::get('/ResumeAuth/{type}', function ($type) {
     }
     else if ($type == 'forgot') {
         if(app(ForgotController::class)->CheckUserNumber(request())){
-            session(['TypeForAfterVerify' => 'forgo t',]);
+            session(['TypeForAfterVerify' => 'forgot',]);
 
             return app(SendVerifyCode::class)->CreateAndSendVerifyCode(request());
 
