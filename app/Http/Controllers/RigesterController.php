@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\RegisterRequest;
 use Illuminate\Database\QueryException;
 use App\Models\PutData;
-use Illuminate\Http\Request;
 
 class RigesterController extends Controller
 {

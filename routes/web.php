@@ -7,87 +7,86 @@ use App\Http\Controllers\RigesterController;
 use App\Http\Controllers\ForgotController;
 use App\Http\Controllers\SendVerifyCode;
 
+// روت home بیرون از گروه
 Route::get('/', function () {
-        return view(view: 'home');
-    })->name('home');
+    return view(view: 'home');
+})->name('home');
 
-Route::get('/auth/{type}', function ($type) {
-    $allowed = [
-        'login'    => 'login',
-        'register' => 'register',
-        'forgot'   => 'forgot',
-        'verify'   => 'verify',
-        'set-username-password'=> 'set-username-password',
-        'show-password' => 'show-password',
-    ];
+// بقیه روت‌ها داخل گروه با prefix /auth
+Route::group(['prefix' => 'auth'], function () {
 
-    if (! array_key_exists($type, $allowed)) {
-        abort(404);
-    }
+    Route::get('/{type}', function ($type) {
+        $allowed = [
+            'login'    => 'login',
+            'register' => 'register',
+            'forgot'   => 'forgot',
+            'verify'   => 'verify',
+            'set-username-password'=> 'set-username-password',
+            'show-password' => 'show-password',
+        ];
 
-    return view('auth.auth', ['type' => $type]);
-})->name('auth.dynamic');
+        if (! array_key_exists($type, $allowed)) {
+            abort(404);
+        }
 
-Route::get('/auth', function () {
-    return view('auth.auth');
-})->name('auth');
+        return view('auth.auth', ['type' => $type]);
+    })->name('auth.dynamic');
 
-Route::get('/ResumeAuth/{type}', function ($type) {
-    $allowed = [
-        'login'    => 'login',
-        'register' => 'register',
-        'forgot'   => 'forgot',
-        'verify'   => 'verify',
-    ];
+    Route::get('/', function () {
+        return view('auth.auth');
+    })->name('auth');
 
-    if (! array_key_exists($type, $allowed)) {
-        abort(404);
-    }
+    Route::get('/ResumeAuth/{type}', function ($type) {
+        $allowed = [
+            'login'    => 'login',
+            'register' => 'register',
+            'forgot'   => 'forgot',
+            'verify'   => 'verify',
+        ];
 
-    return view('auth.auth', ['type' => $type]);
-})->name('auth.dynamic');    
+        if (! array_key_exists($type, $allowed)) {
+            abort(404);
+        }
 
+        return view('auth.auth', ['type' => $type]);
+    })->name('auth.dynamic');    
 
+    Route::get('/ResumeAuth/{type}', function ($type) {
 
+        if ($type == 'register') {
+            if(!app(ForgotController::class)->CheckUserNumber(request())){
+                session(['TypeForAfterVerify' => 'register',]);
 
+                return app(SendVerifyCode::class)->CreateAndSendVerifyCode(request());
+            }
+            else{
+                return back()->withErrors(['phone' => 'این شماره قبلا ثبت نام شده است']);
+            }
+        }
+        else if ($type == 'forgot') {
+            if(app(ForgotController::class)->CheckUserNumber(request())){
+                session(['TypeForAfterVerify' => 'forgot',]);
 
-Route::get('/ResumeAuth/{type}', function ($type) {
+                return app(SendVerifyCode::class)->CreateAndSendVerifyCode(request());
 
-    if ($type == 'register') {
-        if(!app(ForgotController::class)->CheckUserNumber(request())){
-            session(['TypeForAfterVerify' => 'register',]);
+            }
+            else{
+                return back()->withErrors(['phone' => 'این شماره ثبت نام نشده']);
+            }
+        }
+        else if($type == 'login') {
+            return app(LoginController::class)->check(request());
 
-            return app(SendVerifyCode::class)->CreateAndSendVerifyCode(request());
+        }
+        else if($type == 'verify') {
+            return app(SendVerifyCode::class)->VerifyCode(request());
+        }
+        else if($type == 'set-username-password') {
+            return app(RigesterController::class)->PutData(request());
         }
         else{
-            return back()->withErrors(['phone' => 'این شماره قبلا ثبت نام شده است']);
+            abort(404);
         }
-    }
-    else if ($type == 'forgot') {
-        if(app(ForgotController::class)->CheckUserNumber(request())){
-            session(['TypeForAfterVerify' => 'forgot',]);
+    })->name('ResumeAuth');
 
-            return app(SendVerifyCode::class)->CreateAndSendVerifyCode(request());
-
-        }
-        else{
-            return back()->withErrors(['phone' => 'این شماره ثبت نام نشده']);
-        }
-    }
-    else if($type == 'login') {
-        return app(LoginController::class)->check(request());
-
-    }
-    else if($type == 'verify') {
-        return app(SendVerifyCode::class)->VerifyCode(request());
-    }
-    else if($type == 'set-username-password') {
-        return app(RigesterController::class)->PutData(request());
-    }
-    else{
-        abort(404);
-    }
-})->name('ResumeAuth');
-
-
-
+});
