@@ -86,6 +86,10 @@ header h2 {
 
 .input-group {
   margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .input-group label {

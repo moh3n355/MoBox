@@ -72,7 +72,7 @@
         </header>
 
         <main>
-            <form method="" action="{{ route('ResumeAuth', ['type' => $type]) }}">
+            <form method="" id="registerForm" action="{{ route('ResumeAuth', ['type' => $type]) }}">
                 @csrf
 
                 <div class="input-group">
@@ -126,6 +126,7 @@
                         @error('phone')
                             <span class="error-forms">{{ $message }}</span>
                         @enderror
+                        <x-captcha></x-captcha>
 
                         {{-- حالت forgot --}}
                     @elseif ($type === 'forgot')
@@ -210,7 +211,7 @@
                     </a>
                 @else
 
-                <button type="submit" class="login-btn">
+                <button type="submit" class="login-btn" id="login-btn">
                     @if ($type === 'login')
                         ورود
                     @elseif ($type === 'register')
