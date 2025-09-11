@@ -13,16 +13,16 @@
         @vite(['resources/css/forgot.css', 'resources/js/forgot.js'])
     @elseif ($type === 'verify')
         @php
-            if($lastPart !== 'forgot' && $lastPart !== 'register'){
-                return redirect()->route('home');
+            if($lastPart !== 'forgot' && $lastPart !== 'register' && $lastPart !== 'verify'){
+                abort(403);
             }
         @endphp
 
         @vite(['resources/css/verify.css', 'resources/js/verify.js'])
     @elseif ($type === 'set-username-password')
         @php
-            if($lastPart !== 'verify'){
-                return redirect()->route('home');
+            if($lastPart !== 'verify' && $lastPart !== 'set-username-password'){
+                abort(403);
             }
         @endphp
         @vite(['resources/css/set-username-password.css', 'resources/js/set-username-password.js'])
