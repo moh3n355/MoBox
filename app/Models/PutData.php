@@ -20,7 +20,7 @@ class PutData extends Model
         return self::create([
                 'username' => $username,
                 'phone' => $phone,
-                'userpassword' => bcrypt($userpassword), // هش کردن پسورد
+                'userpassword' => $userpassword, // هش کردن پسورد
             ]);
     }
 }
