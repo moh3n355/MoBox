@@ -1,6 +1,6 @@
 <div>
     @php
-       $lastPart = basename(parse_url(url()->previous(), PHP_URL_PATH));
+        $lastPart = basename(parse_url(url()->previous(), PHP_URL_PATH));
     @endphp
 
     {{-- فایل‌های CSS/JS متناسب با نوع فرم --}}
@@ -13,7 +13,7 @@
         @vite(['resources/css/forgot.css', 'resources/js/forgot.js'])
     @elseif ($type === 'verify')
         @php
-            if($lastPart !== 'forgot' && $lastPart !== 'register' && $lastPart !== 'verify'){
+            if ($lastPart !== 'forgot' && $lastPart !== 'register' && $lastPart !== 'verify') {
                 abort(403);
             }
         @endphp
@@ -21,14 +21,14 @@
         @vite(['resources/css/verify.css', 'resources/js/verify.js'])
     @elseif ($type === 'set-username-password')
         @php
-            if($lastPart !== 'verify' && $lastPart !== 'set-username-password'){
+            if ($lastPart !== 'verify' && $lastPart !== 'set-username-password') {
                 abort(403);
             }
         @endphp
         @vite(['resources/css/set-username-password.css', 'resources/js/set-username-password.js'])
     @elseif ($type === 'show-password')
         @php
-            if($lastPart !== 'verify'){
+            if ($lastPart !== 'verify') {
                 return redirect()->route('home');
             }
         @endphp
@@ -121,8 +121,8 @@
                         {{-- حالت register --}}
                     @elseif ($type === 'register')
                         <label for="phone">شماره موبایل:</label>
-                        <input type="text" name="phone" value="{{ old('phone', session('phone')) }}" required pattern="^(09\d{9})$"
-                            title="شماره تلفن باید ۱۱ رقم داشته باشد و برای ایران باشد">
+                        <input type="text" name="phone" value="{{ old('phone', session('phone')) }}" required
+                            pattern="^(09\d{9})$" title="شماره تلفن باید ۱۱ رقم داشته باشد و برای ایران باشد">
                         @error('phone')
                             <span class="error-forms">{{ $message }}</span>
                         @enderror
@@ -187,15 +187,23 @@
 
                         {{-- نمایش پسوورد --}}
                     @elseif($type === 'show-password')
-                        <div class="new-password">
+                        <div class="container-info">
+                            <div class="show-username">
 
-                            <div id="serverText">{{ session('NwePassword') }}</div>
+                                <div class="serverText">Username:  {{ session(key: 'UserName') }}</div>
 
+                            </div>
+
+
+                            <div class="new-password">
+
+                                <div class="serverText">{{ session(key: 'NwePassword') }}</div>
+
+                            </div>
                         </div>
-
-                        @error('set-username')
+                        {{-- @error('set-username')
                             <span class="error-forms">{{ $message }}</span>
-                        @enderror
+                        @enderror --}}
 
 
                     @endif
@@ -210,20 +218,19 @@
                         برگشت به صفحه ورود
                     </a>
                 @else
-
-                <button type="submit" class="login-btn" id="login-btn">
-                    @if ($type === 'login')
-                        ورود
-                    @elseif ($type === 'register')
-                        ثبت‌نام
-                    @elseif ($type === 'verify')
-                        تایید
-                    @elseif ($type === 'set-username-password')
-                        تایید اطلاعات
-                    @else
-                        ارسال کد تأیید
-                    @endif
-                </button>
+                    <button type="submit" class="login-btn" id="login-btn">
+                        @if ($type === 'login')
+                            ورود
+                        @elseif ($type === 'register')
+                            ثبت‌نام
+                        @elseif ($type === 'verify')
+                            تایید
+                        @elseif ($type === 'set-username-password')
+                            تایید اطلاعات
+                        @else
+                            ارسال کد تأیید
+                        @endif
+                    </button>
                 @endif
                 {{-- تایمر برای حالت وریفای --}}
                 @if ($type === 'verify')
