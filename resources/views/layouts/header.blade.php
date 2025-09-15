@@ -40,8 +40,24 @@
         </div>
 
     </nav>
+    {{-- if have not been user login --}}
 
-    <div class="icons">
+    {{-- <div class="icons">
         <a href="{{ route('auth') }}" alt="" class="login-btn">ورود</a>
+    </div> --}}
+
+    {{-- if user login --}}
+
+    <div class="user-icon" >
+        <a href="#"  id="userMenuBtn">
+            <i class="fas fa-user user-icon"></i>
+        </a>
+        <div class="dropdown-menu" id="dropdownMenu">
+            <a href="#">پروفایل</a>
+            <a href="#">تنظیمات</a>
+            <a href="#">خروج</a>
+        </div>
     </div>
+
+
 </header>

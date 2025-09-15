@@ -24,9 +24,17 @@ function setupDropdown(buttonId, menuId, otherMenus = []) {
     });
 }
 
-// اجرای تابع برای دو منو
+// اجرای تابع برای دو منو قبلی
 const dropdown_menu_categorie = document.getElementById('dropmenu-categories');
 const dropdown_menu_content_us = document.getElementById('dropmenu-content-us');
 
 setupDropdown('categories', 'dropmenu-categories', [dropdown_menu_content_us]);
 setupDropdown('content-us', 'dropmenu-content-us', [dropdown_menu_categorie]);
+
+// اضافه کردن منوی کاربر
+const dropdown_menu_user = document.getElementById('dropdownMenu');
+
+setupDropdown('userMenuBtn', 'dropdownMenu', [
+    dropdown_menu_categorie,
+    dropdown_menu_content_us
+]);
