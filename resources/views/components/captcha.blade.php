@@ -1,8 +1,9 @@
 <div>
     <style>
-             .captcha {
+        .captcha {
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 0.5rem;
             margin-top: 1rem;
             font-family: sans-serif;
@@ -50,65 +51,89 @@
             font-size: 0.9rem;
             margin-left: 0.5rem;
         }
+
+        #newBtn img {
+            width: 18px;
+            height: 18px;
+            display: block;
+            filter: invert(1);
+            /* سفید کردن آیکون چون بک‌گراند آبی هست */
+            transition: transform 0.2s ease;
+            margin: auto;
+        }
+
+        #newBtn:hover img {
+            transform: rotate(90deg);
+            /* انیمیشن چرخش هنگام هاور */
+        }
     </style>
     {{-- Captcha --}}
-<div class="captcha">
+    <div class="captcha">
 
-    <input type="text" id="captchaInput" name="captcha" placeholder="answer" style="margin-top:0.5rem;">
-    <div id="equation" style="margin-top:0.5rem;"></div>
-
-
-
-    <button type="button" id="newBtn"><i class="fas fa-arrows-rotate"></i></button>
+        <input type="text" id="captchaInput" name="captcha" placeholder="answer" >
+        <div id="equation" ></div>
 
 
-</div>
-<div id="captchaError"></div> <!-- فقط برای JS پیام خطا -->
 
-<script>
-let currentAnswer = null;
-const eqDiv = document.getElementById('equation');
-const inp = document.getElementById('captchaInput');
-const errorDiv = document.getElementById('captchaError');
-const form = document.getElementById('registerForm');
+        <button type="button" id="newBtn"><img
+                src="/images/refresh.png"
+                alt=""></button>
 
-// تولید معادله تصادفی
-function randomEquation(min = 1, max = 9) {
-    const operators = ['+', '*'];
-    const randInt = (a, b) => Math.floor(Math.random() * (b - a + 1)) + a;
-    const a = randInt(min, max);
-    const b = randInt(min, max);
-    const op = operators[Math.floor(Math.random() * operators.length)];
 
-    let result;
-    switch(op) {
-        case '+': result = a + b; break;
-        case '*': result = a * b; break;
-    }
-    return { expression: `${a} ${op} ${b}`, result };
-}
+    </div>
+    <div id="captchaError"></div> <!-- فقط برای JS پیام خطا -->
 
-// تولید معادله جدید
-document.getElementById('newBtn').addEventListener('click', () => {
-    const e = randomEquation();
-    eqDiv.textContent = e.expression;
-    currentAnswer = e.result;
-    inp.value = "";
-    errorDiv.textContent = ""; // پاک کردن پیام خطا
-});
+    <script>
+        let currentAnswer = null;
+        const eqDiv = document.getElementById('equation');
+        const inp = document.getElementById('captchaInput');
+        const errorDiv = document.getElementById('captchaError');
+        const form = document.getElementById('registerForm');
 
-// بار اول معادله تولید شود
-document.getElementById('newBtn').click();
+        // تولید معادله تصادفی
+        function randomEquation(min = 1, max = 9) {
+            const operators = ['+', '*'];
+            const randInt = (a, b) => Math.floor(Math.random() * (b - a + 1)) + a;
+            const a = randInt(min, max);
+            const b = randInt(min, max);
+            const op = operators[Math.floor(Math.random() * operators.length)];
 
-// جلوگیری از ارسال فرم اگر جواب اشتباه باشد
-form.addEventListener('submit', function(e) {
-    const userAnswer = parseInt(inp.value);
-    if (currentAnswer === null || isNaN(userAnswer) || userAnswer !== currentAnswer) {
-        e.preventDefault();
-        errorDiv.textContent = "جواب کپچا اشتباه است."; // پیام ساده JS
-        return false;
-    }
-});
-</script>
+            let result;
+            switch (op) {
+                case '+':
+                    result = a + b;
+                    break;
+                case '*':
+                    result = a * b;
+                    break;
+            }
+            return {
+                expression: `${a} ${op} ${b}`,
+                result
+            };
+        }
+
+        // تولید معادله جدید
+        document.getElementById('newBtn').addEventListener('click', () => {
+            const e = randomEquation();
+            eqDiv.textContent = e.expression;
+            currentAnswer = e.result;
+            inp.value = "";
+            errorDiv.textContent = ""; // پاک کردن پیام خطا
+        });
+
+        // بار اول معادله تولید شود
+        document.getElementById('newBtn').click();
+
+        // جلوگیری از ارسال فرم اگر جواب اشتباه باشد
+        form.addEventListener('submit', function(e) {
+            const userAnswer = parseInt(inp.value);
+            if (currentAnswer === null || isNaN(userAnswer) || userAnswer !== currentAnswer) {
+                e.preventDefault();
+                errorDiv.textContent = "جواب کپچا اشتباه است."; // پیام ساده JS
+                return false;
+            }
+        });
+    </script>
 
 </div>
