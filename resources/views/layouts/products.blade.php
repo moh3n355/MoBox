@@ -1,4 +1,4 @@
-<section class="products">
+<section class="best-products">
 
     <h2>محصولات پرفروش</h2>
     <div class="product-list">

@@ -49,7 +49,7 @@ Route::group(['prefix' => 'auth'], function () {
         }
 
         return view('auth.auth', ['type' => $type]);
-    })->name('auth.dynamic');    
+    })->name('auth.dynamic');
 
     Route::get('/ResumeAuth/{type}', function ($type) {
 
@@ -90,3 +90,10 @@ Route::group(['prefix' => 'auth'], function () {
     })->name('ResumeAuth');
 
 });
+
+
+Route::get('/shopping-cart', function () {
+    return view(view: 'shopping-cart');
+})->name('shopping-cart');
+
+

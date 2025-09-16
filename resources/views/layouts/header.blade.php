@@ -42,11 +42,17 @@
     </nav>
     {{-- if have not been user login --}}
 
-    {{-- <div class="icons">
+    <div class="icons">
         <a href="{{ route('auth') }}" alt="" class="login-btn">ورود</a>
-    </div> --}}
+    </div>
 
     {{-- if user login --}}
+<div class="contain-cart-profile">
+    <button class="shopping-cart">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="cart-badge">3</span>
+    </button>
+
 
     <div class="user-icon" >
         <a href="#"  id="userMenuBtn">
@@ -58,6 +64,8 @@
             <a href="#">خروج</a>
         </div>
     </div>
+</div>
+
 
 
 </header>
