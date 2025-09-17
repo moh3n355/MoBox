@@ -96,4 +96,8 @@ Route::get('/shopping-cart', function () {
     return view(view: 'shopping-cart');
 })->name('shopping-cart');
 
+Route::get('/edit-profile', function () {
+    return view(view: 'edit-profile');
+})->name('edit-profile');
+
 

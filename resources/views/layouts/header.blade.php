@@ -60,7 +60,7 @@
             <i class="fas fa-user user-icon"></i>
         </a>
         <div class="dropdown-menu" id="dropdownMenu">
-            <a href="#">پروفایل</a>
+            <a href="{{ route('edit-profile') }}">پروفایل</a>
             <a href="#">تنظیمات</a>
             <a href="#">خروج</a>
         </div>
