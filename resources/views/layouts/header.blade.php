@@ -10,6 +10,7 @@
 
     <nav class="nav">
         <div class="search-box">
+            <button><i class="fas fa-search"></i></button>
             <input type="text" name="" id="" placeholder="جست و جو">
          </div>
 
@@ -54,8 +55,8 @@
     </button>
 
 
-    <div class="user-icon" >
-        <a href="#"  id="userMenuBtn">
+    <div  id="userMenuBtn" class="user-icon" >
+        <a href="#" >
             <i class="fas fa-user user-icon"></i>
         </a>
         <div class="dropdown-menu" id="dropdownMenu">
