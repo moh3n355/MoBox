@@ -14,10 +14,10 @@ class LoginController extends Controller
         $UserPassInputed = $request->input('password');
 
         $user = new User();
-
+        
         $user = User::where('username', $UserNameInputed)->first();
 
-        if($user && Hash::check($UserPassInputed, $user->userpassword)){
+        if($user && /*Hash::check(*/$UserPassInputed == $user->userpassword)/*)*/{
             auth::login($user);
             return redirect()->route('home');
         }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Shopping_cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
@@ -92,8 +93,11 @@ Route::group(['prefix' => 'auth'], function () {
 });
 
 
-Route::get('/shopping-cart', function () {
-    return view(view: 'shopping-cart');
-})->name('shopping-cart');
+Route::get('/display-shopping-cart', function () {
+    return view(view: 'display-shopping-cart');
+})->name('display-shopping-cart');
+
+Route::get('/shopping-cart', [Shopping_cart::class, 'Recive']
+)->name('shopping-cart');
 
 
