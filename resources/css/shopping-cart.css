@@ -30,12 +30,13 @@ section{
 
 /* کارت محصول */
 .product {
+
     display: flex;
     flex-direction: row;
     gap: 16px;
     background: #fff;
     border-radius: 16px;
-    padding: 20px;
+    padding: 40px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     align-items: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -67,21 +68,21 @@ section{
 }
 
 .product .title {
-    font-size: 1.2rem;
+    font-size: 2.5rem;
     font-weight: 700;
     margin: 0 0 6px;
     color: #222;
 }
 
 .product .meta {
-    font-size: 0.9rem;
+    font-size: 1.3rem;
     color: #666;
     margin-bottom: 10px;
 }
 
 .product .price {
     font-weight: 700;
-    font-size: 1rem;
+    font-size: 1.5rem;
     color: #2c7a7b;
     margin-bottom: 12px;
 }
@@ -95,7 +96,7 @@ section{
 }
 
 .product .qty {
-    font-size: 0.9rem;
+    font-size: 1.5rem;
     color: #444;
     margin-left: 8px;
 }
@@ -108,7 +109,8 @@ section{
     cursor: pointer;
     background: #2c7a7b;
     color: #fff;
-    font-size: 0.95rem;
+    font-weight: 900;
+    font-size: 1.3rem;
     transition: background 0.3s, transform 0.2s;
 }
 
@@ -131,7 +133,7 @@ section{
 .side-bar{
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 0.1fr 1fr;
+    grid-template-rows: 1fr 1fr 0.1fr ;
 }
 
 aside {
