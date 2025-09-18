@@ -53,14 +53,14 @@
                     </div>
                 </div>
 
-                {{-- <div>
+                <div>
                     <label for="address"><i class="fas fa-map-marker-alt"></i> نشانی محل سکونت:</label>
                     <textarea id="address" placeholder="چند خط درباره خودتان بنویسید...">توسعه‌دهنده فرانت‌اند و علاقه‌مند به طراحی رابط کاربری.</textarea>
                     <div id="map" style="height:300px; width: 400px;"></div>
                     <input type="hidden" id="latitude" name="latitude">
                     <input type="hidden" id="longitude" name="longitude">
 
-                </div> --}}
+                </div>
 
                 <div class="row">
                     <div class="col">
