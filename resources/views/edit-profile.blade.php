@@ -29,13 +29,13 @@
                 <div class="row">
                     <div class="col">
                         <label for="fullName">نام و نام خانوادگی</label>
-                        <input id="fullName" name="fullName" type="text" value="{{ old('fullName') }}" required>
+                        <input id="fullName" name="fullName" type="text" value="{{ auth()->user()->fullName }}" required>
                         <div class="field-error"></div>
                         <div class="help">نام شما همان‌طور که در سایت نمایش داده می‌شود.</div>
                     </div>
                     <div class="col">
                         <label for="username"><i class="fas fa-user"></i> نام کاربری:</label>
-                        <input id="username" name="username" type="text" value="{{ old('username') }}" required>
+                        <input id="username" name="username" type="text" value="{{ auth()->user()->username }}" required>
                         <div class="field-error"></div>
                     </div>
                 </div>
@@ -43,7 +43,7 @@
                 <div class="row">
                     <div class="col">
                         <label for="email"><i class="fas fa-envelope"></i> ایمیل:</label>
-                        <input id="email" name="email" type="email" value="{{ old('email') }}" required>
+                        <input id="email" name="email" type="email" value="{{ auth()->user()->email }}" required>
                         <div class="field-error"></div>
                     </div>
                     <div class="col">
