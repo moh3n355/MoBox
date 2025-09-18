@@ -13,7 +13,9 @@ class Shopping_cart extends Controller
 
     public function Recive(Request $request){
          $cartItems = auth()->user()->cartItems()->with('product')->get();
-        
-        return view('display-shopping-cart', compact('cartItems'));
+         $cartItemsArray = compact('cartItems');
+         $indexedCartItems = array_values($cartItemsArray);
+
+        return view('display-shopping-cart', compact('cartItems', 'indexedCartItems'));
     }
 }
