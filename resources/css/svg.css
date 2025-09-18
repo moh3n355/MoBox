@@ -1,0 +1,61 @@
+
+svg {
+    position: absolute;
+    z-index: 0;
+    bottom: 10rem;
+    right: 20em;
+    transform: translateX(-50%);
+    width: 18.75rem;
+    height: auto;
+    transition: transform 0.4s ease;
+}
+
+/* حالت عادی گوشی */
+#phoneGroup {
+    transform: translate(2.1875rem, 1.25rem) rotate(0deg);
+    transform-origin: center;
+    transform-box: fill-box;
+    transition: transform 0.4s ease;
+}
+
+#face {
+    transform: translate(2.1875rem, 1.25rem) rotate(0deg);
+    transform-origin: center;
+    transform-box: fill-box;
+    transition: transform 0.4s ease;
+}
+
+/* وقتی روی input فوکوس است */
+.focus #phoneGroup {
+    transform: translate(17.4375rem, 1.25rem) rotate(23deg);
+    /* 55px, 20px */
+}
+
+.focus #face {
+    transform: translate(16.8375rem, 1.25rem) rotate(25deg);
+    /* 55px, 20px */
+    transition: all 0.5s ease;
+}
+
+
+
+ #rightHand {
+     transform: translate(0, 0) rotate(25deg);
+    /* 55px, 20px */
+    transition: all 0.5s ease;
+}
+ #leftHand {
+    transform: translate(0, 0) rotate(25deg);
+    /* 55px, 20px */
+    transition: all 0.5s ease;
+}
+.focus #rightHand {
+    transform: translate(20.2rem, -2rem) rotate(35deg);
+    transition: all 0.4s ease;
+}
+.focus #leftHand {
+    z-index: 5;
+    transform: translate(22.4375rem, -8rem) rotate(40deg);
+    transition: all 0.1s ease;
+}
+

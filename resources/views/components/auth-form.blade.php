@@ -97,7 +97,7 @@
                         {{-- حالت login --}}
                     @elseif ($type === 'login')
                         <label for="username">لطفا نام کاربری خود را وارد کنید:</label>
-                        <input type="text" name="username" value="{{ old('username') }}" required
+                        <input type="text" id="username" name="username" value="{{ old('username') }}" required
                             pattern="[A-Za-z][A-Za-z0-9]{3,20}"
                             title="نام کاربری باید فقط شامل حروف و اعداد باشد و بین ۳ تا ۲۰ کاراکتر باشد و نمی تواند با عدد شروع شود">
 
