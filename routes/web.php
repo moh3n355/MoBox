@@ -100,4 +100,8 @@ Route::get('/edit-profile', function () {
     return view(view: 'edit-profile');
 })->name('edit-profile');
 
+Route::get('/ticket', function () {
+    return view(view: 'ticket');
+})->name('ticket');
+
 
