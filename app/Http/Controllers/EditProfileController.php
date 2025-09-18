@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\PutData;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Throwable;
 use User;
 
@@ -12,14 +13,14 @@ class EditProfileController extends Controller
 {   
 
     public function ConnectToModels($usrename){
-        try{
+        //try{
             $user = User::where('username', $usrename)->first();
             $putData = new PutData();
-        }
-        catch(Throwable $e){
-            return back()->withErrors("userpassword", "در حال حاضر این امکان وجود ندارد");
+        // }
+        // catch(Throwable $e){
+        //     return back()->withErrors("NwePassword", "در حال حاضر این امکان وجود ندارد");
 
-        }
+        // }
     }
 
     public function EditCreditional(Request $request){
@@ -36,27 +37,27 @@ class EditProfileController extends Controller
 
             return back()->withErrors("address", "آدرس شما با موفقیت ثبت شد");
         }
-        elseif($request->input("userpassword") !== $user->userpassword){
-            $putData->userpassword = $request->input("userpassword");
-
-            return back()->withErrors("userpassword", "رمز شما با موفقیت ثبت شد");    
+        elseif($request->input("NwePassword") !== $user->userpassword){
+            if(Hash::check($request->input("OldPassword"), $user->userpassword)){
+                $putData->userpassword = $request->input("NwePassword");
+                return back()->withErrors("NwePassword", "رمز شما با موفقیت ثبت شد");
+            }
+            else{
+                return back()->withErrors("OldPassword", "رمز عبور اشتباه است");
+            }    
         }
         else{
-            return back()->withErrors("userpassword", "چیزی برای تغیر دادن وجود ندارد");
+            return back()->withErrors("NwePassword", "چیزی برای تغیر دادن وجود ندارد");
         }
     }
 
-    public function EditNumber(Request $request){  
+    public function UpdatePhone(Request $request){
+        [$user, $putData] = $this->ConnectToModels($request->input("username"));
         
-        [$user, $putData] = $this->ConnectToModels($request->input('username'));
+        $putData->phone = $request->input("phone");
 
-        if($request->input("phone") !== $user->phone){
-            $putData->username = $request->input("fullName");
-
-            return back()->withErrors("FullName", "تلفن شما با موفقیت ثبت شد");
-        }
-        else{
-            return back()->withErrors("userpassword", "چیزی برای تقییر نیست");
-        }
+        return redirect()->route('edit-profile')
+                 ->withErrors(['NwePassword' => 'شماره با موفقیت تقیر کرد']);
     }
 }
+

@@ -50,8 +50,8 @@
                         <label for="phone"><i class="fas fa-phone"></i> شماره همراه:</label>
                         {{-- <input id="phone" name="phone" type="tel" value="{{ old('phone') }}"> --}}
                         <div class="phone-edit">
-                            <a href="">ویرایش</a>
-                            <p id="phone" type="tel">09938917750</p>
+                            <a href="{{ route('edit-phone') }}">ویرایش</a>
+                            <p id="phone" type="tel">{{ auth()->user()->phone }}</p>
 
                         </div>
                         <div class="field-error"></div>
@@ -73,10 +73,10 @@
                         <label for="password"><i class="fas fa-key"></i> تغییر رمز عبور :</label>
                         <div style="position:relative;">
 
-                            <input class="password-field" id="old-pass" type="password" placeholder="رمز عبور قبلی"
+                            <input class="password-field" id="old-pass" type="password" placeholder="رمز عبور قبلی" name="OldPassword"
                                 pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" required>
                             <div class="field-error"></div>
-                            <input class="password-field" id="password" type="password" placeholder="رمز عبور جدید"
+                            <input class="password-field" id="password" type="password" placeholder="رمز عبور جدید" name="NwePassword"
                                 pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" required>
                             <div class="field-error"></div>
 

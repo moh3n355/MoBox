@@ -44,18 +44,12 @@
     {{-- if have not been user login --}}
 
     @if(auth()->check())
-        <div class="icons">
-            <a href="{{ route('auth') }}" alt="" class="login-btn">ورود</a>
-        </div>
-    @else
-        <div class="contain-cart-profile">
+    <div class="contain-cart-profile">
             <button class="shopping-cart">
             <i class="fas fa-shopping-cart"></i>
             <span class="cart-badge">3</span>
         </button>
-    @endif  
-
-    <div  id="userMenuBtn" class="user-icon" >
+        <div  id="userMenuBtn" class="user-icon" >
         <a href="#" >
             <i class="fas fa-user user-icon"></i>
         </a>
@@ -65,8 +59,11 @@
             <a href="#">خروج</a>
         </div>
     </div>
-</div>
-
-
-
+    @else
+        <div class="icons">
+            <a href="{{ route('auth') }}" alt="" class="login-btn">ورود</a>
+        </div>
+    @endif  
+    
+    </div>
 </header>

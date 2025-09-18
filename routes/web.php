@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EditProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
@@ -100,7 +101,17 @@ Route::get('/edit-profile', function () {
     return view(view: 'edit-profile');
 })->name('edit-profile');
 
-Route::get('/ticket', function () {
+Route::get('/verify/edit-profile', [EditProfileController::class, 'EditCreditional']
+)->name('verify-edit-profile');
+
+Route::get('/edit-phone', function () {
+    session(['ForRedirectrAfterVerify' => 'edit-phone',]);
+
+    return redirect()->route('auth.dynamic', ['type' => 'register']);
+})->name('edit-phone');
+
+
+Route::get('/ticket', action: function () {
     return view(view: 'ticket');
 })->name('ticket');
 
