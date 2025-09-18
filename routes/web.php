@@ -104,4 +104,9 @@ Route::get('/ticket', function () {
     return view(view: 'ticket');
 })->name('ticket');
 
+Route::get('/exit', function () {
+    Auth::logout();
+    return view(view: 'home');
+})->name('exit');
+
 
