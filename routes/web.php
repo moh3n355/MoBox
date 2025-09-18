@@ -14,7 +14,7 @@ Route::get('/', function () {
 })->name('home');
 
 // بقیه روت‌ها داخل گروه با prefix /auth
-Route::group(['prefix' => 'auth', 'middleware' => ['guest']], function () {
+Route::group(['prefix' => 'auth'], function () {
 
     Route::get('/{type}', function ($type) {
         $allowed = [
