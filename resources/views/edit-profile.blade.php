@@ -60,7 +60,7 @@
 
                 <div>
                     <label for="address"><i class="fas fa-map-marker-alt"></i> نشانی محل سکونت:</label>
-                    <textarea id="address" placeholder="چند خط درباره خودتان بنویسید..."></textarea>
+                    <textarea id="address" placeholder="آدرس خود را وارد کنید..."></textarea>
 
                     {{-- <div id="map" style="height:300px; width: 400px;"></div>
                     <input type="hidden" id="latitude" name="latitude">
