@@ -48,17 +48,23 @@
                     </div>
                     <div class="col">
                         <label for="phone"><i class="fas fa-phone"></i> شماره همراه:</label>
-                        <input id="phone" name="phone" type="tel" value="{{ old('phone') }}">
+                        {{-- <input id="phone" name="phone" type="tel" value="{{ old('phone') }}"> --}}
+                        <div class="phone-edit">
+                            <a href="">ویرایش</a>
+                            <p id="phone" type="tel">09938917750</p>
+
+                        </div>
                         <div class="field-error"></div>
                     </div>
                 </div>
 
                 <div>
                     <label for="address"><i class="fas fa-map-marker-alt"></i> نشانی محل سکونت:</label>
-                    <textarea id="address" placeholder="چند خط درباره خودتان بنویسید...">توسعه‌دهنده فرانت‌اند و علاقه‌مند به طراحی رابط کاربری.</textarea>
-                    <div id="map" style="height:300px; width: 400px;"></div>
+                    <textarea id="address" placeholder="چند خط درباره خودتان بنویسید..."></textarea>
+
+                    {{-- <div id="map" style="height:300px; width: 400px;"></div>
                     <input type="hidden" id="latitude" name="latitude">
-                    <input type="hidden" id="longitude" name="longitude">
+                    <input type="hidden" id="longitude" name="longitude"> --}}
 
                 </div>
 
@@ -69,10 +75,10 @@
 
                             <input class="password-field" id="old-pass" type="password" placeholder="رمز عبور قبلی"
                                 pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" required>
-                                <div class="field-error"></div>
+                            <div class="field-error"></div>
                             <input class="password-field" id="password" type="password" placeholder="رمز عبور جدید"
                                 pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" required>
-                                <div class="field-error"></div>
+                            <div class="field-error"></div>
 
                             <button type="button" id="togglePwd"
                                 style="position:absolute;left:8px;top:8px;padding:6px;border-radius:8px;border:none;background:transparent;cursor:pointer">

@@ -51,6 +51,28 @@ body {
     text-align: center
 }
 
+.phone-edit{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items:center;
+    gap: 0.2rem;
+
+}
+.phone-edit p{
+    background-color: rgba(128, 128, 128, 0.052);
+    border: 1px dashed rgba(0, 0, 0, 0.155);
+    padding: 0.3rem 1rem;
+}
+
+.phone-edit a{
+    background-color: var(--accent);
+    text-decoration: none;
+    color: var(--card);
+    padding: 0.35rem 0.25rem;
+    border-radius: 0.5rem;
+}
+
 .avatar-wrap {
     position: relative;
     width: 140px;
