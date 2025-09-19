@@ -26,7 +26,6 @@ class EditProfileRequest extends FormRequest
                 'nullable',
                 'string',
                 'min:8',
-                'confirmed',
                 'regex:/[a-z]/',      // حداقل یک حرف کوچک
                 'regex:/[A-Z]/',      // حداقل یک حرف بزرگ
                 'regex:/[0-9]/',      // حداقل یک عدد
