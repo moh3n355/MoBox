@@ -86,10 +86,19 @@ class SendVerifyCode extends Controller
         }
         else{ 
             if(session('TypeForAfterVerify') == 'register'){
+                if(session('ForRedirectrAfterVerify') == 'edit-phone'){
+                    return app(EditProfileController::class)->UpdatePhone( $request);
+                }
+                else{
                 return redirect()->route('auth.dynamic', ['type' => "set-username-password"]);
+                }
             }
             elseif(session("TypeForAfterVerify") == "forgot"){
                 return app(ForgotController::class)->CreateAndUpdatePassword( $request);
+            }
+            elseif(session("TypeForAfterVerify") == "edit-phone"){
+                return redirect()->route('edit-profile')
+                 ->withErrors(['NwePassword' => 'شماره با موفقیت تقیر کرد']);
             }
         };
     }

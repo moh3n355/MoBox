@@ -48,7 +48,7 @@
                 @if ($type === 'login')
                     ورود
                 @elseif ($type === 'register')
-                    ثبت‌نام
+                    ثبت‌ شماره تلفن
                 @elseif ($type === 'forgot')
                     بازیابی رمز عبور
                 @elseif ($type === 'verify')
@@ -222,7 +222,7 @@
                         @if ($type === 'login')
                             ورود
                         @elseif ($type === 'register')
-                            ثبت‌نام
+                            شماره تلفن خود را وارد کنید
                         @elseif ($type === 'verify')
                             تایید
                         @elseif ($type === 'set-username-password')

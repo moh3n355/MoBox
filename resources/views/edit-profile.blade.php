@@ -29,13 +29,13 @@
                 <div class="row">
                     <div class="col">
                         <label for="fullName">نام و نام خانوادگی</label>
-                        <input id="fullName" name="fullName" type="text" value="{{ old('fullName') }}" required>
+                        <input id="fullName" name="fullName" type="text" value="{{ auth()->user()->fullName }}" required>
                         <div class="field-error"></div>
                         <div class="help">نام شما همان‌طور که در سایت نمایش داده می‌شود.</div>
                     </div>
                     <div class="col">
                         <label for="username"><i class="fas fa-user"></i> نام کاربری:</label>
-                        <input id="username" name="username" type="text" value="{{ old('username') }}" required>
+                        <input id="username" name="username" type="text" value="{{ auth()->user()->username }}" required>
                         <div class="field-error"></div>
                     </div>
                 </div>
@@ -43,15 +43,15 @@
                 <div class="row">
                     <div class="col">
                         <label for="email"><i class="fas fa-envelope"></i> ایمیل:</label>
-                        <input id="email" name="email" type="email" value="{{ old('email') }}" required>
+                        <input id="email" name="email" type="email" value="{{ auth()->user()->email }}" required>
                         <div class="field-error"></div>
                     </div>
                     <div class="col">
                         <label for="phone"><i class="fas fa-phone"></i> شماره همراه:</label>
                         {{-- <input id="phone" name="phone" type="tel" value="{{ old('phone') }}"> --}}
                         <div class="phone-edit">
-                            <a href="">ویرایش</a>
-                            <p id="phone" type="tel">09938917750</p>
+                            <a href="{{ route('edit-phone') }}">ویرایش</a>
+                            <p id="phone" type="tel">{{ auth()->user()->phone }}</p>
 
                         </div>
                         <div class="field-error"></div>
@@ -73,10 +73,10 @@
                         <label for="password"><i class="fas fa-key"></i> تغییر رمز عبور :</label>
                         <div style="position:relative;">
 
-                            <input class="password-field" id="old-pass" type="password" placeholder="رمز عبور قبلی"
+                            <input class="password-field" id="old-pass" type="password" placeholder="رمز عبور قبلی" name="OldPassword"
                                 pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" required>
                             <div class="field-error"></div>
-                            <input class="password-field" id="password" type="password" placeholder="رمز عبور جدید"
+                            <input class="password-field" id="password" type="password" placeholder="رمز عبور جدید" name="NwePassword"
                                 pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" required>
                             <div class="field-error"></div>
 
