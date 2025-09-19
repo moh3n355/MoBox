@@ -29,7 +29,7 @@
                 <div class="row">
                     <div class="col">
 
-                        <label for="fullName"><span class="required">*</span>
+                        <label class="fields" for="fullName"><span class="required">*</span>
                             نام و نام خانوادگی:
                         </label>
                         <input id="fullName" name="fullName" type="text" value="{{ auth()->user()->fullName }}"
@@ -40,7 +40,7 @@
                         @enderror
                     </div>
                     <div class="col">
-                        <label for="username"><span class="required">*</span>
+                        <label class="fields" for="username"><span class="required">*</span>
                             <i class="fas fa-user"></i> نام کاربری:</label>
                         <input id="username" name="username" type="text" value="{{ auth()->user()->username }}"
                             required>
@@ -52,7 +52,7 @@
 
                 <div class="row">
                     <div class="col">
-                        <label for="email"><i class="fas fa-envelope"></i> ایمیل:</label>
+                        <label class="fields" for="email"><i class="fas fa-envelope"></i> ایمیل:</label>
                         <input id="email" name="email" type="email" value="{{ auth()->user()->email }}"
                             required>
                         @error('email')
@@ -60,7 +60,7 @@
                         @enderror
                     </div>
                     <div class="col">
-                        <label for="phone"><i class="fas fa-phone"></i> شماره همراه:</label>
+                        <label class="fields" for="phone"><i class="fas fa-phone"></i> شماره همراه:</label>
                         <div class="phone-edit">
                             <a href="{{ route('edit-phone') }}">ویرایش</a>
                             <p id="phone" type="tel">{{ auth()->user()->phone }}</p>
@@ -70,18 +70,42 @@
                 </div>
 
                 <div>
-                    <label for="address"><i class="fas fa-map-marker-alt"></i> نشانی محل سکونت:</label>
-                    <textarea id="address" placeholder="آدرس خود را وارد کنید..."></textarea>
+                    <label class="fields" for="my-address">
+                      <i class="fas fa-map-marker-alt"></i> آدرس های من:
+                    </label>
+                    <div class="address-list">
+
+                        <label class="address">
+                            <input type="radio" name="address" value="ghasemabad">
+                            <span>مشهد ـ قاسم آباد ـ بلوار شاهد</span>
+                        </label>
+
+                        <label class="address">
+                            <input type="radio" name="address" value="rahahan">
+                            <span>مشهد ـ راه آهن ـ بلوار شهید هاشمی نژاد ـ خفت گاه</span>
+                        </label>
+
+                        <label class="address">
+                            <input type="radio" name="address" value="other">
+                            <span>آدرس دیگر</span>
+                        </label>
+                      </div>
+
+                <div class="add-address-parent">
+                      <a href="" class="add-address">
+                        <span href="">افزودن آدرس جدید </span>
+                        <i class="fas fa-circle-plus"></i>
+                      </a>
+                    </div>
+                  </div>
 
                     {{-- <div id="map" style="height:300px; width: 400px;"></div>
                     <input type="hidden" id="latitude" name="latitude">
                     <input type="hidden" id="longitude" name="longitude"> --}}
 
-                </div>
-
                 <div class="row">
                     <div class="col">
-                        <label for="password"><i class="fas fa-key"></i> تغییر رمز عبور :</label>
+                        <label class="fields" for="password"><i class="fas fa-key"></i> تغییر رمز عبور :</label>
                         <div style="position:relative;">
 
                             <input class="password-field" id="old-pass" type="password" placeholder="رمز عبور قبلی"
