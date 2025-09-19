@@ -26,6 +26,9 @@
 
         <form id="addressForm" method="POST" action="">
             @csrf
+            <div class="field-container">
+
+
             <div>
                 <label>شهر:</label>
                 <input type="text" name="city" id="city" class="form-control">
@@ -42,7 +45,15 @@
                 <label>پلاک:</label>
                 <input type="text" name="plaque" id="plaque" class="form-control">
             </div>
-
+            <div>
+                <label>طبقه:</label>
+                <input type="text" name="floor" id=" floor" class="form-control">
+            </div>
+            <div>
+                <label>توضیحات:</label>
+                <textarea name="describtion" id="describtion" class="form-control" rows="3" placeholder="توضیحات اضافی..."></textarea>
+            </div>
+        </div>
             <button type="submit">ثبت آدرس</button>
         </form>
     </div>

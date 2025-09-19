@@ -27,6 +27,12 @@
     transform: scale(1.02);
 }
 
+.field-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
 /* فرم */
 form {
     display: flex;
