@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->enum('role', ['user', 'admin', 'owner'])->default('user');
             $table->timestamps();
+            $table->charset = 'utf8mb4';
+            $table->collation = 'utf8mb4_general_ci';
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
