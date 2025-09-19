@@ -22,7 +22,7 @@ class EditProfileRequest extends FormRequest
             'email'       => 'email|max:255|unique:users,email,' . $userId,
             'address'     => 'nullable|string|max:255|min:10',
             'OldPassword' => 'nullable|string|min:6',
-            'NwePassword' => [  2
+            'NwePassword' => [  
                 'nullable',
                 'string',
                 'min:8',
