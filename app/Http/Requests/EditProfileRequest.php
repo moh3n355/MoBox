@@ -18,11 +18,11 @@ class EditProfileRequest extends FormRequest
 
         return [
             'username'    => 'required|string|min:3|max:50|unique:users,username,' . $userId,
-            'fullName'    => 'required|string|min:3|max:100',
-            'email'       => 'required|email|max:255|unique:users,email,' . $userId,
+            'fullName'    => 'string|min:3|max:100',
+            'email'       => 'email|max:255|unique:users,email,' . $userId,
             'address'     => 'nullable|string|max:255|min:10',
             'OldPassword' => 'nullable|string|min:6',
-            'NwePassword' => [
+            'NwePassword' => [  2
                 'nullable',
                 'string',
                 'min:8',

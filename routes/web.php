@@ -121,3 +121,8 @@ Route::get('/exit', function () {
 })->name('exit');
 
 
+Route::get('/add-address', function () {
+    return view(view: 'address');
+})->name('add-address');
+
+

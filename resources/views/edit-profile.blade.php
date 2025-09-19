@@ -9,7 +9,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 
+    {{-- <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script> --}}
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+    <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <!-- Axios برای درخواست HTTP -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 </head>
 
 <body>
@@ -53,8 +62,7 @@
                 <div class="row">
                     <div class="col">
                         <label class="fields" for="email"><i class="fas fa-envelope"></i> ایمیل:</label>
-                        <input id="email" name="email" type="email" value="{{ auth()->user()->email }}"
-                            required>
+                        <input id="email" name="email" type="email" value="{{ auth()->user()->email }}">
                         @error('email')
                             <p class="field-error">{{ $message }}</p>
                         @enderror
@@ -71,7 +79,7 @@
 
                 <div>
                     <label class="fields" for="my-address">
-                      <i class="fas fa-map-marker-alt"></i> آدرس های من:
+                        <i class="fas fa-map-marker-alt"></i> آدرس های من:
                     </label>
                     <div class="address-list">
 
@@ -89,17 +97,17 @@
                             <input type="radio" name="address" value="other">
                             <span>آدرس دیگر</span>
                         </label>
-                      </div>
-
-                <div class="add-address-parent">
-                      <a href="" class="add-address">
-                        <span href="">افزودن آدرس جدید </span>
-                        <i class="fas fa-circle-plus"></i>
-                      </a>
                     </div>
-                  </div>
 
-                    {{-- <div id="map" style="height:300px; width: 400px;"></div>
+                    <div class="add-address-parent">
+                        <a href="" class="add-address">
+                            <span href="">افزودن آدرس جدید </span>
+                            <i class="fas fa-circle-plus"></i>
+                        </a>
+                    </div>
+                </div>
+
+                {{-- <div id="map" style="height:300px; width: 400px;"></div>
                     <input type="hidden" id="latitude" name="latitude">
                     <input type="hidden" id="longitude" name="longitude"> --}}
 
@@ -145,6 +153,8 @@
         </div>
     </div>
 
+
 </body>
+
 
 </html>

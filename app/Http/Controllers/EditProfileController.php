@@ -47,10 +47,10 @@ class EditProfileController extends Controller
             $user->save();
         }
         elseif($request->input("NwePassword") !== $user->userpassword){
-            if(Hash::check($request->input("OldPassword"), $user->userpassword)){
 
-                $user->userpassword = $request->input("NwePassword");
-                $user->save();
+            if(Hash::check($request->input("OldPassword"), $user->userpassword)){
+                $user->userpassword = bcrypt($request->input("NwePassword"));
+                $user->save();  
             }
             else{
                 return back()->withErrors("OldPassword", "رمز عبور اشتباه است");
