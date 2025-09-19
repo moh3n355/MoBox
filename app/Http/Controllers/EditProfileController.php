@@ -33,7 +33,6 @@ class EditProfileController extends Controller
         if($request->input("fullName") !== $user->username){
             $user->username = $request->input("fullName");
             $user->save();
-            dd($user);
 
             return back()->withErrors("FullName", "نام شما با موفقیت ثبت شد");
         }
