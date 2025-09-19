@@ -29,32 +29,39 @@
                 <div class="row">
                     <div class="col">
                         <label for="fullName">نام و نام خانوادگی</label>
-                        <input id="fullName" name="fullName" type="text" value="{{ auth()->user()->fullName }}" required>
+                        <input id="fullName" name="fullName" type="text" value="{{ auth()->user()->fullName }}"
+                            required>
                         <div class="field-error"></div>
-                        <div class="help">نام شما همان‌طور که در سایت نمایش داده می‌شود.</div>
+                        @error('fullName')
+                        <p class="field-error">{{ $message }}</p>
+                        @enderror
                     </div>
                     <div class="col">
                         <label for="username"><i class="fas fa-user"></i> نام کاربری:</label>
-                        <input id="username" name="username" type="text" value="{{ auth()->user()->username }}" required>
-                        <div class="field-error"></div>
+                        <input id="username" name="username" type="text" value="{{ auth()->user()->username }}"
+                            required>
+                            @error('username')
+                            <p class="field-error">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col">
                         <label for="email"><i class="fas fa-envelope"></i> ایمیل:</label>
-                        <input id="email" name="email" type="email" value="{{ auth()->user()->email }}" required>
-                        <div class="field-error"></div>
+                        <input id="email" name="email" type="email" value="{{ auth()->user()->email }}"
+                            required>
+                            @error('email')
+                            <p class="field-error">{{ $message }}</p>
+                        @enderror
                     </div>
                     <div class="col">
                         <label for="phone"><i class="fas fa-phone"></i> شماره همراه:</label>
-                        {{-- <input id="phone" name="phone" type="tel" value="{{ old('phone') }}"> --}}
                         <div class="phone-edit">
                             <a href="{{ route('edit-phone') }}">ویرایش</a>
                             <p id="phone" type="tel">{{ auth()->user()->phone }}</p>
 
                         </div>
-                        <div class="field-error"></div>
                     </div>
                 </div>
 
@@ -73,12 +80,21 @@
                         <label for="password"><i class="fas fa-key"></i> تغییر رمز عبور :</label>
                         <div style="position:relative;">
 
-                            <input class="password-field" id="old-pass" type="password" placeholder="رمز عبور قبلی" name="OldPassword"
+                            <input class="password-field" id="old-pass" type="password" placeholder="رمز عبور قبلی"
+                                name="OldPassword"
                                 pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" required>
-                            <div class="field-error"></div>
-                            <input class="password-field" id="password" type="password" placeholder="رمز عبور جدید" name="NwePassword"
+
+                            @error('OldPassword')
+                                <p class="field-error">{{ $message }}</p>
+                            @enderror
+
+                            <input class="password-field" id="password" type="password" placeholder="رمز عبور جدید"
+                                name="NwePassword"
                                 pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" required>
-                            <div class="field-error"></div>
+
+                            @error('NwePassword')
+                                <p class="field-error">{{ $message }}</p>
+                            @enderror
 
                             <button type="button" id="togglePwd"
                                 style="position:absolute;left:8px;top:8px;padding:6px;border-radius:8px;border:none;background:transparent;cursor:pointer">
