@@ -12,79 +12,9 @@
     <!-- Axios -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-    <style>
-        .container {
-            width: 100%;
-            max-width: 600px;
-            margin: 30px auto;
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        }
+    @vite(['resources/css/add-address.css', 'resources/js/add-address.js'])
 
-        #map {
-            width: 100%;
-            height: 400px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
-        }
 
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        form label {
-            font-weight: bold;
-            margin-bottom: 5px;
-            display: block;
-        }
-
-        form input[type="text"] {
-            width: 100%;
-            padding: 10px 12px;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-            font-size: 14px;
-            transition: 0.3s;
-        }
-
-        form input[type="text"]:focus {
-            border-color: #4e9cff;
-            box-shadow: 0 0 5px rgba(78,156,255,0.3);
-            outline: none;
-        }
-
-        button, form button[type="submit"] {
-            padding: 12px 20px;
-            background-color: #4e9cff;
-            color: white;
-            font-weight: bold;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        button:hover, form button[type="submit"]:hover {
-            background-color: #3577d4;
-        }
-
-        #findLocation {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        @media (max-width: 480px) {
-            .container { padding: 15px; }
-            form input[type="text"], button, form button[type="submit"] { font-size: 13px; }
-        }
-    </style>
 </head>
 <body>
     <div class="container">
