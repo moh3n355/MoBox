@@ -23,7 +23,7 @@
         <div class="card">
             <h2 style="margin:0 0 12px 0;font-size:20px;color:#28304a">ویرایش پروفایل:</h2>
 
-            <form id="profileForm" novalidate>
+            <form id="profileForm" action="" novalidate>
 
 
                 <div class="row">
