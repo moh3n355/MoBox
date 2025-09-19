@@ -100,8 +100,8 @@
                     </div>
 
                     <div class="add-address-parent">
-                        <a href="" class="add-address">
-                            <span href="">افزودن آدرس جدید </span>
+                        <a href="{{ route('add-address') }}" class="add-address">
+                            <span >افزودن آدرس جدید </span>
                             <i class="fas fa-circle-plus"></i>
                         </a>
                     </div>
