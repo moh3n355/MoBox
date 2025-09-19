@@ -15,9 +15,9 @@ use App\Models\User;
 class EditProfileController extends Controller
 {   
 
-    public function ConnectToModels($usrename){
+    public function ConnectToModels(){
         try{
-            $user = User::where('username', 'iliya')->first();            
+            $user = User::where('id', auth()->id())->first();            
             return $user;
         }
         catch(Throwable $e){
@@ -28,13 +28,20 @@ class EditProfileController extends Controller
 
     public function EditCreditional(EditProfileRequest $request){
 
-        $user= $this->ConnectToModels($request->input('username'));
-
+        $user= $this->ConnectToModels();
+        
         if($request->input("fullName") !== $user->username){
             $user->username = $request->input("fullName");
             $user->save();
+            dd($user);
 
             return back()->withErrors("FullName", "نام شما با موفقیت ثبت شد");
+        }
+        elseif($request->input("email") !== $user->eamil){
+            $user->email = $request->input("email");
+            $user->save();
+
+            return back()->withErrors("FullName", "ایمیل شما با موفقیت ثبت شد");
         }
         elseif($request->input("address") !== $user->address){
             $user->address = $request->input("address");
@@ -60,7 +67,7 @@ class EditProfileController extends Controller
     }
 
     public function UpdatePhone(Request $request){
-        $user = $this->ConnectToModels($request->input("username"));
+        $user = $this->ConnectToModels();
         
         $user->phone = session()->get('phone');
         $user->save();
