@@ -30,31 +30,27 @@ class EditProfileController extends Controller
 
         $user= $this->ConnectToModels();
         
-        if($request->input("fullName") !== $user->username){
-            $user->username = $request->input("fullName");
+        if($request->input("fullName") !== $user->fullName){
+            $user->fullName = $request->input("fullName");
             $user->save();
-
-            return back()->withErrors("FullName", "نام شما با موفقیت ثبت شد");
         }
-        elseif($request->input("email") !== $user->eamil){
+        elseif($request->input("username") !== $user->username){
+            $user->username = $request->input("username");
+            $user->save();
+        }
+        elseif($request->input("email") !== $user->email){
             $user->email = $request->input("email");
             $user->save();
-
-            return back()->withErrors("FullName", "ایمیل شما با موفقیت ثبت شد");
         }
         elseif($request->input("address") !== $user->address){
             $user->address = $request->input("address");
             $user->save();
-
-            return back()->withErrors("address", "آدرس شما با موفقیت ثبت شد");
         }
         elseif($request->input("NwePassword") !== $user->userpassword){
             if(Hash::check($request->input("OldPassword"), $user->userpassword)){
 
                 $user->userpassword = $request->input("NwePassword");
                 $user->save();
-
-                return back()->withErrors("NwePassword", "رمز شما با موفقیت ثبت شد");
             }
             else{
                 return back()->withErrors("OldPassword", "رمز عبور اشتباه است");
@@ -63,6 +59,9 @@ class EditProfileController extends Controller
         else{
             return back()->withErrors("NwePassword", "چیزی برای تغیر دادن وجود ندارد");
         }
+
+        return back()->withErrors("NwePassword", "تقیرات با موفقیت ذخیره شد");
+
     }
 
     public function UpdatePhone(Request $request){
@@ -72,7 +71,7 @@ class EditProfileController extends Controller
         $user->save();
 
         return redirect()->route('edit-profile')
-                 ->withErrors(['NwePassword' => 'شماره با موفقیت تقیر کرد']);
+                 ->withErrors(['phoen' => 'شماره با موفقیت تقیر کرد']);
     }
 }
 
