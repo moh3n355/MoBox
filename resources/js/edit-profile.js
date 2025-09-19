@@ -1,39 +1,39 @@
-//      // نقشه Leaflet
-//      document.addEventListener('DOMContentLoaded', () => {
-//         const map = L.map('map').setView([35.6892, 51.3890], 13);
+     // نقشه Leaflet
+     document.addEventListener('DOMContentLoaded', () => {
+        const map = L.map('map').setView([35.6892, 51.3890], 13);
 
-//         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-//             attribution: '© OpenStreetMap contributors'
-//         }).addTo(map);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
 
-//         let marker;
-//         map.on('click', function(e) {
-//             if (marker) {
-//                 marker.setLatLng(e.latlng);
-//             } else {
-//                 marker = L.marker(e.latlng).addTo(map);
-//             }
+        let marker;
+        map.on('click', function(e) {
+            if (marker) {
+                marker.setLatLng(e.latlng);
+            } else {
+                marker = L.marker(e.latlng).addTo(map);
+            }
 
-//             document.getElementById('latitude').value = e.latlng.lat;
-//             document.getElementById('longitude').value = e.latlng.lng;
-//         });
-//     });
+            document.getElementById('latitude').value = e.latlng.lat;
+            document.getElementById('longitude').value = e.latlng.lng;
+        });
+    });
 
 
-// // toggle password visibility
-// const toggle = document.getElementById('togglePwd');
-// const passwords = document.querySelectorAll('.password-field');
-// const icon = document.getElementById('toggleIcon');
+// toggle password visibility
+const toggle = document.getElementById('togglePwd');
+const passwords = document.querySelectorAll('.password-field');
+const icon = document.getElementById('toggleIcon');
 
-// toggle.addEventListener('click', () => {
-// passwords.forEach(pwd => {
-//     pwd.type = pwd.type === 'password' ? 'text' : 'password';
-// });
-// icon.classList.toggle('fa-eye');
-// icon.classList.toggle('fa-eye-slash');
-// });
+toggle.addEventListener('click', () => {
+passwords.forEach(pwd => {
+    pwd.type = pwd.type === 'password' ? 'text' : 'password';
+});
+icon.classList.toggle('fa-eye');
+icon.classList.toggle('fa-eye-slash');
+});
 
-// const form = document.getElementById('profileForm');
+const form = document.getElementById('profileForm');
 
 // // رمز قدیمی نمونه (در عمل از سرور باید بررسی شود)
 // const correctOldPassword = "Test@1234";

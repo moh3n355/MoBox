@@ -204,7 +204,7 @@ margin: 0.3rem;
 
 
 /* _______drop down menu______ */
-.dropdown-menu {
+.nav-item .dropdown-menu {
     position: absolute;
     top: 5vh;
     background-color: white;
@@ -216,6 +216,24 @@ margin: 0.3rem;
     opacity: 0;
     transition: max-height 0.3s ease, opacity 0.4s ease;
     z-index: 1000;
+}
+.user-icon .dropdown-menu {
+    position: absolute;
+    background-color: white;
+    border-radius: 0.6rem;
+    box-shadow: 0 1rem 1.3rem rgba(0, 0, 0, 0.5);
+    min-width: 16rem;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.3s ease, opacity 0.4s ease;
+    z-index: 1000;
+    text-align: center;
+}
+.user-icon .dropdown-menu a{
+    font-size: 1.4rem;
+    font-weight: 700;
+    font-family:Arial, Helvetica, sans-serif;
 }
 
 .dropdown-menu.active {
@@ -237,8 +255,12 @@ margin: 0.3rem;
     color: #000000;
     cursor: pointer;
 }
-
+#user-profile {
+    top: 110%;  /* کمی پایین‌تر از دایره کاربر */
+    left: 20%; /* راست‌چین برای RTL */
+}
 .user-icon{
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -255,7 +277,7 @@ margin: 0.3rem;
 .user-icon #userMenuBtn:hover{
     box-shadow: 0 1rem 1.3rem rgba(0, 0, 0, 0.5);
     transition: all 0.2s ease;
-
+    border: none;
 }
 
 .user-icon i{
@@ -267,6 +289,9 @@ margin: 0.3rem;
     height: 100%;
 }
 
+.contain-profile{
+    position: relative;
+}
 
 /* ___hover navbar___ */
 

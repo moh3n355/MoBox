@@ -28,19 +28,23 @@
 
                 <div class="row">
                     <div class="col">
-                        <label for="fullName">نام و نام خانوادگی</label>
+
+                        <label for="fullName"><span class="required">*</span>
+                            نام و نام خانوادگی:
+                        </label>
                         <input id="fullName" name="fullName" type="text" value="{{ auth()->user()->fullName }}"
                             required>
                         <div class="field-error"></div>
                         @error('fullName')
-                        <p class="field-error">{{ $message }}</p>
+                            <p class="field-error">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="col">
-                        <label for="username"><i class="fas fa-user"></i> نام کاربری:</label>
+                        <label for="username"><span class="required">*</span>
+                            <i class="fas fa-user"></i> نام کاربری:</label>
                         <input id="username" name="username" type="text" value="{{ auth()->user()->username }}"
                             required>
-                            @error('username')
+                        @error('username')
                             <p class="field-error">{{ $message }}</p>
                         @enderror
                     </div>
@@ -51,7 +55,7 @@
                         <label for="email"><i class="fas fa-envelope"></i> ایمیل:</label>
                         <input id="email" name="email" type="email" value="{{ auth()->user()->email }}"
                             required>
-                            @error('email')
+                        @error('email')
                             <p class="field-error">{{ $message }}</p>
                         @enderror
                     </div>
