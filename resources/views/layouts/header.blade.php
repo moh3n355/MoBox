@@ -49,21 +49,22 @@
             <i class="fas fa-shopping-cart"></i>
             <span class="cart-badge">3</span>
         </button>
-        <div  id="userMenuBtn" class="user-icon" >
-        <a href="#" >
-            <i class="fas fa-user user-icon"></i>
-        </a>
-        <div class="dropdown-menu" id="dropdownMenu">
-            <a href="{{ route('edit-profile') }}">پروفایل</a>
-            <a href="#">تنظیمات</a>
-            <a href="#">خروج</a>
+
+        <div class="user-icon" id="userMenuBtn">
+            <i class="fas fa-user"></i>
+            <div class="dropdown-menu" id="user-profile">
+                <a href="{{ route('edit-profile') }}">پروفایل</a>
+                <a href="#">تنظیمات</a>
+                <a href="#">خروج</a>
+            </div>
         </div>
+
     </div>
     @else
         <div class="icons">
             <a href="{{ route('auth') }}" alt="" class="login-btn">ورود</a>
         </div>
-    @endif  
-    
+    @endif
+
     </div>
 </header>
