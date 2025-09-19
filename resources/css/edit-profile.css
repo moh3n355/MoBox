@@ -127,7 +127,7 @@ label {
     display: block;
     font-size: 13px;
     color: var(--muted);
-    margin-bottom: 8px
+    margin-bottom: 8px;
 }
 
 input[type="text"],
@@ -251,4 +251,107 @@ textarea {
     color: red;
     font-weight: 700;
     font-size: 1rem;
+}
+/* ----------- ADDRESS ----------- */
+.address-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 6px;
+}
+
+.address {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    justify-content: space-between;
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: #fff;
+    border: 1px solid rgba(34,48,71,0.08);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.address:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(91,123,255,0.1);
+}
+
+.address input[type=radio] {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 999px;
+    border: 2px solid rgba(34,48,71,0.2);
+    display: inline-grid;
+    place-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.address input[type=radio]::after {
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    transform: scale(0);
+    transition: transform 0.3s ease;
+    background: var(--accent);
+}
+
+.address input[type=radio]:checked {
+    border-color: var(--accent);
+    background: rgba(91,123,255,0.1);
+}
+
+.address input[type=radio]:checked::after {
+    transform: scale(1);
+}
+
+.address span {
+    flex: 1;
+    text-align: right;
+    color: #2b3340;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+/* افزودن آدرس جدید */
+.add-address-parent {
+    display: flex;
+    justify-content: center;
+    margin-top: 12px;
+}
+
+.add-address {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border-radius: 12px;
+    background: var(--);
+    color: #fff;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.add-address i {
+    font-size: 16px;
+}
+
+.add-address:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(91,123,255,0.15);
+}
+
+/* Responsive */
+@media(max-width: 900px) {
+    .address-list, .add-address-parent {
+        width: 100%;
+    }
+    .address {
+        flex-direction: row-reverse; /* متن سمت راست، دایره سمت چپ */
+    }
 }
