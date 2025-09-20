@@ -30,9 +30,4 @@ class AddressRequest extends FormRequest
             'describtion' => 'nullable|string|max:255', 
         ];
     }
-
-    public function messages(): array
-    {
-        
-    }
 }
