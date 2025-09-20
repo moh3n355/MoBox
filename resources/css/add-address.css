@@ -1,101 +1,200 @@
-
-/* Container کلی */
+/* 🌟 کانتینر کلی */
 .container {
     width: 100%;
-    max-width: 600px;
+    max-width: 650px;
     margin: 40px auto;
-    background-color: #fdfdfd;
-    padding: 25px 30px;
-    border-radius: 16px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+    background: linear-gradient(145deg, #F9F7F7, #DBE2EF);
+    padding: 28px 32px;
+    border-radius: 20px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     transition: all 0.3s ease-in-out;
+    box-sizing: border-box;
 }
 
-/* نقشه */
+.container:hover {
+    transform: scale(1.01);
+    box-shadow: 0 16px 45px rgba(0, 0, 0, 0.18);
+}
+
+/* 🗺 نقشه */
 #map {
     width: 100%;
     height: 420px;
-    border-radius: 14px;
+    border-radius: 16px;
     margin-bottom: 20px;
-    border: 1px solid #ccc;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    border: 1px solid #3F72AF;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
     transition: transform 0.3s;
 }
 
 #map:hover {
-    transform: scale(1.02);
+    transform: scale(1.015);
 }
 
-.field-container{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-/* فرم */
+/* 📋 فرم */
 form {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 24px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
-/* برچسب‌ها */
+/* فیلدهای تکی تمام عرض */
+form .full-width {
+    grid-column: span 2;
+}
+
+/* 🏷 برچسب‌ها */
 form label {
     font-weight: 600;
     font-size: 15px;
     margin-bottom: 6px;
-    color: #333;
+    color: #112D4E;
+    display: block;
+    line-height: 1.4;
 }
 
-/* فیلدهای ورودی */
-form input[type="text"] {
+/* ✏️ فیلدهای ورودی */
+form input[type="text"],
+form textarea {
     width: 100%;
     padding: 12px 14px;
-    border-radius: 10px;
-    border: 1px solid #ddd;
+    border-radius: 12px;
+    border: 1px solid #3F72AF;
     font-size: 15px;
     transition: all 0.3s ease-in-out;
-    background-color: #fafafa;
+    background-color: #F9F7F7;
+    box-sizing: border-box;
 }
 
-form input[type="text"]:focus {
-    border-color: #4e9cff;
-    box-shadow: 0 0 8px rgba(78,156,255,0.3);
+form input[type="text"]:focus,
+form textarea:focus {
+    border-color: #112D4E;
+    box-shadow: 0 0 10px rgba(17, 45, 78, 0.35);
     outline: none;
     background-color: #fff;
 }
 
-/* دکمه‌ها */
-button, form button[type="submit"] {
-    padding: 13px 22px;
-    background: linear-gradient(135deg, #4e9cff, #3577d4);
+/* 🖊 فیلد textarea */
+form textarea {
+    resize: none;
+    min-height: 90px;
+}
+
+/* 🔘 دکمه‌ها */
+button,
+form button[type="submit"] {
+    padding: 14px 24px;
+    background: linear-gradient(135deg, #112D4E, #3F72AF);
     color: #fff;
     font-weight: 600;
     font-size: 15px;
     border: none;
-    border-radius: 10px;
+    border-radius: 12px;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+    white-space: nowrap;
 }
 
-button:hover, form button[type="submit"]:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+button:hover,
+form button[type="submit"]:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(135deg, #3F72AF, #112D4E);
 }
 
-/* دکمه پیدا کردن موقعیت با آیکون */
+/* 📍 دکمه پیدا کردن موقعیت */
 #findLocation {
+    grid-column: span 2;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
-    margin-bottom: 15px;
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, #3F72AF, #112D4E);
+    font-size: 15px;
+    color: #fff;
 }
 
-/* ریسپانسیو */
+#findLocation i {
+    font-size: 18px;
+}
+
+#findLocation:hover {
+    background: linear-gradient(135deg, #112D4E, #3F72AF);
+}
+
+/* 🔴 فیلد ضروری */
+.required {
+    color: #3F72AF;
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+/* 📱 رسپانسیو */
+
+/* تبلت */
+@media (max-width: 992px) {
+    .container {
+        max-width: 90%;
+        padding: 22px;
+    }
+}
+
+/* موبایل متوسط */
+@media (max-width: 768px) {
+    form {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    #findLocation,
+    form button[type="submit"] {
+        grid-column: span 1;
+        width: 100%;
+    }
+    #map {
+        height: 350px;
+    }
+}
+
+/* موبایل کوچک */
 @media (max-width: 480px) {
-    .container { padding: 20px; }
-    form input[type="text"], button, form button[type="submit"] { font-size: 14px; }
+    .container {
+        padding: 18px;
+        border-radius: 14px;
+    }
+    form input[type="text"],
+    form textarea,
+    button {
+        font-size: 14px;
+        padding: 10px 12px;
+    }
+    #findLocation {
+        font-size: 14px;
+        gap: 6px;
+    }
+    #findLocation i {
+        font-size: 16px;
+    }
+    #map {
+        height: 300px;
+    }
+}
+
+/* خیلی کوچک (320px) */
+@media (max-width: 360px) {
+    .container {
+        margin: 20px auto;
+        padding: 14px;
+    }
+    button {
+        font-size: 13px;
+        padding: 10px;
+    }
+    #map {
+        height: 260px;
+    }
 }
