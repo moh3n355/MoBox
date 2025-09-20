@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('email')->unique()->nullable();
             $table->string('phone')->unique();
             $table->string('userpassword');
-            $table->string('address')->nullable();
+            $table->json('address')->nullable();
             $table->enum('role', ['user', 'admin', 'owner'])->default('user');
             $table->timestamps();
             $table->charset = 'utf8mb4';
