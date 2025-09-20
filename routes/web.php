@@ -124,7 +124,7 @@ Route::get('/exit', function () {
 
 
 Route::get('/test', function (Request $request) {
-
+dd($request);
 })->name('test');
 
 
