@@ -34,19 +34,19 @@ class EditProfileController extends Controller
             $user->fullName = $request->input("fullName");
             $user->save();
         }
-        elseif($request->input("username") !== $user->username){
+        if($request->input("username") !== $user->username){
             $user->username = $request->input("username");
             $user->save();
         }
-        elseif($request->input("email") !== $user->email){
+        if($request->input("email") !== $user->email){
             $user->email = $request->input("email");
             $user->save();
         }
-        elseif($request->input("address") !== $user->address){
+        if($request->input("address") !== $user->address){
             $user->address = $request->input("address");
             $user->save();
         }
-        elseif($request->input("NwePassword") !== $user->userpassword){
+        if($request->input("NwePassword") !== $user->userpassword){
 
             if(Hash::check($request->input("OldPassword"), $user->userpassword)){
                 $user->userpassword = bcrypt($request->input("NwePassword"));
@@ -73,7 +73,7 @@ class EditProfileController extends Controller
         return redirect()->route('edit-profile')
                  ->with(['phonestatus' => 'شماره با موفقیت تقیر کرد']);
     }
-    
+
     public function UpdateAddress(Request $request)
     {
         $user = $this->ConnectToModels();
