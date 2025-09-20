@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 
     {{-- <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script> --}}
-    <!-- Leaflet CSS -->    
+    <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 
     <!-- Leaflet JS -->
@@ -88,17 +88,22 @@
                     <div class="address-list">
                         @foreach($addresses as $i => $address)
                             @if(!empty($address))
-                            <label class="address">
+                            <div class="address">
                                 <input type="radio" name="address" value="{{ $i }}">
                                 <span>
                                     {{ $address['city'] ?? '' }} -
                                     {{ $address['street'] ?? '' }} -
-                                    {{ $address['alley'] ?? '' }} - 
-                                    پلاک: {{ $address['plaque'] ?? '' }} 
+                                    {{ $address['alley'] ?? '' }} -
+                                    پلاک: {{ $address['plaque'] ?? '' }}
                                     طبقه: {{ $address['floor'] ?? '' }}
                                     @if(!empty($address['describtion'])) - {{ $address['describtion'] }} @endif
                                 </span>
-                            </label>
+
+                                <div class="delete-address">
+                                   <a href=""><i class="fas fa-trash-alt"></i></a>
+                                </div>
+
+                        </div>
                             @endif
                         @endforeach
                     </div>

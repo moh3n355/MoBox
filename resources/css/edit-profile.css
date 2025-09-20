@@ -346,6 +346,22 @@ textarea {
     box-shadow: 0 6px 18px rgba(91,123,255,0.15);
 }
 
+.delete-address {
+    cursor: pointer;
+    color: red;
+    font-size: 18px;
+    transition: 0.2s;
+}
+
+.delete-address:hover {
+    color: darkred;
+    transform: scale(1.5);
+}
+
+.delete-address a{
+    text-decoration: none;
+    color: red;
+}
 /* Responsive */
 @media(max-width: 900px) {
     .address-list, .add-address-parent {
