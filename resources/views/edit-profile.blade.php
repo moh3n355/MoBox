@@ -72,7 +72,11 @@
                         <div class="phone-edit">
                             <a href="{{ route('edit-phone') }}">ویرایش</a>
                             <p id="phone" type="tel">{{ auth()->user()->phone }}</p>
-
+                            @if(session('phonestatus'))
+                                <div class="alert alert-success" style="color: red">
+                                    {{ session('phonestatus') }}
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -83,6 +87,7 @@
                     </label>
                     <div class="address-list">
                         @foreach($addresses as $i => $address)
+                            @if(!empty($address))
                             <label class="address">
                                 <input type="radio" name="address" value="{{ $i }}">
                                 <span>
@@ -94,6 +99,7 @@
                                     @if(!empty($address['describtion'])) - {{ $address['describtion'] }} @endif
                                 </span>
                             </label>
+                            @endif
                         @endforeach
                     </div>
 
@@ -103,6 +109,11 @@
                             <i class="fas fa-circle-plus"></i>
                         </a>
                     </div>
+                    @if(session('addressstatus'))
+                        <div class="alert alert-success" style="color: red">
+                            {{ session('addressstatus') }}
+                        </div>
+                    @endif
                 </div>
 
                 {{-- <div id="map" style="height:300px; width: 400px;"></div>

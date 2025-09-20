@@ -71,25 +71,51 @@ class EditProfileController extends Controller
         $user->save();
 
         return redirect()->route('edit-profile')
-                 ->withErrors(['phoen' => 'شماره با موفقیت تقیر کرد']);
+                 ->with(['phonestatus' => 'شماره با موفقیت تقیر کرد']);
     }
-
-    public function UpdateAddress(Request $request){
+    
+    public function UpdateAddress(Request $request)
+    {
         $user = $this->ConnectToModels();
 
-        $user->address = [
-        'city'        => $request->input('city'),
-        'street'      => $request->input('street'),
-        'alley'       => $request->input('alley'),
-        'plaque'      => $request->input('plaque'),
-        'floor'      => $request->input('floor'),
-        'describtion' => $request->input('describtion'),
+        $addresses = json_decode($user->address, true);
+
+        // dd($addresses);
+        $newAddress = [
+            'city'        => $request->input('city'),
+            'street'      => $request->input('street'),
+            'alley'       => $request->input('alley'),
+            'plaque'      => $request->input('plaque'),
+            'floor'       => $request->input('floor'),
+            'describtion' => $request->input('describtion'),
         ];
 
+        $added = false;
+        for($i = 0; $i < 3; $i++){
+            if(empty($addresses[$i])){
+                $addresses[$i] = $newAddress;
+                $added = true;
+                break;
+            }
+        }
+
+        if(!$added){
+            return redirect()->route('edit-profile')
+            ->with('addressstatus', 'نمی‌توانید بیشتر از ۳ آدرس اضافه کنید.');
+        }
+
+        $user->address = $addresses;
         $user->save();
 
         return redirect()->route('edit-profile')
-        ->withErrors(['phoen' => 'شماره با موفقیت تقیر کرد']);
+        ->with('addressstatus', 'آدرس با موفقیت تغییر کرد.');
+    }
+
+    public function DeleteAddress($index){
+        $user = $this->ConnectToModels();
+
+        $user->address[$index] = null;
+        return redirect()->route('edit-profile');
     }
 }
 

@@ -130,4 +130,7 @@ Route::get('/add-address', function () {
 Route::POST('/verify/address', [EditProfileController::class, 'UpdateAddress']
 )->name('verify-addresa');
 
+Route::get('/delete/address/{$index}', [EditProfileController::class,'DeleteAddress']
+)->name('DeleteAddress');
+
 
