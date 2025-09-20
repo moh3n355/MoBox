@@ -123,11 +123,6 @@ Route::get('/exit', function () {
 })->name('exit');
 
 
-Route::get('/test', function (Request $request) {
-dd($request);
-})->name('test');
-
-
 Route::get('/add-address', function () {
     return view(view: 'address');
 })->name('add-address');
