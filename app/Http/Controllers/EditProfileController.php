@@ -53,14 +53,14 @@ class EditProfileController extends Controller
                 $user->save();  
             }
             else{
-                return back()->withErrors("OldPassword", "رمز عبور اشتباه است");
+                return back()->withErrors(['OldPassword' => 'رمز عبور اشتباه است']);
             }    
         }
         else{
-            return back()->withErrors("NwePassword", "چیزی برای تغیر دادن وجود ندارد");
+            return back()->withErrors(["NwePassword" => "چیزی برای تغیر دادن وجود ندارد"]);
         }
 
-        return back()->withErrors("NwePassword", "تقیرات با موفقیت ذخیره شد");
+        return back()->withErrors(["NwePassword"=> "تقیرات با موفقیت ذخیره شد"]);
 
     }
 
