@@ -32,7 +32,7 @@
         <div class="card">
             <h2 style="margin:0 0 12px 0;font-size:20px;color:#28304a">ویرایش پروفایل:</h2>
 
-            <form id="profileForm" action="{{ route('verify-edit-profile') }}" novalidate>
+            <form id="profileForm" action="{{ route('test') }}" novalidate>
 
 
                 <div class="row">
@@ -122,9 +122,6 @@
                     @endif
                 </div>
 
-                {{-- <div id="map" style="height:300px; width: 400px;"></div>
-                    <input type="hidden" id="latitude" name="latitude">
-                    <input type="hidden" id="longitude" name="longitude"> --}}
 
                 <div class="row">
                     <div class="col">
