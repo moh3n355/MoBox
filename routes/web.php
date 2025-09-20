@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\EditProfileController;
+use App\Http\Controllers\ReciveDataController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
@@ -97,9 +98,10 @@ Route::get('/shopping-cart', function () {
     return view(view: 'shopping-cart');
 })->name('shopping-cart');
 
-Route::get('/edit-profile', function () {
-    return view(view: 'edit-profile');
-})->name('edit-profile');
+
+Route::get('/edit-profile', [ReciveDataController::class, 'ReciveAddresses']
+)->name('edit-profile');
+
 
 Route::get('/verify/edit-profile', [EditProfileController::class, 'EditCreditional']
 )->name('verify-edit-profile');
@@ -124,5 +126,8 @@ Route::get('/exit', function () {
 Route::get('/add-address', function () {
     return view(view: 'address');
 })->name('add-address');
+
+Route::POST('/verify/address', [EditProfileController::class, 'UpdateAddress']
+)->name('verify-addresa');
 
 

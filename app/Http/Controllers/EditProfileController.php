@@ -73,5 +73,23 @@ class EditProfileController extends Controller
         return redirect()->route('edit-profile')
                  ->withErrors(['phoen' => 'شماره با موفقیت تقیر کرد']);
     }
+
+    public function UpdateAddress(Request $request){
+        $user = $this->ConnectToModels();
+
+        $user->address = [
+        'city'        => $request->input('city'),
+        'street'      => $request->input('street'),
+        'alley'       => $request->input('alley'),
+        'plaque'      => $request->input('plaque'),
+        'floor'      => $request->input('floor'),
+        'describtion' => $request->input('describtion'),
+        ];
+
+        $user->save();
+
+        return redirect()->route('edit-profile')
+        ->withErrors(['phoen' => 'شماره با موفقیت تقیر کرد']);
+    }
 }
 

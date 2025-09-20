@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 
     {{-- <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script> --}}
-    <!-- Leaflet CSS -->
+    <!-- Leaflet CSS -->    
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 
     <!-- Leaflet JS -->
@@ -82,21 +82,19 @@
                         <i class="fas fa-map-marker-alt"></i> آدرس های من:
                     </label>
                     <div class="address-list">
-
-                        <label class="address">
-                            <input type="radio" name="address" value="ghasemabad">
-                            <span>مشهد ـ قاسم آباد ـ بلوار شاهد</span>
-                        </label>
-
-                        <label class="address">
-                            <input type="radio" name="address" value="rahahan">
-                            <span>مشهد ـ راه آهن ـ بلوار شهید هاشمی نژاد ـ خفت گاه</span>
-                        </label>
-
-                        <label class="address">
-                            <input type="radio" name="address" value="other">
-                            <span>آدرس دیگر</span>
-                        </label>
+                        @foreach($addresses as $i => $address)
+                            <label class="address">
+                                <input type="radio" name="address" value="{{ $i }}">
+                                <span>
+                                    {{ $address['city'] ?? '' }} -
+                                    {{ $address['street'] ?? '' }} -
+                                    {{ $address['alley'] ?? '' }} - 
+                                    پلاک: {{ $address['plaque'] ?? '' }} 
+                                    طبقه: {{ $address['floor'] ?? '' }}
+                                    @if(!empty($address['describtion'])) - {{ $address['describtion'] }} @endif
+                                </span>
+                            </label>
+                        @endforeach
                     </div>
 
                     <div class="add-address-parent">

@@ -24,7 +24,7 @@
             <span style="font-size:16px;">📍</span> پیدا کردن موقعیت من
         </button>
 
-        <form id="addressForm" method="POST" action="">
+        <form id="addressForm" method="POST" action="/verify/address">
             @csrf
             <div class="field-container">
 
@@ -47,7 +47,7 @@
             </div>
             <div>
                 <label>طبقه:</label>
-                <input type="text" name="floor" id=" floor" class="form-control">
+                <input type="text" name="floor" id="floor" class="form-control">
             </div>
             <div>
                 <label>توضیحات:</label>
