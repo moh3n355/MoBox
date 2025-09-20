@@ -72,12 +72,13 @@
                         <div class="phone-edit">
                             <a href="{{ route('edit-phone') }}">ویرایش</a>
                             <p id="phone" type="tel">{{ auth()->user()->phone }}</p>
-                            @if(session('phonestatus'))
-                                <div class="alert alert-success" style="color: red">
-                                    {{ session('phonestatus') }}
-                                </div>
-                            @endif
+
                         </div>
+                        @if(session('phonestatus'))
+                        <div class="success-field">
+                            {{ session('phonestatus') }}
+                        </div>
+                    @endif
                     </div>
                 </div>
 
@@ -115,7 +116,7 @@
                         </a>
                     </div>
                     @if(session('addressstatus'))
-                        <div class="alert alert-success" style="color: red">
+                        <div class="success-field">
                             {{ session('addressstatus') }}
                         </div>
                     @endif

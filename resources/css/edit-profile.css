@@ -252,6 +252,20 @@ textarea {
     font-weight: 700;
     font-size: 1rem;
 }
+.success-field {
+    border: 2px solid #28a745;   /* سبز Bootstrap */
+    background-color: #e9f9ef;   /* سبز خیلی روشن */
+    border-radius: 6px;
+    padding: 6px 10px;
+    transition: 0.3s;
+}
+
+.success-field:focus {
+    border-color: #218838;       /* سبز تیره‌تر */
+    box-shadow: 0 0 6px rgba(40, 167, 69, 0.5);
+    outline: none;
+}
+
 /* ----------- ADDRESS ----------- */
 .address-list {
     display: flex;
