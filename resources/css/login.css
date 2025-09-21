@@ -121,21 +121,31 @@ header h2 {
     margin-top: 0.3125rem; /* 5px */
     display: none;
 }
-
 .submit-btn {
+    display: inline-block; /* یا block */
     width: 100%;
-    padding: 0.75rem; /* 12px */
+    max-width: 100%; /* برای جلوگیری از overflow */
+    padding: 0.75rem 1rem;
     background-color: var(--color-primary);
     color: #fff;
     border: none;
-    border-radius: 0.3125rem; /* 5px */
-    font-size: 1rem; /* 16px */
+    border-radius: 0.3125rem;
+    font-size: 1rem;
+    text-align: center;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.2s;
 }
 
 .submit-btn:hover {
     background-color: var(--color-primary-hover);
+    transform: scale(1.02); /* کمی بزرگ شود بدون بهم ریختن */
+}
+
+@media (max-width: 480px) {
+    .submit-btn {
+        font-size: 0.875rem; /* کوچکتر روی موبایل */
+        padding: 0.65rem 0.8rem;
+    }
 }
 
 
