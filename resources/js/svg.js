@@ -3,10 +3,9 @@ const rightEye = document.querySelector('#rightEye');
 const wrapper = document.getElementById('wrapper');
 const usernameField = document.getElementById('username');
 const face = document.getElementById('face');
-const passwordField = document.getElementById('password')
-const rightHand = document.getElementById('rightHand')
-const lefttHand = document.getElementById('lefttHand')
-
+const passwordField = document.getElementById('password');
+const mouth = document.querySelector('#face path');
+const screen = document.querySelector('#phoneGroup rect:nth-child(2)');
 // چشمک زدن
 function blink() {
     [leftEye, rightEye].forEach(eye => {
@@ -46,10 +45,27 @@ usernameField.addEventListener('blur', () => wrapper.classList.remove('focus'));
 passwordField.addEventListener('focus',() => wrapper.classList.add('focus'))
 passwordField.addEventListener('blur',() => wrapper.classList.remove('focus'))
 
-//hands
-usernameField.addEventListener('focus', () => rightHand.classList.add('focus'));
-usernameField.addEventListener('blur', () => rightHand.classList.remove('focus'));
 
-passwordField.addEventListener('focus',() => lefttHand.classList.add('focus'))
-passwordField.addEventListener('blur',() => lefttHand.classList.remove('focus'))
+//close eyes
 
+passwordField.addEventListener('focus', () => {
+    // چشم‌ها رو تبدیل به خطوط کنیم
+    leftEye.setAttribute('r', '0'); // دایره کوچک می‌کنیم یا می‌تونی hide کنی
+    rightEye.setAttribute('r', '0');
+
+    // خطوط جدید روی جای چشم‌ها اضافه می‌کنیم
+    leftEye.insertAdjacentHTML('afterend', '<line id="leftEyeLine" x1="80" y1="110" x2="100" y2="110" stroke="#fff" stroke-width="6" stroke-linecap="round"/>');
+    rightEye.insertAdjacentHTML('afterend', '<line id="rightEyeLine" x1="135" y1="110" x2="155" y2="110" stroke="#fff" stroke-width="6" stroke-linecap="round"/>');
+  });
+
+  passwordField.addEventListener('blur', () => {
+    // چشم‌ها رو دوباره دایره می‌کنیم
+    leftEye.setAttribute('r', '10');
+    rightEye.setAttribute('r', '10');
+
+    // خطوط چشم‌ها رو پاک می‌کنیم
+    const leftLine = document.getElementById('leftEyeLine');
+    const rightLine = document.getElementById('rightEyeLine');
+    if(leftLine) leftLine.remove();
+    if(rightLine) rightLine.remove();
+  });

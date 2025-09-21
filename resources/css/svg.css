@@ -1,61 +1,88 @@
-
-svg {
+.login-wrapper svg {
+    width: 100%;
+    height: auto;
+    display: block;
     position: absolute;
     z-index: 0;
-    bottom: 10rem;
-    right: 20em;
-    transform: translateX(-50%);
-    width: 18.75rem;
-    height: auto;
+    top: 25%;
+    left: 57.2%;
+    max-width: 18%;
     transition: transform 0.4s ease;
 }
 
 /* حالت عادی گوشی */
 #phoneGroup {
-    transform: translate(2.1875rem, 1.25rem) rotate(0deg);
+    transform: translate(4%, 3%) rotate(0deg);
     transform-origin: center;
     transform-box: fill-box;
     transition: transform 0.4s ease;
 }
 
 #face {
-    transform: translate(2.1875rem, 1.25rem) rotate(0deg);
+    transform: translate(4%, 10%) rotate(0deg);
     transform-origin: center;
     transform-box: fill-box;
     transition: transform 0.4s ease;
 }
 
+#rightHand {
+    transform: translate(0, 0) rotate(25deg);
+    transition: all 0.5s ease;
+}
+
+#leftHand {
+    transform: translate(0, 0) rotate(25deg);
+    transition: all 0.5s ease;
+}
+
+#righLeg {
+    transform: translate(0, 0) rotate(0);
+    transition: all 1s ease;
+}
+
+#leftLeg {
+    transform: translate(0, 0) rotate(0);
+    transition: all 0.5s ease;
+}
+
 /* وقتی روی input فوکوس است */
 .focus #phoneGroup {
-    transform: translate(17.4375rem, 1.25rem) rotate(23deg);
-    /* 55px, 20px */
+    transform: translate(110%, 10%) rotate(23deg);
 }
 
 .focus #face {
-    transform: translate(16.8375rem, 1.25rem) rotate(25deg);
-    /* 55px, 20px */
-    transition: all 0.5s ease;
+    transform: translate(350%, 60%) rotate(23deg);
 }
 
-
-
- #rightHand {
-     transform: translate(0, 0) rotate(25deg);
-    /* 55px, 20px */
-    transition: all 0.5s ease;
-}
- #leftHand {
-    transform: translate(0, 0) rotate(25deg);
-    /* 55px, 20px */
-    transition: all 0.5s ease;
-}
 .focus #rightHand {
-    transform: translate(20.2rem, -2rem) rotate(35deg);
-    transition: all 0.4s ease;
-}
-.focus #leftHand {
-    z-index: 5;
-    transform: translate(22.4375rem, -8rem) rotate(40deg);
-    transition: all 0.1s ease;
+    transform: translate(60%, -5%) rotate(32deg);
 }
 
+.focus #leftHand {
+    transform: translate(63%, -10%) rotate(40deg);
+}
+
+.focus #rightLeg {
+    transform: translate(32%, 6%) rotate(0deg);
+}
+
+/* .focus #leftLeg {
+    z-index: 5;
+    transform: translate(45%, -10%) rotate(40deg);
+    transition: all 0.1s ease;
+} */
+
+/* ریسپانسیو موبایل */
+@media (max-width: 480px) {
+    .login-wrapper svg {
+        top: 25vh;
+        max-width: 90%;
+    }
+
+    .focus #phoneGroup,
+    .focus #face,
+    .focus #rightHand,
+    .focus #leftHand {
+        transform: translate(calc(var(--x, 0)), calc(var(--y, 0))) rotate(var(--rotate, 0deg));
+    }
+}

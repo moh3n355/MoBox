@@ -6,8 +6,11 @@
     <meta charset="UTF-8">
     <title>ورود</title>
     @vite(['resources/css/login.css', 'resources/js/login.js'])
+    @vite(['resources/css/svg.css', 'resources/js/svg.js'])
+
 </head>
 <body>
+
 <div class="container">
     <header>
         <img src="/images/logo-mobbox3.png" alt="">
@@ -47,7 +50,13 @@
                 ورود شما به معنای پذیرش شرایط و قوانین حریم خصوصی است
             </div>
         </form>
+
     </main>
+
+
 </div>
+
+<x-svg></x-svg>
 </body>
+
 </html>
