@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('email')->unique()->nullable();
             $table->string('phone')->unique();
             $table->string('userpassword');
+            $table->integer('SelectedAddress')->default(0);
             $table->json('address')->default(json_encode([null, null, null]))->nullable();
             $table->enum('role', ['user', 'admin', 'owner'])->default('user');
             $table->timestamps();

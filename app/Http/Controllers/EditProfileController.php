@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AddressRequest;
 use App\Http\Requests\EditProfileRequest;
 use App\Models\PutData;
 use Illuminate\Http\Request;
@@ -27,41 +28,47 @@ class EditProfileController extends Controller
     }
 
     public function EditCreditional(EditProfileRequest $request){
-
         $user= $this->ConnectToModels();
+
+        $change = false;
         
         if($request->input("fullName") !== $user->fullName){
             $user->fullName = $request->input("fullName");
             $user->save();
+            $change = true;
         }
         if($request->input("username") !== $user->username){
             $user->username = $request->input("username");
             $user->save();
+            $change = true;
         }
         if($request->input("email") !== $user->email){
             $user->email = $request->input("email");
             $user->save();
-        }
-        if($request->input("address") !== $user->address){
-            $user->address = $request->input("address");
+            $change = true;
+        }   
+        if($request->input("address") !== $user->SelectAddress){
+            $user->SelectedAddress = $request->input("address");
             $user->save();
+            $change = true;
         }
-        if($request->input("NwePassword") !== $user->userpassword){
+        if($request->input("NwePassword") !== $user->userpassword && !empty($request->input("NwePassword"))){
 
             if(Hash::check($request->input("OldPassword"), $user->userpassword)){
                 $user->userpassword = bcrypt($request->input("NwePassword"));
                 $user->save();  
+                $change = true;
             }
             else{
                 return back()->withErrors(['OldPassword' => 'رمز عبور اشتباه است']);
             }    
         }
-        else{
+        if($change !== true){
             return back()->withErrors(["NwePassword" => "چیزی برای تغیر دادن وجود ندارد"]);
         }
-
-        return back()->withErrors(["NwePassword"=> "تقیرات با موفقیت ذخیره شد"]);
-
+        else{
+            return back()->withErrors(["NwePassword"=> "تقیرات با موفقیت ذخیره شد"]);
+        }
     }
 
     public function UpdatePhone(Request $request){
@@ -74,13 +81,12 @@ class EditProfileController extends Controller
                  ->with(['phonestatus' => 'شماره با موفقیت تقیر کرد']);
     }
 
-    public function UpdateAddress(Request $request)
+    public function UpdateAddress(AddressRequest $request)
     {
         $user = $this->ConnectToModels();
 
         $addresses = json_decode($user->address, true);
 
-        // dd($addresses);
         $newAddress = [
             'city'        => $request->input('city'),
             'street'      => $request->input('street'),
@@ -93,6 +99,7 @@ class EditProfileController extends Controller
         $added = false;
         for($i = 0; $i < 3; $i++){
             if(empty($addresses[$i])){
+                $user->SelectedAddress = $i;
                 $addresses[$i] = $newAddress;
                 $added = true;
                 break;
@@ -114,7 +121,22 @@ class EditProfileController extends Controller
     public function DeleteAddress($index){
         $user = $this->ConnectToModels();
 
-        $user->address[$index] = null;
+        $addresses = json_decode($user->address, true);
+        $addresses[$index] = null;
+
+        $user->address = $addresses;
+
+        if($user->SelectedAddress == $index){
+            for($i = 0; $i < 3; $i++){
+                if(!empty($user->address[$i])){
+                    $user->SelectedAddress = $i;
+                    break;
+                }
+            }
+        }
+
+        $user->save();
+
         return redirect()->route('edit-profile');
     }
 }

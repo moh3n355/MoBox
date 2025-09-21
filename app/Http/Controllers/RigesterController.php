@@ -31,7 +31,7 @@ class RigesterController extends Controller
             }
 
             // سایر خطاها
-            dd($e);
+            dd(vars: $e);
         }
 
     }

@@ -18,6 +18,6 @@ class ReciveDataController extends Controller
         $addresses = [];
     }
 
-    return view('edit-profile', compact('addresses'));
+        return view('edit-profile', compact('addresses'));
     }
 }
