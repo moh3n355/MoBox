@@ -90,7 +90,8 @@
                         @foreach($addresses as $i => $address)
                             @if(!empty($address))
                             <div class="address">
-                                <input type="radio" name="address" value="{{ $i }}">
+                                <input type="radio" name="address" value="{{ $i }}"
+                                {{ auth()->user()->SelectedAddress == $i ? 'checked' : '' }}>
                                 <span>
                                     {{ $address['city'] ?? '' }} -
                                     {{ $address['street'] ?? '' }} -

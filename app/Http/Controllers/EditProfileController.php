@@ -98,6 +98,7 @@ class EditProfileController extends Controller
         $added = false;
         for($i = 0; $i < 3; $i++){
             if(empty($addresses[$i])){
+                $user->SelectedAddress = $i;
                 $addresses[$i] = $newAddress;
                 $added = true;
                 break;
