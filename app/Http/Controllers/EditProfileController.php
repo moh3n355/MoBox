@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AddressRequest;
 use App\Http\Requests\EditProfileRequest;
 use App\Models\PutData;
 use Illuminate\Http\Request;
@@ -27,9 +28,9 @@ class EditProfileController extends Controller
     }
 
     public function EditCreditional(EditProfileRequest $request){
-        dd($request->input("address"));
-
         $user= $this->ConnectToModels();
+
+        $change = false;
         
         if($request->input("fullName") !== $user->fullName){
             $user->fullName = $request->input("fullName");
@@ -45,9 +46,9 @@ class EditProfileController extends Controller
             $user->email = $request->input("email");
             $user->save();
             $change = true;
-        }
-        if($request->input("address") !== $user->address){
-            $user->address = $request->input("address");
+        }   
+        if($request->input("address") !== $user->SelectAddress){
+            $user->SelectedAddress = $request->input("address");
             $user->save();
             $change = true;
         }
@@ -80,7 +81,7 @@ class EditProfileController extends Controller
                  ->with(['phonestatus' => 'شماره با موفقیت تقیر کرد']);
     }
 
-    public function UpdateAddress(Request $request)
+    public function UpdateAddress(AddressRequest $request)
     {
         $user = $this->ConnectToModels();
 
@@ -120,7 +121,22 @@ class EditProfileController extends Controller
     public function DeleteAddress($index){
         $user = $this->ConnectToModels();
 
-        $user->address[$index] = null;
+        $addresses = json_decode($user->address, true);
+        $addresses[$index] = null;
+
+        $user->address = $addresses;
+
+        if($user->SelectedAddress == $index){
+            for($i = 0; $i < 3; $i++){
+                if(!empty($user->address[$i])){
+                    $user->SelectedAddress = $i;
+                    break;
+                }
+            }
+        }
+
+        $user->save();
+
         return redirect()->route('edit-profile');
     }
 }

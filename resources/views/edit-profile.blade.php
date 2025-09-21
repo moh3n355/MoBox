@@ -87,6 +87,9 @@
                         <i class="fas fa-map-marker-alt"></i> آدرس های من:
                     </label>
                     <div class="address-list">
+                        @php
+                            // dd(auth()->user()->SelectedAddress);
+                        @endphp
                         @foreach($addresses as $i => $address)
                             @if(!empty($address))
                             <div class="address">
@@ -102,7 +105,7 @@
                                 </span>
 
                                 <div class="delete-address">
-                                   <a href=""><i class="fas fa-trash-alt"></i></a>
+                                   <a href="{{ route('DeleteAddress', ['index' => $i]) }}"><i class="fas fa-trash-alt"></i></a>
                                 </div>
 
                         </div>
