@@ -1,4 +1,4 @@
-@include('auth.verify')
+@include('auth.login')
 
 {{-- <x-auth-form type="show-password">
 

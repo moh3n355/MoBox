@@ -36,7 +36,7 @@
                 @enderror
             </div>
 
-            <button type="submit" class="login-btn">ورود</button>
+            <button type="submit" class="submit-btn">ورود</button>
 
             <div class="register-forgetpass">
                 <a href="{{ route('auth.dynamic', ['type' => 'register']) }}">ثبت‌نام</a>

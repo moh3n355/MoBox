@@ -27,7 +27,7 @@
                 @enderror
             </div>
 
-            <button type="submit" class="login-btn">شماره تلفن خود را وارد کنید</button>
+            <button type="submit" class="submit-btn">ثبت نام</button>
 
             <div class="register-forgetpass">
                 <a href="{{ route('auth.dynamic', ['type' => 'login']) }}">ورود</a>

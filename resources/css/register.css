@@ -122,7 +122,7 @@ header h2 {
   display: none;
 }
 
-.login-btn {
+.submit-btn {
   width: 100%;
   padding: 12px;
   background-color: var(--color-primary);
@@ -134,18 +134,8 @@ header h2 {
   transition: background-color 0.3s;
 }
 
-.login-btn:hover {
+.submit-btn:hover {
   background-color: var(--color-primary-hover);
-}
-
-.login-email {
-  color: var(--color-primary-hover);
-  margin-top: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  /* text-shadow: 1px 1px 20px #000000; */
 }
 
 .register-forgetpass {
