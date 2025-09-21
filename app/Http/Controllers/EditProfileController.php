@@ -27,41 +27,47 @@ class EditProfileController extends Controller
     }
 
     public function EditCreditional(EditProfileRequest $request){
+        dd($request->input("address"));
 
         $user= $this->ConnectToModels();
         
         if($request->input("fullName") !== $user->fullName){
             $user->fullName = $request->input("fullName");
             $user->save();
+            $change = true;
         }
         if($request->input("username") !== $user->username){
             $user->username = $request->input("username");
             $user->save();
+            $change = true;
         }
         if($request->input("email") !== $user->email){
             $user->email = $request->input("email");
             $user->save();
+            $change = true;
         }
         if($request->input("address") !== $user->address){
             $user->address = $request->input("address");
             $user->save();
+            $change = true;
         }
-        if($request->input("NwePassword") !== $user->userpassword){
+        if($request->input("NwePassword") !== $user->userpassword && !empty($request->input("NwePassword"))){
 
             if(Hash::check($request->input("OldPassword"), $user->userpassword)){
                 $user->userpassword = bcrypt($request->input("NwePassword"));
                 $user->save();  
+                $change = true;
             }
             else{
                 return back()->withErrors(['OldPassword' => 'رمز عبور اشتباه است']);
             }    
         }
-        else{
+        if($change !== true){
             return back()->withErrors(["NwePassword" => "چیزی برای تغیر دادن وجود ندارد"]);
         }
-
-        return back()->withErrors(["NwePassword"=> "تقیرات با موفقیت ذخیره شد"]);
-
+        else{
+            return back()->withErrors(["NwePassword"=> "تقیرات با موفقیت ذخیره شد"]);
+        }
     }
 
     public function UpdatePhone(Request $request){
@@ -80,7 +86,6 @@ class EditProfileController extends Controller
 
         $addresses = json_decode($user->address, true);
 
-        // dd($addresses);
         $newAddress = [
             'city'        => $request->input('city'),
             'street'      => $request->input('street'),
