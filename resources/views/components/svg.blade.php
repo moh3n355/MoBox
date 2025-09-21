@@ -36,23 +36,23 @@
             <ellipse cx="143" cy="390" rx="22" ry="8" fill="#fff" stroke="#222"
                 stroke-width="2" />
         </g>
-    </svg>
-
 
     {{-- hands --}}
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 450">
-        <g id="hands" transform="translate(35,20)">
-            <g id="leftHand" transform="translate(35,20)">
-                <path d="M0 150 Q-25 170 -8 185" stroke="#222" stroke-width="8" stroke-linecap="round"
-                    fill="none" />
-                <circle cx="-8" cy="185" r="12" fill="#fff" stroke="#222" stroke-width="2" />
+
+            <g id="hands" transform="translate(35,20)">
+                <g id="leftHand" transform="translate(35,20)">
+                    <path d="M0 150 Q-25 170 -8 185" stroke="#222" stroke-width="8" stroke-linecap="round"
+                        fill="none" />
+                    <circle cx="-8" cy="185" r="12" fill="#fff" stroke="#222" stroke-width="2" />
+                </g>
+                <g id="rightHand" transform="translate(-5,20)">
+                    <path d="M230 150 Q255 170 238 185" stroke="#222" stroke-width="8" stroke-linecap="round"
+                        fill="none" />
+                    <circle cx="238" cy="185" r="12" fill="#fff" stroke="#222" stroke-width="2" />
+                </g>
             </g>
-            <g id="rightHand" transform="translate(-5,20)">
-                <path d="M230 150 Q255 170 238 185" stroke="#222" stroke-width="8" stroke-linecap="round"
-                    fill="none" />
-                <circle cx="238" cy="185" r="12" fill="#fff" stroke="#222" stroke-width="2" />
-            </g>
-        </g>
+
     </svg>
+
 
 </div>
