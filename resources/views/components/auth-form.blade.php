@@ -1,6 +1,6 @@
 <div>
     @php
-        $lastPart = basename(parse_url(url()->previous(), PHP_URL_PATH));
+        // $lastPart = basename(parse_url(url()->previous(), PHP_URL_PATH));
     @endphp
 
     {{-- فایل‌های CSS/JS متناسب با نوع فرم --}}
@@ -28,9 +28,9 @@
         @vite(['resources/css/set-username-password.css', 'resources/js/set-username-password.js'])
     @elseif ($type === 'show-password')
         @php
-            if ($lastPart !== 'verify') {
-                return redirect()->route('home');
-            }
+            // if ($lastPart !== 'verify') {
+            //     return redirect()->route('home');
+            // }
         @endphp
 
         @vite(['resources/css/show-password.css', 'resources/js/show-password.js'])
@@ -190,7 +190,7 @@
                         <div class="container-info">
                             <div class="show-username">
 
-                                <div class="serverText">Username:  {{ session(key: 'UserName') }}</div>
+                                <div class="serverText">Username: {{ session(key: 'UserName') }}</div>
 
                             </div>
 
@@ -214,7 +214,7 @@
 
                 {{-- دکمه تایید --}}
                 @if ($type === 'show-password')
-                    <a href="{{ route('auth.dynamic', ['type' => 'login']) }}" class="login-btn">
+                    <a href="{{ route('auth.dynamic', ['type' => 'login']) }}" class="submit-btn">
                         برگشت به صفحه ورود
                     </a>
                 @else

@@ -24,7 +24,7 @@ Route::group(['prefix' => 'auth'], function () {
             'forgot'   => 'forgot',
             'verify'   => 'verify',
             'set-username-password'=> 'set-username-password',
-            'show-password' => 'show-password',
+            'show-password' => 'show-username-password',
         ];
 
         if (! array_key_exists($type, $allowed)) {
