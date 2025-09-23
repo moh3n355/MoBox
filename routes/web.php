@@ -97,3 +97,6 @@ Route::get('/shopping-cart', function () {
 })->name('shopping-cart');
 
 
+Route::get('/test', function () {
+    return view(view: 'test');
+})->name('shopping-cart');
