@@ -60,12 +60,6 @@
       gap: 15px;
       margin-bottom: 16px;
     }
-    .info-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr auto;
-      gap: 10px;
-      margin-bottom: 8px;
-    }
     .btn {
       padding: 10px 18px;
       border: none;
@@ -86,18 +80,6 @@
       background: #ef4444;
       color: white;
     }
-    .btn-outline {
-      background: transparent;
-      border: 2px dashed #6366f1;
-      color: #6366f1;
-    }
-    .error {
-      border-color: #ef4444 !important;
-    }
-    .small {
-      font-size: 13px;
-      color: #6b7280;
-    }
     #preview {
       display: flex;
       gap: 10px;
@@ -117,42 +99,57 @@
   <div class="card">
     <h2>افزودن محصول جدید</h2>
 
-    <form id="productForm" method="POST" action="" enctype="multipart/form-data">
+    <form id="productForm" method="POST" action="{{ route('ResumeAddProudact') }}" enctype="multipart/form-data">
       @csrf
 
+      {{-- فیلدهای ثابت --}}
       <div style="margin-bottom:16px">
         <label for="name">نام محصول</label>
-        <input type="text" name="name" id="name" required maxlength="255" />
+        <input type="text" id="name" name="name" required />
       </div>
 
       <div style="margin-bottom:16px">
-        <label>اطلاعات محصول (کلید / مقدار)</label>
-        <div id="infosContainer"></div>
-        <div style="margin-top:10px">
-          <button type="button" id="addInfoBtn" class="btn btn-outline">+ افزودن مشخصه</button>
-          <span class="small">مثال: {"رنگ":"قرمز","وزن":"200g"}</span>
-        </div>
-        <input type="hidden" name="informations" id="informations" />
+        <label for="brand">برند</label>
+        <input type="text" id="brand" name="brand" required />
+      </div>
+
+      <div style="margin-bottom:16px">
+        <label for="categoery">دسته‌بندی</label>
+        <input type="text" id="categoery" name="categoery" required />
       </div>
 
       <div class="row">
         <div>
           <label for="quantity">موجودی</label>
-          <input type="number" name="quantity" id="quantity" min="0" value="0" required />
+          <input type="number" id="quantity" name="quantity" min="0" value="0" required />
         </div>
         <div>
           <label for="price">قیمت</label>
-          <input type="number" name="price" id="price" min="0" value="0" required />
+          <input type="number" id="price" name="price" min="0" value="0" required />
         </div>
         <div>
           <label for="discount">تخفیف (%)</label>
-          <input type="number" name="discount" id="discount" min="0" max="100" placeholder="مثلاً 10" />
+          <input type="number" id="discount" name="discount" min="0" max="100" placeholder="مثلاً 10" />
         </div>
+      </div>
+
+      {{-- کلیدهای داینامیک از config --}}
+      <h3 style="margin:20px 0 10px">مشخصات فنی</h3>
+      @php
+        $extraKeys = config('LaptopInformationKeys');
+      @endphp
+      <div id="extraInfos">
+        @foreach($extraKeys as $key)
+          <div style="margin-bottom:12px">
+            <label>{{ $key }}</label>
+            <input type="text" name="extra[{{ $key }}]" placeholder="مقدار {{ $key }}" />
+          </div>
+        @endforeach
       </div>
 
       <div style="margin-bottom:16px">
         <label for="images">آپلود تصاویر محصول (حداکثر ۵ عدد، هر کدام ≤ 1MB)</label>
-        <input type="file" name="images[]" id="images" accept="image/*" multiple />
+        <input type="file" name="images" id="images" accept="image/*"/>
         <div id="preview"></div>
       </div>
 
@@ -165,101 +162,18 @@
 
   <script>
     (function(){
-      const infosContainer = document.getElementById('infosContainer');
-      const addBtn = document.getElementById('addInfoBtn');
-      const infosHidden = document.getElementById('informations');
-      const form = document.getElementById('productForm');
       const imagesInput = document.getElementById('images');
       const preview = document.getElementById('preview');
 
-      function createInfoRow(key='', value=''){
-        const wrapper = document.createElement('div');
-        wrapper.className = 'info-row';
-
-        const keyInput = document.createElement('input');
-        keyInput.type = 'text';
-        keyInput.placeholder = 'کلید (مثلاً رنگ)';
-        keyInput.value = key;
-
-        const valInput = document.createElement('input');
-        valInput.type = 'text';
-        valInput.placeholder = 'مقدار (مثلاً قرمز)';
-        valInput.value = value;
-
-        const delBtn = document.createElement('button');
-        delBtn.type = 'button';
-        delBtn.textContent = '🗑 حذف';
-        delBtn.className = 'btn btn-danger';
-        delBtn.onclick = () => wrapper.remove();
-
-        wrapper.appendChild(keyInput);
-        wrapper.appendChild(valInput);
-        wrapper.appendChild(delBtn);
-        return wrapper;
-      }
-
-      // یک سطر پیش‌فرض
-      infosContainer.appendChild(createInfoRow('',''));
-
-      addBtn.addEventListener('click', ()=>{
-        infosContainer.appendChild(createInfoRow('',''));
-      });
-
-      form.addEventListener('submit', (e)=>{
-        const rows = infosContainer.querySelectorAll('.info-row');
-        const obj = {};
-        let hasError = false;
-
-        rows.forEach(r=>{
-          const k = (r.children[0].value || '').trim();
-          const v = (r.children[1].value || '').trim();
-
-          if(k === '' || v === ''){
-            hasError = true;
-            r.children[0].classList.add('error');
-            r.children[1].classList.add('error');
-          } else {
-            r.children[0].classList.remove('error');
-            r.children[1].classList.remove('error');
-            obj[k] = v;
-          }
-        });
-
-        if(hasError){
-          e.preventDefault();
-          alert('لطفاً همه کلید/مقدار‌ها را کامل پر کنید.');
-          return;
-        }
-
-        infosHidden.value = JSON.stringify(obj);
-
-        // بررسی محدودیت تصاویر
-        const files = Array.from(imagesInput.files);
-        if(files.length > 5){
-          e.preventDefault();
-          alert("حداکثر ۵ تصویر مجاز است.");
-          return;
-        }
-        for(const file of files){
-          if(file.size > 1024*1024){
-            e.preventDefault();
-            alert(`حجم فایل "${file.name}" بیشتر از ۱ مگابایت است.`);
-            return;
-          }
-        }
-      });
-
-      // نمایش پیش‌نمایش همه تصاویر
+      // پیش‌نمایش تصویر
       imagesInput.addEventListener('change', ()=>{
         preview.innerHTML = '';
         const files = Array.from(imagesInput.files);
-
         if(files.length > 5){
           alert("حداکثر ۵ تصویر مجاز است.");
           imagesInput.value = '';
           return;
         }
-
         files.forEach(file=>{
           if(file.size > 1024*1024){
             alert(`حجم فایل "${file.name}" بیشتر از ۱ مگابایت است.`);

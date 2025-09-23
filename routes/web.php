@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AddProudactController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
@@ -97,6 +98,11 @@ Route::get('/shopping-cart', function () {
 })->name('shopping-cart');
 
 
-Route::get('/test', function () {
-    return view(view: 'test');
-})->name('shopping-cart');
+Route::get('/AddProudact', function () {
+    return view(view: 'AddProudact');
+})->name('AddProudact');
+
+Route::post('/Resume/AddProudact', [AddProudactController::class, 'Add']
+)->name('ResumeAddProudact');
+
+
