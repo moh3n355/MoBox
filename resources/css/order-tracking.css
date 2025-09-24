@@ -1,149 +1,169 @@
-:root{
-  --sans-font :  sans-serif;
+:root {
+  --sans-font: "Segoe UI", Tahoma, sans-serif;
 
+  --primary: #3B38A0;
+  --primary-light: #B2B0E8;
+  --primary-dark: #1A2A80;
+
+  --bg-light: #f9f9f9;
+  --bg-card: #ffffff;
+  --border: #d1d5db;
+  --text-muted: #6b7280;
 }
 
+/* ---------- بخش اصلی ---------- */
 .order-track {
-    margin-top: 50px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  margin: 5rem 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .order-card {
-    border: 1px solid #8f8f8f;
-    background: #f9f9f9;
-    width: 100%;
-    max-width: 500px;
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.64);
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  width: 100%;
+  max-width: 520px;
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.order-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
 }
 
 h1 {
-    font-family: var(--sans-font);
-    font-size: 22px;
-    margin-bottom: 30px;
-    color: #1A2A80;
+  font-family: var(--sans-font);
+  font-size: 24px;
+  margin-bottom: 28px;
+  color: var(--primary-dark);
+  font-weight: 700;
+  letter-spacing: 0.5px;
 }
 
-/* progress steps */
+/* ---------- progress steps ---------- */
+/* ---------- progress steps RTL ---------- */
 .progress-container {
     display: flex;
     justify-content: space-between;
     position: relative;
     margin: 20px 0;
-}
+    direction: rtl; /* ← اضافه شد تا flex راست به چپ عمل کنه */
+  }
 
-.progress-container::before {
+  .progress-container::before {
     content: "";
-    background: #ddd;
+    background: #e5e7eb;
     position: absolute;
     top: 50%;
-    left: 0;
+    right: 0;  /* ← از left به right تغییر کرد */
     height: 4px;
     width: 100%;
     transform: translateY(-50%);
     z-index: 1;
-}
+    border-radius: 4px;
+  }
 
-.progress {
-    background: #B2B0E8;
+  .progress {
+    background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);
     position: absolute;
     top: 50%;
-    left: 0;
+    right: 0;       /* ← از left به right تغییر کرد */
     height: 4px;
-    width: 0%;
+    width: 44%;      /* این مقدار JS مشخص می‌کند */
     transform: translateY(-50%);
     z-index: 2;
-    transition: width 0.3s ease-in-out;
-}
+    border-radius: 4px;
+    transition: width 1s ease-in-out;
+  }
 
 .circle {
-    background: #f9f9f9;
-    border: 2px solid #bcbcbc;
-    border-radius: 50%;
-    height: 35px;
-    width: 35px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 3;
-    position: relative;
-    font-size: 14px;
-    font-weight: bold;
-    color: #666;
-    transition: border-color 0.3s, background 0.3s;
+  background: var(--bg-card);
+  border: 2px solid #cbd5e1;
+  border-radius: 50%;
+  height: 36px;
+  width: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3;
+  position: relative;
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--text-muted);
+  transition: border-color 0.3s, background 0.3s, color 0.3s;
 }
 
 .circle.active {
-    border-color: #1A2A80;
-    color: #1A2A80;
+  border-color: var(--primary-dark);
+  color: var(--primary-dark);
+  background: #f3f4f6;
 }
 
 .circle.done {
-    background: #1A2A80;
-    color: #fff;
-    border-color: #1A2A80;
+  background: var(--primary-dark);
+  color: #fff;
+  border-color: var(--primary-dark);
+  box-shadow: 0 0 8px rgba(26, 42, 128, 0.4);
 }
 
 .steps-labels {
-    font-family: var(--sans-font);
-    display: flex;
-    justify-content: space-between;
-    font-size: 14px;
-    color: #666;
-    margin-top: 10px;
+  font-family: var(--sans-font);
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-top: 12px;
 }
 
+/* ---------- جدول سفارش ---------- */
 .container-detail {
-    margin-top: 30px;
-    width: 100%;
-    border: 1px black solid;
-    border-radius: 1rem 1rem 0.5rem 0.5rem;
+  margin-top: 30px;
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 1rem 1rem 0.6rem 0.6rem;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
 }
 
 .order-info {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 14px;
-
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
 }
 
-
-
-.order-info thead th:first-child {
-    border-top-right-radius: 1rem;
-  }
-
-  .order-info thead th:last-child {
-    border-top-left-radius: 1rem;
-  }
-
-.order-info thead tr th{
-    font-family:var(--sans-font) ;
-    background-color: #3B38A0;
+.order-info thead th {
+  font-family: var(--sans-font);
+  background: linear-gradient(90deg, var(--primary-dark), var(--primary));
+  padding: 14px 10px;
+  color: #f9fafb;
+  font-weight: 600;
+  text-align: center;
 }
 
 .order-info th,
 .order-info td {
-    padding: 12px 10px;
-    border-bottom: 1px solid #e2e8f0;
-}
-
-.order-info th {
-    color: #e2e8f0;
-    font-weight: 600;
-    text-align: center;
+  padding: 12px 10px;
+  border-bottom: 1px solid #e5e7eb;
 }
 
 .order-info td {
-    /* background-color: B2B0E8; */
-    text-align: center;
-    color: #4a5568;
+  text-align: center;
+  color: var(--text-muted);
+  background: #fdfdfd;
+  transition: background 0.2s;
+}
+
+.order-info tr:hover td {
+  background: #f3f4ff;
+  color: var(--primary-dark);
+  font-weight: 500;
 }
 
 .order-info tr:last-child td {
-    border-bottom: none;
+  border-bottom: none;
 }
