@@ -1,0 +1,149 @@
+:root{
+  --sans-font :  sans-serif;
+
+}
+
+.order-track {
+    margin-top: 50px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.order-card {
+    border: 1px solid #8f8f8f;
+    background: #f9f9f9;
+    width: 100%;
+    max-width: 500px;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.64);
+}
+
+h1 {
+    font-family: var(--sans-font);
+    font-size: 22px;
+    margin-bottom: 30px;
+    color: #1A2A80;
+}
+
+/* progress steps */
+.progress-container {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    margin: 20px 0;
+}
+
+.progress-container::before {
+    content: "";
+    background: #ddd;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    height: 4px;
+    width: 100%;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+.progress {
+    background: #B2B0E8;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    height: 4px;
+    width: 0%;
+    transform: translateY(-50%);
+    z-index: 2;
+    transition: width 0.3s ease-in-out;
+}
+
+.circle {
+    background: #f9f9f9;
+    border: 2px solid #bcbcbc;
+    border-radius: 50%;
+    height: 35px;
+    width: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3;
+    position: relative;
+    font-size: 14px;
+    font-weight: bold;
+    color: #666;
+    transition: border-color 0.3s, background 0.3s;
+}
+
+.circle.active {
+    border-color: #1A2A80;
+    color: #1A2A80;
+}
+
+.circle.done {
+    background: #1A2A80;
+    color: #fff;
+    border-color: #1A2A80;
+}
+
+.steps-labels {
+    font-family: var(--sans-font);
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #666;
+    margin-top: 10px;
+}
+
+.container-detail {
+    margin-top: 30px;
+    width: 100%;
+    border: 1px black solid;
+    border-radius: 1rem 1rem 0.5rem 0.5rem;
+}
+
+.order-info {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+
+}
+
+
+
+.order-info thead th:first-child {
+    border-top-right-radius: 1rem;
+  }
+
+  .order-info thead th:last-child {
+    border-top-left-radius: 1rem;
+  }
+
+.order-info thead tr th{
+    font-family:var(--sans-font) ;
+    background-color: #3B38A0;
+}
+
+.order-info th,
+.order-info td {
+    padding: 12px 10px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.order-info th {
+    color: #e2e8f0;
+    font-weight: 600;
+    text-align: center;
+}
+
+.order-info td {
+    /* background-color: B2B0E8; */
+    text-align: center;
+    color: #4a5568;
+}
+
+.order-info tr:last-child td {
+    border-bottom: none;
+}

@@ -135,3 +135,9 @@ Route::get('/delete/address/{index}', [EditProfileController::class,'DeleteAddre
 
 
 
+Route::get('/order-track', function(){
+    return view('order-tracking');
+})->name('order-track');
+
+
+
