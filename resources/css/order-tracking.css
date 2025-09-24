@@ -1,58 +1,58 @@
 :root {
-  --sans-font: "Segoe UI", Tahoma, sans-serif;
+    --sans-font: "Segoe UI", Tahoma, sans-serif;
 
-  --primary: #3B38A0;
-  --primary-light: #B2B0E8;
-  --primary-dark: #1A2A80;
+    --primary: #3B38A0;
+    --primary-light: #B2B0E8;
+    --primary-dark: #1A2A80;
 
-  --bg-light: #f9f9f9;
-  --bg-card: #ffffff;
-  --border: #d1d5db;
-  --text-muted: #6b7280;
-}
+    --bg-light: #f9f9f9;
+    --bg-card: #ffffff;
+    --border: #d1d5db;
+    --text-muted: #6b7280;
+  }
 
-/* ---------- بخش اصلی ---------- */
-.order-track {
-  margin: 5rem 0;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+  /* ---------- بخش اصلی ---------- */
+  .order-track {
+    margin: 5rem 1rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
-.order-card {
-  border: 1px solid var(--border);
-  background: var(--bg-card);
-  width: 100%;
-  max-width: 520px;
-  border-radius: 14px;
-  padding: 24px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
+  .order-card {
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    width: 100%;
+    max-width: 520px;
+    border-radius: 14px;
+    padding: 24px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
 
-.order-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
-}
+  .order-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  }
 
-h1 {
-  font-family: var(--sans-font);
-  font-size: 24px;
-  margin-bottom: 28px;
-  color: var(--primary-dark);
-  font-weight: 700;
-  letter-spacing: 0.5px;
-}
+  .order-card h1 {
+    font-family: var(--sans-font);
+    font-size: 200%;
+    margin-bottom: 10%;
+    color: var(--primary-dark);
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-shadow: #B2B0E8 0 4px 5px;
+  }
 
-/* ---------- progress steps ---------- */
-/* ---------- progress steps RTL ---------- */
-.progress-container {
+  /* ---------- progress steps RTL ---------- */
+  .progress-container {
     display: flex;
     justify-content: space-between;
     position: relative;
     margin: 20px 0;
-    direction: rtl; /* ← اضافه شد تا flex راست به چپ عمل کنه */
+    direction: rtl; /* راست به چپ */
   }
 
   .progress-container::before {
@@ -60,7 +60,7 @@ h1 {
     background: #e5e7eb;
     position: absolute;
     top: 50%;
-    right: 0;  /* ← از left به right تغییر کرد */
+    right: 0;
     height: 4px;
     width: 100%;
     transform: translateY(-50%);
@@ -72,98 +72,153 @@ h1 {
     background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);
     position: absolute;
     top: 50%;
-    right: 0;       /* ← از left به right تغییر کرد */
+    right: 0;
     height: 4px;
-    width: 44%;      /* این مقدار JS مشخص می‌کند */
+    width: 0%;
     transform: translateY(-50%);
     z-index: 2;
     border-radius: 4px;
-    transition: width 1s ease-in-out;
+    transition: width 0.4s ease-in-out;
   }
 
-.circle {
-  background: var(--bg-card);
-  border: 2px solid #cbd5e1;
-  border-radius: 50%;
-  height: 36px;
-  width: 36px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 3;
-  position: relative;
-  font-size: 14px;
-  font-weight: bold;
-  color: var(--text-muted);
-  transition: border-color 0.3s, background 0.3s, color 0.3s;
-}
+  .circle {
+    background: var(--bg-card);
+    border: 2px solid #cbd5e1;
+    border-radius: 50%;
+    height: 36px;
+    width: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3;
+    position: relative;
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--text-muted);
+    transition: border-color 0.3s, background 0.3s, color 0.3s;
+  }
 
-.circle.active {
-  border-color: var(--primary-dark);
-  color: var(--primary-dark);
-  background: #f3f4f6;
-}
+  .circle.active {
+    border-color: var(--primary-dark);
+    color: var(--primary-dark);
+    background: #f3f4f6;
+  }
 
-.circle.done {
-  background: var(--primary-dark);
-  color: #fff;
-  border-color: var(--primary-dark);
-  box-shadow: 0 0 8px rgba(26, 42, 128, 0.4);
-}
+  .circle.done {
+    background: var(--primary-dark);
+    color: #fff;
+    border-color: var(--primary-dark);
+    box-shadow: 0 0 8px rgba(26, 42, 128, 0.4);
+  }
 
-.steps-labels {
-  font-family: var(--sans-font);
-  display: flex;
-  justify-content: space-between;
-  font-size: 14px;
-  color: var(--text-muted);
-  margin-top: 12px;
-}
+  .steps-labels {
+    font-family: var(--sans-font);
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-top: 12px;
+  }
 
-/* ---------- جدول سفارش ---------- */
-.container-detail {
-  margin-top: 30px;
-  width: 100%;
-  border: 1px solid var(--border);
-  border-radius: 1rem 1rem 0.6rem 0.6rem;
-  overflow: hidden;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
-}
+  /* ---------- جدول سفارش ---------- */
+  .container-detail {
+    margin-top: 30px;
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 1rem 1rem 0.6rem 0.6rem;
+    overflow-x: auto; /* جدول در موبایل scroll می‌شود */
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  }
 
-.order-info {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 14px;
-}
+  .order-info {
+    width: 100%;
+    min-width: 300px; /* جلوگیری از جمع شدن بیش از حد جدول */
+    border-collapse: collapse;
+    font-size: 14px;
+  }
 
-.order-info thead th {
-  font-family: var(--sans-font);
-  background: linear-gradient(90deg, var(--primary-dark), var(--primary));
-  padding: 14px 10px;
-  color: #f9fafb;
-  font-weight: 600;
-  text-align: center;
-}
+  .order-info thead th {
+    font-family: var(--sans-font);
+    background: linear-gradient(90deg, var(--primary-dark), var(--primary));
+    padding: 14px 10px;
+    color: #f9fafb;
+    font-weight: 600;
+    text-align: center;
+  }
 
-.order-info th,
-.order-info td {
-  padding: 12px 10px;
-  border-bottom: 1px solid #e5e7eb;
-}
+  .order-info th,
+  .order-info td {
+    padding: 12px 10px;
+    border-bottom: 1px solid #e5e7eb;
+  }
 
-.order-info td {
-  text-align: center;
-  color: var(--text-muted);
-  background: #fdfdfd;
-  transition: background 0.2s;
-}
+  .order-info td {
+    text-align: center;
+    color: var(--text-muted);
+    background: #fdfdfd;
+    transition: background 0.2s;
+  }
 
-.order-info tr:hover td {
-  background: #f3f4ff;
-  color: var(--primary-dark);
-  font-weight: 500;
-}
+  .order-info tr:hover td {
+    background: #f3f4ff;
+    color: var(--primary-dark);
+    font-weight: 500;
+  }
 
-.order-info tr:last-child td {
-  border-bottom: none;
-}
+  .order-info tr:last-child td {
+    border-bottom: none;
+  }
+
+  /* ---------- Media Queries برای ریسپانسیو ---------- */
+  @media (max-width: 768px) {
+    .order-card {
+      padding: 20px;
+    }
+
+    .order-card h1 {
+      font-size: 1.8rem;
+    }
+
+    .circle {
+      height: 30px;
+      width: 30px;
+      font-size: 12px;
+    }
+
+    .steps-labels {
+      font-size: 12px;
+    }
+
+    .progress-container {
+      margin: 16px 0;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .order-card {
+      padding: 16px;
+    }
+
+    .order-card h1 {
+      font-size: 1.5rem;
+    }
+
+    .circle {
+      height: 26px;
+      width: 26px;
+      font-size: 11px;
+    }
+
+    .steps-labels {
+      font-size: 11px;
+    }
+
+    .progress-container {
+      margin: 12px 0;
+    }
+
+    .order-info {
+      font-size: 12px;
+      min-width: 250px;
+    }
+  }
