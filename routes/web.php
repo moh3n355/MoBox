@@ -144,6 +144,11 @@ Route::get('/admin', function(){
     return view('admin-panel');
 })->name('admin');
 
+// Admin Products (front-end only)
+Route::get('/admin/products', function(){
+    return view('admin-products');
+})->name('admin.products');
+
 
 // Dashboard data endpoints
 Route::get('/admin/orders-data', function(){
