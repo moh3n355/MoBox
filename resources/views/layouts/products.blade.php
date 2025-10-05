@@ -92,6 +92,7 @@
             }
           </style>
 
+
           <div class="card">
             <div class="inverted">
               <img src="/images/S26.webp" alt="phone">
@@ -104,8 +105,6 @@
             <div class="actions">
               <button class="btn"><i class="fas fa-plus"></i></button>
             </div>
-          </div>
-
           <!-- شکل clipPath -->
           <svg xmlns="http://www.w3.org/2000/svg" style="display: block;position: absolute" width="0" height="0">
             <defs><clipPath id="clip" clipPathUnits="objectBoundingBox">
@@ -113,27 +112,7 @@
             </clipPath></defs>
           </svg>
         <div class="add-cart"></div>
-
-        {{--
-        <div class="product-card">
-            <div class="product-image">
-                <img src="/images/logo-mobbox3.png" alt="">
-            </div>
-            <h3>گوشی آیفون 13</h3>
-            <p class="price">۲۸,۹۰۰,۰۰۰ تومان</p>
-            <button>خرید</button>
-        </div>
-
-        <div class="product-card">
-            <div class="product-image">
-                <img src="/images/profile.png" alt="">
-            </div>
-            <h3>گوشی آیفون 13</h3>
-            <p class="price">۲۸,۹۰۰,۰۰۰ تومان</p>
-            <button>خرید</button>
-        </div>
-
---}}
+    </div>
 
         <a class="see-all" href="">مشاهده همه -></a>
     </div>
