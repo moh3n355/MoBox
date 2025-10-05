@@ -140,4 +140,31 @@ Route::get('/order-track', function(){
 })->name('order-track');
 
 
+Route::get('/admin', function(){
+    return view('admin-panel');
+})->name('admin');
+
+
+// Dashboard data endpoints
+Route::get('/admin/orders-data', function(){
+    return response()->json([
+        'total' => 1250,
+        'completed' => 72,
+        'types' => [
+            ['type' => 'پرداخت‌شده', 'percent' => 50, 'count' => 625],
+            ['type' => 'در حال پردازش', 'percent' => 22, 'count' => 275],
+            ['type' => 'ارسال‌شده', 'percent' => 20, 'count' => 250],
+            ['type' => 'لغو‌شده', 'percent' => 8, 'count' => 100],
+        ],
+    ]);
+})->name('admin.orders-data');
+
+Route::get('/admin/comments-data', function(){
+    return response()->json([
+        ['author' => 'علی رضایی', 'date' => '1403/07/10', 'text' => 'خیلی عالی بود، ممنون!', 'rating' => 5],
+        ['author' => 'مریم احمدی', 'date' => '1403/07/08', 'text' => 'کیفیت معمولی ولی ارسال سریع.', 'rating' => 3],
+        ['author' => 'سارا موسوی', 'date' => '1403/07/05', 'text' => 'پشتیبانی خوب بود.', 'rating' => 4],
+    ]);
+})->name('admin.comments-data');
+
 
