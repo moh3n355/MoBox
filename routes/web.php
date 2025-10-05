@@ -1,3 +1,4 @@
+
 <?php
 
 use App\Http\Controllers\EditProfileController;
@@ -8,6 +9,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RigesterController;
 use App\Http\Controllers\ForgotController;
 use App\Http\Controllers\SendVerifyCode;
+
 
 // روت home بیرون از گروه
 Route::get('/', function () {
@@ -172,4 +174,12 @@ Route::get('/admin/comments-data', function(){
     ]);
 })->name('admin.comments-data');
 
+
+
+
+
+// Test route for product detail page
+Route::get('/produce-show', function () {
+    return view('produce-show');
+});
 
