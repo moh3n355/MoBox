@@ -148,7 +148,7 @@ Route::get('/admin', function(){
 
 // Admin Products (front-end only)
 Route::get('/admin/products', function(){
-    return view('admin-products');
+    return view('add-products');
 })->name('admin.products');
 
 
@@ -182,4 +182,10 @@ Route::get('/admin/comments-data', function(){
 Route::get('/produce-show', function () {
     return view('produce-show');
 });
+
+
+
+Route::POST('/test', function (Request $request) {
+    dd($request->file('images'));
+})->name('test');
 
