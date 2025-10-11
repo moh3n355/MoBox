@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Proudact;
 use App\Models\WorkWithProudacts;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -27,7 +28,7 @@ public function Add(Request $request)
 
 
     // ذخیره محصول
-    WorkWithProudacts::AddProudact($data, $extra);
+    Proudact::AddProudact($data, $extra);
 
     return back();
 }
