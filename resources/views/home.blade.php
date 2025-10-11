@@ -2,7 +2,6 @@
 
 
 
-
     <!-- بنر اصلی -->
     @include('layouts.hero')
 
@@ -20,3 +19,10 @@
 
 
 </x-layout>
+
+
+<!DOCTYPE html>
+<html lang="fa">
+
+</body>
+</html>
