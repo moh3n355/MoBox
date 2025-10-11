@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AddProudactController;
+use App\Http\Controllers\FilterProudactsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
@@ -104,5 +105,10 @@ Route::get('/AddProudact', function () {
 
 Route::post('/Resume/AddProudact', [AddProudactController::class, 'Add']
 )->name('ResumeAddProudact');
+
+
+Route::match(['get', 'post'], '/DisplayProudacts/{categoery}', [FilterProudactsController::class, 'filter'])
+    ->name('DisplayProudacts');
+
 
 

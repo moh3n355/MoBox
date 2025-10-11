@@ -114,6 +114,11 @@
       </div>
 
       <div style="margin-bottom:16px">
+        <label for="color">رنگ</label>
+        <input type="text" id="color" name="color" placeholder="مثلاً مشکی" />
+      </div>
+
+      <div style="margin-bottom:16px">
         <label for="categoery">دسته‌بندی</label>
         <input type="text" id="categoery" name="categoery" required />
       </div>
