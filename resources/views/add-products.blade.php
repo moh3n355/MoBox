@@ -14,7 +14,7 @@
 
 <body>
     <div class="container">
-        <form action="{{ route('test') }}" method="POST">
+        <form action="{{ route('test') }}" method="POST" enctype="multipart/form-data" id="product-form">
             @csrf
         <div class="form-control">
 
@@ -44,8 +44,8 @@
                 <label>تصاویر کالا:</label>
 
                 <div class="image-picker-multiple" id="image-picker-multiple">
-                  <input type="file" id="product-images" accept="image/*">
-                  <span class="placeholder"><i class="fas fa-image"></i></span>
+                    <input type="file" id="product-images" name="images[]" accept="image/*" multiple>
+                    <span class="placeholder"><i class="fas fa-image"></i></span>
                   <div class="preview-container" id="preview-container"></div>
                 </div>
               </div>

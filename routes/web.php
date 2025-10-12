@@ -206,3 +206,20 @@ Route::post('/test-upload', function (Request $request) {
         dd($request->all());
 
 })->name('test');
+
+
+Route::post('/test-upload', function (Request $request) {
+    $paths = [];
+
+    if ($request->hasFile('images')) {
+        foreach ($request->file('images') as $file) {
+            // ذخیره فایل در پوشه public/uploads
+            $paths[] = $file->store('uploads', 'public');
+        }
+    }
+
+    return response()->json([
+        'message' => 'تصاویر با موفقیت آپلود شدند!',
+        'paths' => $paths,
+    ]);
+})->name('test');

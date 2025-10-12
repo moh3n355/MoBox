@@ -1,6 +1,6 @@
+document.addEventListener("DOMContentLoaded", () => {
 
-document.addEventListener("DOMContentLoaded", function () {
-
+    // ---------- مدیریت ویژگی‌ها ----------
     const add_btn = document.getElementById('add-spec');
     const filed = document.getElementById('specifications');
 
@@ -9,77 +9,99 @@ document.addEventListener("DOMContentLoaded", function () {
         newRow.classList.add('spec-row');
         newRow.innerHTML = `
             <input type="text" class="spec-key" placeholder="نام ویژگی" required>
-            <input type="text" class="spec-key" placeholder="مقدار">
+            <input type="text" class="spec-value" placeholder="مقدار">
             <button type="button" class="remove-btn"><i class="fas fa-trash"></i></button>
-            `;
+        `;
 
-        // 3. دکمه حذف روی همین سطر کار کنه
+        // دکمه حذف روی همین سطر کار کنه
         const removeBtn = newRow.querySelector('.remove-btn');
-        removeBtn.addEventListener('click', function () {
-            newRow.remove();
-        });
+        removeBtn.addEventListener('click', () => newRow.remove());
 
         filed.appendChild(newRow);
     }
 
+    add_btn.addEventListener('click', add_spec);
 
-    add_btn.addEventListener('click', () => {
-        add_spec();
-    })
-
-
-
-    //          _________
-    //         | photos |
-    //          --------
-
+    // ---------- مدیریت تصاویر ----------
     const imageInput = document.getElementById("product-images");
     const previewContainer = document.getElementById("preview-container");
     const placeholder = document.querySelector(".image-picker-multiple .placeholder");
     const form = document.getElementById("product-form");
 
-    let filesArray = []; // آرایه برای نگهداری فایل‌ها
+    let filesArray = [];
 
     imageInput.addEventListener("change", () => {
-      const file = imageInput.files[0];
-      if (file) {
-        filesArray.push(file); // اضافه کردن فایل به آرایه
+        const file = imageInput.files[0];
+        if (!file) return;
+
+        filesArray.push(file);
 
         const reader = new FileReader();
         reader.onload = e => {
-          const img = document.createElement("img");
-          img.src = e.target.result;
-          previewContainer.appendChild(img);
-          placeholder.style.display = "none";
+            const imgWrapper = document.createElement("div");
+            imgWrapper.className = "relative inline-block m-1";
+
+            const img = document.createElement("img");
+            img.src = e.target.result;
+            img.className = "w-24 h-24 object-cover rounded shadow";
+
+            // دکمه حذف روی تصویر
+            const removeBtn = document.createElement("button");
+            removeBtn.textContent = "×";
+            removeBtn.className = "absolute top-0 right-0 bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center cursor-pointer";
+            removeBtn.addEventListener("click", () => {
+                previewContainer.removeChild(imgWrapper);
+                filesArray = filesArray.filter(f => f !== file);
+                if (!filesArray.length) placeholder.style.display = "inline-block";
+            });
+
+            imgWrapper.appendChild(img);
+            imgWrapper.appendChild(removeBtn);
+            previewContainer.appendChild(imgWrapper);
+
+            placeholder.style.display = "none";
         };
         reader.readAsDataURL(file);
-      }
 
-      // ریست کردن input برای انتخاب فایل بعدی بدون حذف آرایه
-      imageInput.value = "";
+        imageInput.value = ""; // ریست input بدون پاک شدن آرایه
     });
 
-    form.addEventListener("submit", (e) => {
-      e.preventDefault(); // جلوگیری از submit معمولی
+    // ---------- ارسال فرم با AJAX ----------
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
 
-      const formData = new FormData(form);
-
-      // اضافه کردن تمام فایل‌ها از آرایه
-      filesArray.forEach((file, index) => {
-        formData.append(`images[]`, file);
-      });
-
-      // حالا می‌تونی با fetch یا axios ارسال کنی
-      fetch("/test-upload", {
-        method: "POST",
-        body: formData,
-        headers: {
-          'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        if (!filesArray.length) {
+            alert("لطفاً حداقل یک تصویر اضافه کنید.");
+            return;
         }
-      }).then(res => res.json())
-        .then(data => console.log(data))
-        .catch(err => console.error(err));
-    });
 
+        const formData = new FormData(form);
+        filesArray.forEach(file => formData.append("images[]", file));
+
+        try {
+            const response = await fetch(form.action, {
+                method: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                },
+                body: formData
+            });
+
+            const data = await response.json();
+            console.log(data.paths);
+
+            // نمایش پیام و مسیر فایل‌ها
+            // alert(`${data.message}\nمسیرها:\n${data.paths.join("\n")}`);
+
+            // پاک کردن آرایه و پیش‌نمایش
+            filesArray = [];
+            previewContainer.innerHTML = "";
+            placeholder.style.display = "inline-block";
+
+        } catch (err) {
+            console.error(err);
+            alert("خطا در آپلود تصاویر!");
+        }
+    });
 
 });
