@@ -148,7 +148,7 @@ Route::get('/admin', function(){
 
 // Admin Products (front-end only)
 Route::get('/admin/products', function(){
-    return view('add-products');
+    return view('show-&-edit-products');
 })->name('admin.products');
 
 
@@ -184,8 +184,25 @@ Route::get('/produce-show', function () {
 });
 
 
+Route::get('/add-product', function () {
+    return view('add-products');
+})->name('add-products');
 
-Route::POST('/test', function (Request $request) {
-    dd($request->file('images'));
+
+
+Route::POST('/show-and-edit-products', function (Request $request) {
+    return redirect(route('add-products'))->with('category', 'mobile');
+})->name('show-&-edit-products');
+
+// Route::get('/test', function (Request $request) {
+// dd($request);
+// })->name('test');
+
+
+
+Route::post('/test-upload', function (Request $request) {
+
+
+        dd($request->all());
+
 })->name('test');
-

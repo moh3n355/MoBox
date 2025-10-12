@@ -1,73 +1,85 @@
-document.addEventListener("DOMContentLoaded", () => {
 
-    const add_product_btn = document.getElementById("btn-add");
-    const modal = document.getElementById("")
-    add_product_btn.addEventListener('click' , ()=> {
+document.addEventListener("DOMContentLoaded", function () {
 
-    } );
+    const add_btn = document.getElementById('add-spec');
+    const filed = document.getElementById('specifications');
 
+    function add_spec() {
+        const newRow = document.createElement('div');
+        newRow.classList.add('spec-row');
+        newRow.innerHTML = `
+            <input type="text" class="spec-key" placeholder="نام ویژگی" required>
+            <input type="text" class="spec-key" placeholder="مقدار">
+            <button type="button" class="remove-btn"><i class="fas fa-trash"></i></button>
+            `;
 
-
-
-    const input = document.getElementById("images");
-    const preview = document.getElementById("images-preview");
-    let selectedImages = []; // آرایه برای نگه داشتن عکس‌ها
-
-    // اضافه کردن عکس‌ها و نمایش پیش‌نمایش
-    input.addEventListener("change", (e) => {
-        const files = Array.from(e.target.files);
-
-        files.forEach(file => {
-            if (selectedImages.length >= 10) return; // حداکثر 10 عکس
-            // فقط اگر قبلاً اضافه نشده باشند
-            if (!selectedImages.some(f => f.name === file.name && f.size === file.size)) {
-                selectedImages.push(file);
-            }
+        // 3. دکمه حذف روی همین سطر کار کنه
+        const removeBtn = newRow.querySelector('.remove-btn');
+        removeBtn.addEventListener('click', function () {
+            newRow.remove();
         });
 
-        updatePreview();
-        // input.value را پاک نمی‌کنیم تا فایل‌های قبلی هم باقی بمانند
+        filed.appendChild(newRow);
+    }
+
+
+    add_btn.addEventListener('click', () => {
+        add_spec();
+    })
+
+
+
+    //          _________
+    //         | photos |
+    //          --------
+
+    const imageInput = document.getElementById("product-images");
+    const previewContainer = document.getElementById("preview-container");
+    const placeholder = document.querySelector(".image-picker-multiple .placeholder");
+    const form = document.getElementById("product-form");
+
+    let filesArray = []; // آرایه برای نگهداری فایل‌ها
+
+    imageInput.addEventListener("change", () => {
+      const file = imageInput.files[0];
+      if (file) {
+        filesArray.push(file); // اضافه کردن فایل به آرایه
+
+        const reader = new FileReader();
+        reader.onload = e => {
+          const img = document.createElement("img");
+          img.src = e.target.result;
+          previewContainer.appendChild(img);
+          placeholder.style.display = "none";
+        };
+        reader.readAsDataURL(file);
+      }
+
+      // ریست کردن input برای انتخاب فایل بعدی بدون حذف آرایه
+      imageInput.value = "";
     });
 
-    // حذف عکس
-    function removeImage(index) {
-        selectedImages.splice(index, 1);
-        updatePreview();
-    }
+    form.addEventListener("submit", (e) => {
+      e.preventDefault(); // جلوگیری از submit معمولی
 
-    // ساخت پیش‌نمایش
-    function updatePreview() {
-        preview.innerHTML = "";
-        selectedImages.forEach((file, index) => {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                const wrapper = document.createElement("div");
-                wrapper.style.position = "relative";
-                wrapper.style.display = "inline-block";
-                wrapper.style.margin = "4px";
+      const formData = new FormData(form);
 
-                const img = document.createElement("img");
-                img.src = e.target.result;
-                img.style.width = "100px";
-                img.style.height = "100px";
-                img.style.objectFit = "cover";
+      // اضافه کردن تمام فایل‌ها از آرایه
+      filesArray.forEach((file, index) => {
+        formData.append(`images[]`, file);
+      });
 
-                const btn = document.createElement("button");
-                btn.innerHTML = "&times;";
-                btn.style.position = "absolute";
-                btn.style.top = "0";
-                btn.style.right = "0";
-                btn.style.background = "rgba(0,0,0,0.5)";
-                btn.style.color = "white";
-                btn.style.border = "none";
-                btn.style.cursor = "pointer";
-                btn.addEventListener("click", () => removeImage(index));
+      // حالا می‌تونی با fetch یا axios ارسال کنی
+      fetch("/test-upload", {
+        method: "POST",
+        body: formData,
+        headers: {
+          'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        }
+      }).then(res => res.json())
+        .then(data => console.log(data))
+        .catch(err => console.error(err));
+    });
 
-                wrapper.appendChild(img);
-                wrapper.appendChild(btn);
-                preview.appendChild(wrapper);
-            };
-            reader.readAsDataURL(file);
-        });
-    }
+
 });
