@@ -23,4 +23,5 @@ class PutData extends Model
                 'userpassword' => $userpassword, // هش کردن پسورد
             ]);
     }
+
 }
