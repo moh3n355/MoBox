@@ -128,7 +128,7 @@ Route::get('/exit', function () {
 Route::get('/add-address', function () {
     return view(view: 'address');
 })->name('add-address');
-
+ 
 Route::POST('/verify/address', [EditProfileController::class, 'UpdateAddress']
 )->name('verify-addresa');
 
