@@ -185,10 +185,12 @@ Route::get('/produce-show', function () {
 
 
 Route::get('/add-product', function (Request $request) {
+    $category = session('categoryinput'); // از session بخون
         //  dd($request->input('category'));
-        // $keys = config($request->input('category'))
+        $keys = config($request->input('category'));
+        dump($keys);
         //then keys will send with view
-    return view('add-products');
+    return view('add-products' , compact('keys'));
 })->name('add-products');
 
 
@@ -210,8 +212,10 @@ Route::POST('/show-and-edit-products', function (Request $request) {
     else {
         $category = 'انتخاب نشده است';
     }
-    Session::put('category', $category); // ذخیره دائم در session
+    Session::put('categoryinput', $categoryinput);
+    Session::put('category', $category);
     return redirect(route('add-products'));
+
 })->name('show-&-edit-products');
 
 // Route::get('/test', function (Request $request) {
