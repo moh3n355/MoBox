@@ -99,10 +99,10 @@
                 </div>
                 <div class="modal-body">
                         <div class="form-control" >
-                            <button type="submit" name="category" value="mobile" class="btn btn-primary">موبایل</button>
-                            <button type="submit" name="category" value="laptop" class="btn btn-primary">لپتاپ</button>
-                            <button type="submit" name="category" value="watch" class="btn btn-primary">ساعت هوشمند</button>
-                            <button type="submit" name="category" value="accessory" class="btn btn-primary">لوازم جانبی</button>
+                            <button type="submit" name="category" value="MobileKeys" class="btn btn-primary">موبایل</button>
+                            <button type="submit" name="category" value="LabtopKeys" class="btn btn-primary">لپتاپ</button>
+                            <button type="submit" name="category" value="WatchKeys" class="btn btn-primary">ساعت هوشمند</button>
+                            <button type="submit" name="category" value="َAirPadKeys" class="btn btn-primary">ایرپاد</button>
                     </div>
                 </div>
 
