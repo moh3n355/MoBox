@@ -187,7 +187,7 @@ Route::get('/produce-show', function () {
 Route::get('/add-product', function (Request $request) {
     $category = session('categoryinput'); // از session بخون
         $keys = config($category);
-        dump($keys);
+        dd($keys);
     return view('add-products' , compact('keys'));
 })->name('add-products');
 

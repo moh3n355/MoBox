@@ -102,7 +102,7 @@
                             <button type="submit" name="category" value="MobileKeys" class="btn btn-primary">موبایل</button>
                             <button type="submit" name="category" value="LabtopKeys" class="btn btn-primary">لپتاپ</button>
                             <button type="submit" name="category" value="WatchKeys" class="btn btn-primary">ساعت هوشمند</button>
-                            <button type="submit" name="category" value="َAirPadKeys" class="btn btn-primary">ایرپاد</button>
+                            <button type="submit" name="category" value="AirPadKeys" class="btn btn-primary">ایرپاد</button>
                     </div>
                 </div>
 
