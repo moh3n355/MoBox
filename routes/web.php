@@ -194,7 +194,24 @@ Route::get('/add-product', function (Request $request) {
 
 
 Route::POST('/show-and-edit-products', function (Request $request) {
-    return redirect(route('add-products'))->with('category', 'mobile');
+    $categoryinput = $request->input('category');
+    if ($categoryinput  == 'LabtopKeys') {
+        $category = 'لپتاپ و اولترابوک' ;
+    }
+    elseif ($categoryinput  == 'MobileKeys') {
+        $category = 'موبایل و تلفن هوشمند';
+    }
+    elseif ($categoryinput  == 'WatchKeys') {
+        $category = 'ساعت هوشمند';
+    }
+    elseif ($categoryinput  == 'َAirPadKeys') {
+        $category = 'ایرپاد و هندزفری';
+    }
+    else {
+        $category = 'انتخاب نشده است';
+    }
+    Session::put('category', $category); // ذخیره دائم در session
+    return redirect(route('add-products'));
 })->name('show-&-edit-products');
 
 // Route::get('/test', function (Request $request) {
