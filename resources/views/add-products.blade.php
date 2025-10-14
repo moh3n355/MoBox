@@ -16,94 +16,112 @@
     <div class="container">
         <form action="{{ route('test') }}" method="POST" enctype="multipart/form-data" id="product-form">
             @csrf
-        <div class="form-control">
-
-            <div class="field">
-                <label for="">نام کالا :</label>
-                <input type="text" name="product_name" id="">
-
-            </div>
-
-            <div class="field">
-                <label for="">کد کالا:</label>
-                <input type="text" name="product_code" id="">
-            </div>
-
-            <div class="field">
-                <label for="">دسته بندی:</label>
-                <p>{{ session('category') }}</p>
-            </div>
+            <div class="form-control">
 
 
-            <div class="field">
-                <label for="">فیلد:</label>
-                <input type="text" name="" id="">
-            </div>
+                <div class="field image-upload-multiple">
+                    <label>تصاویر کالا:</label>
 
-            <div class="field image-upload-multiple">
-                <label>تصاویر کالا:</label>
-
-                <div class="image-picker-multiple" id="image-picker-multiple">
-                    <input type="file" id="product-images" name="images[]" accept="image/*" multiple>
-                    <span class="placeholder"><i class="fas fa-image"></i></span>
-                  <div class="preview-container" id="preview-container"></div>
-                </div>
-              </div>
-
-
-
-            <!-- 🔹 HTML -->
-            <div class="field">
-                <label>مشخصات کالا:</label>
-
-
-                <div class="specifications" id="specifications">
-                    <table>
-                        <tr>
-                            <td>ویژگی:</td>
-                            <td>مقدار:</td>
-                        </tr>
-                    </table>
-
-                    <!-- ویژگی از پیش‌تعریف‌شده -->
-                    <div class="spec-row">
-                        <p>{{ "Ram" }}</p>
-                        <input type="text" class="spec-value" placeholder="مقدار (مثلاً آبی)">
+                    <div class="image-picker-multiple" id="image-picker-multiple">
+                        <input type="file" id="product-images" name="images[]" accept="image/*" multiple>
+                        <span class="placeholder"><i class="fas fa-image"></i></span>
+                        <div class="preview-container" id="preview-container"></div>
                     </div>
 
-                    <!-- یکی دیگه -->
-                    <div class="spec-row">
-                        <p>{{ "Cpu" }}</p>
-                        <input type="text" class="spec-value" placeholder="مقدار (مثلاً 200 گرم)">
-                    </div>
+                    <div class="container-field">
 
-                    <!-- یکی دیگه -->
-                    <div class="spec-row">
-                        <p>{{ "Gpu" }}</p>
-                        <input type="text" class="spec-value" placeholder="مقدار (مثلاً 200 گرم)">
-                    </div>
+                        <div class="field">
+                            <label for="">نام کالا :</label>
+                            <input type="text" name="product_name" id="">
+                        </div>
 
+                        <div class="field">
+                            <label for="">کد کالا:</label>
+                            <input type="text" name="product_code" id="">
+                        </div>
+
+                        <div class="field">
+                            <label for="">دسته بندی:</label>
+                            <p>{{ session('category') }}</p>
+                        </div>
+
+                        <div class="field">
+                            <label for="">قیمت:</label>
+                            <input type="text" name="price" id="">
+                        </div>
+
+                        <div class="field">
+                            <label for="">برند:</label>
+                            <input type="text" name="" id="">
+                        </div>
+                        <div class="field">
+                            <label for="">رنگ:</label>
+                            <input type="text" name="" id="">
+                        </div>
+
+                        <div class="field">
+                            <label for="">موجودی:</label>
+                            <input type="text" name="stock" id="">
+                        </div>
+
+                        <div class="field">
+                            <label for="">تخفیف:</label>
+                            <input type="text" name="stock" id="">
+                        </div>
+
+                        <div class="field">
+                            <label for="">توضیحات بیشتر:</label>
+                            <textarea name="" id=""></textarea>
+                        </div>
+
+                    </div>
                 </div>
 
-                <!-- دکمه افزودن ویژگی جدید -->
-                <button type="button" class="add-spec" id="add-spec">+ افزودن ویژگی</button>
+
+
+                <!-- 🔹 HTML -->
+                <div class="field">
+                    <label>مشخصات کالا:</label>
+
+
+                    <div class="specifications" id="specifications">
+                        <table>
+                            <tr>
+                                <td>ویژگی:</td>
+                                <td>مقدار:</td>
+                            </tr>
+                        </table>
+
+                        <!-- ویژگی از پیش‌تعریف‌شده -->
+
+                        @foreach ($keys as $key)
+                            <div class="spec-row">
+                                <p>{{ $key }}</p>
+                                <input type="text" class="spec-value" placeholder="">
+                            </div>
+                        @endforeach
+
+
+
+                    </div>
+
+                    <!-- دکمه افزودن ویژگی جدید -->
+                    <button type="button" class="add-spec" id="add-spec">+ افزودن ویژگی</button>
+                </div>
+
+
+
+
+
+
+
+
+
+
             </div>
 
-            <div class="field">
-                <label for="">قیمت:</label>
-                <input type="text" name="price" id="">
-            </div>
-
-            <div class="field">
-                <label for="">موجودی:</label>
-                <input type="text" name="stock" id="">
-            </div>
-
-
-        </div>
-
-        <input type="submit" name="" id="">
-    </form>
+            <input type="submit" name="" id="">
+        </form>
     </div>
 </body>
 

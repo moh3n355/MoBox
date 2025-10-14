@@ -128,7 +128,7 @@ Route::get('/exit', function () {
 Route::get('/add-address', function () {
     return view(view: 'address');
 })->name('add-address');
- 
+
 Route::POST('/verify/address', [EditProfileController::class, 'UpdateAddress']
 )->name('verify-addresa');
 
@@ -187,7 +187,6 @@ Route::get('/produce-show', function () {
 Route::get('/add-product', function (Request $request) {
     $category = session('categoryinput'); // از session بخون
         $keys = config($category);
-        dd($keys);
     return view('add-products' , compact('keys'));
 })->name('add-products');
 
@@ -241,7 +240,7 @@ Route::post('/test-upload', function (Request $request) {
     }
 
     return response()->json([
-        'message' => 'تصاویر با موفقیت آپلود شدند!',
+        'message' => 'شما دارای دسترسی نمی باشید',
         'paths' => $paths,
     ]);
 })->name('test');

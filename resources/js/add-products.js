@@ -88,10 +88,11 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             const data = await response.json();
-            console.log(data.paths);
+
+            // console.log(data.paths);
 
             // نمایش پیام و مسیر فایل‌ها
-            // alert(`${data.message}\nمسیرها:\n${data.paths.join("\n")}`);
+            alert(`${data.message}`);
 
             // پاک کردن آرایه و پیش‌نمایش
             filesArray = [];
