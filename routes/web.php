@@ -184,7 +184,8 @@ Route::get('/produce-show', function () {
 });
 
 
-Route::get('/add-product', function () {
+Route::get('/add-product', function (Request $request) {
+        //  dd($request->input('category'));
     return view('add-products');
 })->name('add-products');
 
