@@ -186,6 +186,8 @@ Route::get('/produce-show', function () {
 
 Route::get('/add-product', function (Request $request) {
         //  dd($request->input('category'));
+        // $keys = config($request->input('category'))
+        //then keys will send with view
     return view('add-products');
 })->name('add-products');
 
