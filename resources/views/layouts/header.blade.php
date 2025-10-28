@@ -1,17 +1,17 @@
 <header class="main-header">
-    <div class="logo">
+    {{-- <div class="logo">
         <img src="/images/logo-mobbox3.png" alt="">
         <div class="logo logo-text">
             <h1>موباکس</h1>
             <span>فروشگاه دیجیتال</span>
 
         </div>
-    </div>
+    </div> --}}
 
     <nav class="nav">
         <div class="search-box">
             <button><i class="fas fa-search"></i></button>
-            <input type="text" name="" id="" placeholder="جست و جو">
+            <input type="text" name="" id="">
          </div>
 
         <div class="nav-item">

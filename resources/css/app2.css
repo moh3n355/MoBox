@@ -1,0 +1,322 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===== Reset & Base ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 0.7vw; /* 1rem = 10px */
+}
+
+body {
+  font-family: sans-serif;
+  direction: rtl;
+  line-height: 1.6;
+  font-size: 1.6rem;
+  color: var(--text);
+  background:
+    radial-gradient(1200px 600px at 20% -20%, rgba(75,108,183,.22), transparent),
+    radial-gradient(1000px 500px at 100% 0%, rgba(24,40,72,.30), transparent),
+    var(--bg);
+}
+
+/* ===== Variables ===== */
+:root {
+  --primary: #4b6cb7;
+  --primary-2: #182848;
+  --danger: #e74c3c;
+  --bg: #0f1324;
+  --card: rgba(255,255,255,0.08);
+  --stroke: rgba(255,255,255,0.12);
+  --text: #e9eef7;
+  --muted: #a9b4c7;
+}
+
+/* ===== Header ===== */
+.main-header {
+  background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+  backdrop-filter: blur(6px);
+  padding: 1.2rem 3vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  color: #cfe0ff;
+  font-size: 2.4rem;
+  font-weight: bold;
+  gap: 0.5rem;
+}
+
+.logo span { color: #9cc2ff; font-size: 1rem; }
+
+.logo img { height: 10vh; }
+
+.nav {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.nav a {
+  color: var(--text);
+  text-decoration: none;
+  font-size: 1.8rem;
+  font-weight: 700;
+  transition: 0.3s;
+}
+
+.nav a:hover {
+  color: #9cc2ff;
+  transform: translateY(-0.3rem);
+}
+
+/* ===== Search Box ===== */
+.search-box {
+  display: flex;
+  align-items: center;
+  width: 280px;
+  height: 42px;
+  gap: 0.3rem;
+}
+
+.search-box input {
+  border: 1px solid #555;
+  padding: 0.6rem;
+  border-radius: 0.7rem;
+  font-size: 1.4rem;
+  flex: 1;
+  background: transparent;
+  color: var(--text);
+}
+
+.search-box button {
+  background: none;
+  border: none;
+  color: var(--text);
+  cursor: pointer;
+}
+
+/* ===== User Icon & Dropdown ===== */
+.user-icon {
+  position: relative;
+  width: 6rem;
+  height: 6rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--primary-2));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  cursor: pointer;
+}
+
+.user-icon i { font-size: 3.7rem; }
+
+.dropdown-menu {
+  position: absolute;
+  top: 110%;
+  background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+  border-radius: 0.6rem;
+  box-shadow: 0 12px 40px rgba(0,0,0,.35);
+  min-width: 16rem;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: 0.3s ease;
+  z-index: 1000;
+  text-align: center;
+}
+
+.dropdown-menu.active {
+  max-height: 50vh;
+  opacity: 1;
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 0.8rem 1.2rem;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 1.4rem;
+  font-weight: 700;
+  transition: 0.2s;
+}
+
+.dropdown-menu a:hover {
+  background-color: rgba(75,108,183,.22);
+  color: #fff;
+}
+
+/* ===== Cart ===== */
+.shopping-cart {
+  position: relative;
+  padding: 0.8rem;
+  border-radius: 1.3rem;
+  color: #6498fe;
+  border: 1px solid var(--stroke);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.shopping-cart:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+.cart-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: #ff3d00;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 50%;
+}
+
+/* ===== Hero Section ===== */
+.hero {
+  background:
+    linear-gradient(0deg, rgba(11,18,36,0.7), rgba(9,14,28,0.7)),
+    url('/public/images/hero.jpg') center/cover no-repeat;
+  padding: 10vh 5vw;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 3.2rem;
+  color: #e6eeff;
+}
+
+.hero p {
+  margin: 2rem 0;
+  font-size: 1.8rem;
+  color: var(--muted);
+}
+
+.hero .buynow-btn {
+  background: linear-gradient(135deg, var(--primary), var(--primary-2));
+  color: #fff;
+  padding: 1em 2em;
+  border: none;
+  border-radius: 0.5em;
+  font-size: 1.6rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.hero .buynow-btn:hover {
+  background: #182848;
+}
+
+/* ===== Categories ===== */
+.categories {
+  display: flex;
+  justify-content: center;
+  gap: 10vw;
+  padding: 3vh 2vw;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.categories::-webkit-scrollbar { display: none; }
+
+.category {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid var(--stroke);
+  border-radius: 1rem;
+  text-align: center;
+  width: 4vw;
+  padding: 0.5rem;
+}
+
+.category img {
+  width: 100%;
+  display: block;
+}
+
+/* ===== Products ===== */
+.best-products {
+  text-align: center;
+  padding: 2vh 1vw;
+}
+
+.best-products h2 {
+  font-size: 2.4rem;
+  margin-bottom: 2vh;
+}
+
+.product-list {
+  display: flex;
+  justify-content: center;
+  gap: 1vw;
+  overflow-x: auto;
+  padding: 1rem;
+}
+
+.product-card {
+  background: var(--card);
+  border: 1px solid var(--stroke);
+  border-radius: 1rem;
+  padding: 2rem;
+  text-align: center;
+  min-width: 13vw;
+  box-shadow: 0 12px 40px rgba(0,0,0,.25);
+}
+
+.product-card img {
+  width: 100%;
+  border-radius: 0.5rem;
+}
+
+.product-card h3 { color: var(--text); margin: 1rem 0; }
+.product-card .price { color: #ffb4ac; font-weight: bold; }
+
+.product-card button {
+  background: linear-gradient(135deg, var(--primary), var(--primary-2));
+  color: #fff;
+  padding: 0.6em 1.2em;
+  border: none;
+  border-radius: 0.5em;
+  font-size: 1.4rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* ===== Footer ===== */
+.footer {
+  background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+  color: var(--text);
+  border-top: 1px solid var(--stroke);
+  padding: 4vh 2vw;
+  text-align: center;
+  font-size: 1.4rem;
+}
+
+.footer-links a {
+  color: var(--muted);
+  margin: 0 1vw;
+  text-decoration: none;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  html { font-size: 1.2vw; }
+  .main-header { flex-direction: column; gap: 1rem; }
+  .product-card { min-width: 40vw; }
+  .category { width: 15vw; }
+}
