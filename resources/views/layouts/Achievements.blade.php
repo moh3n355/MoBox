@@ -22,7 +22,7 @@
 
 .stat-box:hover {
   transform: translateY(-10px);
-  background: rgba(255, 255, 255, 0.2);
+  background:#f59e0b;
 }
 
 .stat-box h2 {
