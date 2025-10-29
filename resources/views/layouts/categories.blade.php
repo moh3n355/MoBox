@@ -4,7 +4,7 @@
         <img src="/images/mobile-phone.png" alt="">
     </div>
     <div class="category">
-        <img src="/images/laptop.png" alt="">
+        <img src="/images/laptop2.png" alt="">
     </div>
     <div class="category">
         <img src="/images/speaker.png" alt="">
@@ -13,7 +13,7 @@
         <img src="/images/airpods.png" alt="">
     </div>
     <div class="category">
-        <img src="/images/laptop.png" alt="">
+        <img src="/images/laptop2.png" alt="">
     </div>
 
 </section>

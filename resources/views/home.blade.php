@@ -9,10 +9,10 @@
     <!-- دسته‌بندی‌ها -->
      @include('layouts.categories')
 
+    <!-- نقشه -->
+     @include('layouts.map')
 
-
-
-    <!-- محصولات -->
+    <!-- افتخارات -->
     @include('layouts.Achievements')
 
 

@@ -1,62 +1,96 @@
+
 <style>
-    .Achievements {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(150px, 1fr));
-      grid-template-rows: repeat(4, minmax(100px, auto));
-      gap: 1rem;
-      grid-template-areas:
-        "a b b"
-        "c b b"
-        "d d e"
-        "d d f";
-      padding: clamp(1rem, 4vw, 5rem);
-      width: clamp(50%, 60% , 70% );
-      margin: 0 auto;
-    }
+    .stats {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 3rem;
+  padding: 0 2rem 5rem 2rem ;
+  color: #fff;
+  text-align: center;
+}
 
-    .grid-box {
-      background-color: #336cb1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: clamp(1rem, 3vw, 4rem);
-      border-radius: 1rem;
-      color: white;
-      font-size: clamp(0.9rem, 1.5vw, 1.3rem);
-      text-align: center;
-      transition: all 0.3s ease;
-    }
+.stat-box {
+  background: #336cb1;
+  backdrop-filter: blur(10px);
+  padding: 2rem 3rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease, background 0.3s ease;
+}
 
-    /* مناطق گرید */
-    .a { grid-area: a; }
-    .b { grid-area: b; }
-    .c { grid-area: c; }
-    .d { grid-area: d; }
-    .e { grid-area: e; }
-    .f { grid-area: f; }
+.stat-box:hover {
+  transform: translateY(-10px);
+  background: rgba(255, 255, 255, 0.2);
+}
 
-    /* 💡 ریسپانسیو برای نمایشگرهای کوچک‌تر */
-    @media (max-width: 900px) {
-      .Achievements {
-        grid-template-columns: 1fr;
-        grid-template-areas:
-          "a"
-          "b"
-          "c"
-          "d"
-          "e"
-          "f";
-          max-width: 450px;
-      }
+.stat-box h2 {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
 
-    }
-  </style>
+.stat-box p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
 
-  <section class="Achievements">
-    <div class="grid-box a"></div>
-    <div class="grid-box b">b</div>
-    <div class="grid-box c">c</div>
-    <div class="grid-box d">d</div>
-    <div class="grid-box e">e</div>
-    <div class="grid-box f">f</div>
+@media (max-width: 768px) {
+  .stats {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .stat-box h2 {
+    font-size: 2.5rem;
+  }
+}
+
+</style>
+
+  <section class="stats">
+    <div class="stat-box">
+      <h2 class="counter" data-target="3">0</h2>
+      <p>سال تجربه</p>
+    </div>
+    <div class="stat-box">
+      <h2 class="counter" data-target="850">0</h2>
+      <p>کاربر و مشتری</p>
+    </div>
+    <div class="stat-box">
+      <h2 class="counter" data-target="1200">0</h2>
+      <p>تعداد کالا های فروخته شده</p>
+    </div>
   </section>
+
+  <script>
+    const counters = document.querySelectorAll('.counter');
+    const speed = 200; // عدد بزرگ‌تر = شمارش کندتر
+
+    const startCounting = () => {
+      counters.forEach(counter => {
+        const updateCount = () => {
+          const target = +counter.getAttribute('data-target');
+          const count = +counter.innerText;
+          const inc = target / speed;
+
+          if (count < target) {
+            counter.innerText = Math.ceil(count + inc);
+            setTimeout(updateCount, 10);
+          } else {
+            counter.innerText = '+' + counter.innerText;
+          }
+        };
+        updateCount();
+      });
+    };
+
+    // شروع شمارش وقتی کاربر بخش را ببیند
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) startCounting();
+      });
+    });
+
+    observer.observe(document.querySelector('.stats'));
+  </script>
