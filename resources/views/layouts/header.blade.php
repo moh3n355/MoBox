@@ -1,12 +1,4 @@
 <header class="main-header">
-    {{-- <div class="logo">
-        <img src="/images/logo-mobbox3.png" alt="">
-        <div class="logo logo-text">
-            <h1>موباکس</h1>
-            <span>فروشگاه دیجیتال</span>
-
-        </div>
-    </div> --}}
 
     <nav class="nav">
         <div class="search-box">
@@ -62,7 +54,7 @@
     </div>
     @else
         <div class="icons">
-            <a href="{{ route('auth') }}" alt="" class="login-btn">ورود</a>
+            <a href="{{ route('auth') }}" alt="" class="login-btn">ورود | ثبت نام</a>
         </div>
     @endif
 

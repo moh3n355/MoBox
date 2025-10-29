@@ -12,5 +12,8 @@
     <div class="category">
         <img src="/images/airpods.png" alt="">
     </div>
+    <div class="category">
+        <img src="/images/laptop.png" alt="">
+    </div>
 
 </section>
