@@ -65,32 +65,38 @@
 
   <script>
     const counters = document.querySelectorAll('.counter');
-    const speed = 200; // عدد بزرگ‌تر = شمارش کندتر
+    const speed = 200;
 
     const startCounting = () => {
       counters.forEach(counter => {
-        const updateCount = () => {
-          const target = +counter.getAttribute('data-target');
-          const count = +counter.innerText;
-          const inc = target / speed;
+        const target = +counter.getAttribute('data-target');
+        let count = 0;
 
+        const updateCount = () => {
+          const inc = target / speed;
           if (count < target) {
-            counter.innerText = Math.ceil(count + inc);
+            count += inc;
+            counter.innerText = Math.ceil(count);
             setTimeout(updateCount, 10);
           } else {
-            counter.innerText = '+' + counter.innerText;
+            counter.innerText = '+' + target;
           }
         };
+
         updateCount();
       });
     };
 
-    // شروع شمارش وقتی کاربر بخش را ببیند
+    const statsSection = document.querySelector('.stats');
+
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) startCounting();
+        if (entry.isIntersecting) {
+          startCounting();
+          observer.unobserve(statsSection); // جلوگیری از اجرا دوباره
+        }
       });
     });
 
-    observer.observe(document.querySelector('.stats'));
+    observer.observe(statsSection);
   </script>
