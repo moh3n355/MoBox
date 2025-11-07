@@ -19,7 +19,7 @@
     </header>
 
     <main>
-        <form method="POST" action="{{ route('ResumeAuth', ['type' => 'login']) }}">
+        <form method="POST" action="{{ route('Resumelogin') }}">
             @csrf
             <div class="input-group">
                 <label for="username">لطفا نام کاربری خود را وارد کنید:</label>

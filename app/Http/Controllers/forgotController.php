@@ -8,17 +8,9 @@ use App\Models\User;
 
 
 class forgotController extends Controller
-{   
-    public function CheckUserNumber($request){
-        if(User::where('phone', $request->input('phone'))->exists()){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
+{
 
-    public function CreateAndUpdatePassword($request){
+    public function CreateAndUpdatePassword(Request $request){
         $lower = 'abcdefghijklmnopqrstuvwxyz';
         $upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $digits = '0123456789';

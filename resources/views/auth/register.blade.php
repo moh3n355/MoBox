@@ -16,7 +16,7 @@
     </header>
 
     <main>
-        <form method="POST" action="{{ route('ResumeAuth', ['type' => 'register']) }}">
+        <form method="POST" action="{{ route('ResumeRegister')}}">
             @csrf
             <div class="input-group">
                 <label for="phone">شماره موبایل:</label>

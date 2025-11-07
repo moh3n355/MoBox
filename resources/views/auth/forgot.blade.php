@@ -16,7 +16,7 @@
     </header>
 
     <main>
-        <form method="POST" action="{{ route('ResumeAuth', ['type' => 'forgot']) }}">
+        <form method="POST" action="{{ route('Resumeforgot')}}">
             @csrf
             <div class="input-group">
                 <label for="phone">شماره موبایل خود را وارد کنید:</label>
