@@ -122,6 +122,13 @@ header {
     margin-left: 0.3rem;
 }
 
+.icons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
 /* === User & Cart === */
 .contain-cart-profile {
     display: flex;
@@ -199,6 +206,26 @@ header {
     background: #005fcc;
 }
 
+.sidebar-toggle {
+    z-index: 1100;
+    /* background: linear-gradient(135deg, var(--primary), var(--primary-2)); */
+    background: #336cb1;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+
+}
+
+.sidebar-toggle i { font-size: 25px; }
+
+.sidebar-toggle:focus,
+.sidebar-toggle:active,
+.sidebar-toggle:focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
+}
 
 
 /* ============== HERO SECTION ============ */

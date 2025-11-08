@@ -4,7 +4,7 @@
         <div class="search-box">
             <button><i class="fas fa-search"></i></button>
             <input type="text" name="" id="">
-         </div>
+        </div>
 
         <div class="nav-item">
             <a href="#" class="nav-link" id="home">خانه</a>
@@ -35,26 +35,31 @@
     </nav>
     {{-- if have not been user login --}}
 
-    @if(auth()->check())
-    <div class="contain-cart-profile">
+    @if (auth()->check())
+        <div class="contain-cart-profile">
             <button class="shopping-cart">
-            <i class="fas fa-shopping-cart"></i>
-            <span class="cart-badge">3</span>
-        </button>
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-badge">3</span>
+            </button>
 
-        <div class="user-icon" id="userMenuBtn">
-            <i class="fas fa-user"></i>
-            <div class="dropdown-menu" id="user-profile">
-                <a href="{{ route('edit-profile') }}">پروفایل</a>
-                <a href="#">تنظیمات</a>
-                <a href="#">خروج</a>
+            <div class="user-icon" id="userMenuBtn">
+                <i class="fas fa-user"></i>
+                <div class="dropdown-menu" id="user-profile">
+                    <a href="{{ route('edit-profile') }}">پروفایل</a>
+                    <a href="#">تنظیمات</a>
+                    <a href="#">خروج</a>
+                </div>
             </div>
-        </div>
 
-    </div>
+        </div>
     @else
         <div class="icons">
             <a href="{{ route('auth') }}" alt="" class="login-btn">ورود | ثبت نام</a>
+
+            <button class="sidebar-toggle" id="sidebarToggle" aria-label="باز کردن منو">
+                <i class="fas fa-bars"></i>
+            </button>
+
         </div>
     @endif
 

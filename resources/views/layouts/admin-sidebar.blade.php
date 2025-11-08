@@ -1,6 +1,4 @@
-<button class="sidebar-toggle" id="sidebarToggle" aria-label="باز کردن منو">
-    <i class="fas fa-bars"></i>
-</button>
+
 <aside class="sidebar" id="adminSidebar" aria-label="نوار کناری">
     <div class="sidebar-header">
         <div class="sidebar-title">مدیریت</div>
@@ -17,20 +15,6 @@
 </aside>
 
 <style>
-    .sidebar-toggle {
-        position: fixed;
-        top: 16px;
-        left: 16px;
-        z-index: 1100;
-        background: linear-gradient(135deg, var(--primary), var(--primary-2));
-        color: #fff;
-        border: 1px solid var(--stroke);
-        border-radius: 10px;
-        padding: 10px 12px;
-        cursor: pointer;
-        box-shadow: 0 12px 30px rgba(0,0,0,.35);
-    }
-    .sidebar-toggle i { font-size: 18px; }
 
     .sidebar {
         position: fixed;
@@ -91,6 +75,7 @@
         body.sidebar-pinned .sidebar { transform: translateX(0); }
         .sidebar-toggle { left: 280px; }
     }
+
 </style>
 
 <script>
