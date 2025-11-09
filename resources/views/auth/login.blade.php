@@ -10,7 +10,7 @@
 
 </head>
 <body>
-
+    {{-- <div class="container-wrapper"> --}}
 <div class="container">
     <header>
         <img src="/images/logo-mobbox3.png" alt="">
@@ -53,10 +53,11 @@
 
     </main>
 
-
 </div>
 
 <x-svg></x-svg>
+
+
 </body>
 
 </html>

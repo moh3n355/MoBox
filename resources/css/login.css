@@ -49,7 +49,7 @@ body {
 
 .container {
     position: relative;
-    z-index: 1;
+    z-index: 2;
     background-color: var(--color-card-bg);
     border-radius: 0.625rem; /* 10px */
     box-shadow: var(--shadow-soft);
@@ -141,6 +141,7 @@ header h2 {
     transform: scale(1.02); /* کمی بزرگ شود بدون بهم ریختن */
 }
 @media (max-width: 480px) {
+
     .submit-btn {
         font-size: 3vw;       /* به جای px */
         padding: 2% 3%;       /* به جای px */
