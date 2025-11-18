@@ -14,7 +14,7 @@
 <div class="container">
     <header>
         <img src="/images/logo-mobbox3.png" alt="">
-        <h1>موبوکس</h1>
+        <h1>موباکس</h1>
         <h2>ورود</h2>
     </header>
 
@@ -54,8 +54,18 @@
     </main>
 
 </div>
+@php
+    $isMobile = preg_match(
+        '/(android|iphone|ipad|ipod|blackberry|phone|mobile|opera mini|iemobile)/i',
+        request()->header('User-Agent')
+    );
+@endphp
 
-<x-svg></x-svg>
+@if(!$isMobile)
+    <section>
+        <x-svg></x-svg>
+    </section>
+@endif
 
 
 </body>

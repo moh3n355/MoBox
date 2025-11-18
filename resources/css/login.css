@@ -23,6 +23,8 @@
     font-size: 1vw;
 }
 
+
+
 /* ========================= */
 
 * {
@@ -140,41 +142,6 @@ header h2 {
     background-color: var(--color-primary-hover);
     transform: scale(1.02); /* کمی بزرگ شود بدون بهم ریختن */
 }
-@media (max-width: 480px) {
-
-    .submit-btn {
-        font-size: 3vw;       /* به جای px */
-        padding: 2% 3%;       /* به جای px */
-    }
-
-    .container {
-        max-width: 80%;        /* نزدیک به 100% صفحه */
-        padding: 5%;           /* نسبی */
-    }
-
-    header h1 {
-        font-size: 5vw;
-    }
-
-    header h2 {
-        font-size: 4vw;
-    }
-
-    .input-group label,
-    .input-group input {
-        font-size: 3vw;
-    }
-
-    .error-message {
-        font-size: 2.5vw;
-    }
-
-    .terms {
-        font-size: 2.5vw;
-    }
-}
-
-
 
 .register-forgetpass {
     display: flex;
@@ -197,3 +164,181 @@ header h2 {
     margin-top: 1.25rem; /* 20px */
     line-height: 1.5;
 }
+
+@media (min-width: 300px) and (max-width: 480px) {
+    .container {
+        width: 100%;
+        max-width: 100%;
+        padding: 5%;
+        border-radius: 5%;
+        background-color: red; /* تست */
+    }
+
+    header h1 {
+        font-size: 6vw;
+    }
+
+    header h2 {
+        font-size: 4.5vw;
+    }
+
+    .input-group label,
+    .input-group input {
+        font-size: 3.5vw;
+    }
+
+    .submit-btn {
+        font-size: 4vw;
+        padding: 3% 4%;
+    }
+
+    .error-message {
+        font-size: 3vw;
+    }
+
+    .terms {
+        font-size: 3vw;
+    }
+}
+
+/* ====================== */
+/* موبایل بزرگ / فبلت کوچک (481px – 767px) */
+/* ====================== */
+@media (min-width: 481px) and (max-width: 760px) {
+    .container {
+        width: 90%;
+        max-width: 90%;
+        padding: 5%;
+    }
+
+    header h1 {
+        font-size: 5vw;
+    }
+
+    header h2 {
+        font-size: 3.5vw;
+    }
+
+    .input-group label,
+    .input-group input {
+        font-size: 2.8vw;
+    }
+
+    .submit-btn {
+        font-size: 3vw;
+        padding: 2.5% 3%;
+    }
+
+    .error-message {
+        font-size: 2.5vw;
+    }
+
+    .terms {
+        font-size: 2.5vw;
+    }
+}
+
+/* ====================== */
+/* تبلت / دسکتاپ کوچک (768px – 1024px) */
+/* ====================== */
+@media (min-width: 761px) and (max-width: 1024px) {
+    .container {
+        width: 100%;
+        max-width: 95%;
+        height: 100vh;      /* ارتفاع کل صفحه */
+        margin: 0;           /* بدون فاصله اطراف */
+        padding: 5%;         /* فاصله داخلی نسبی */
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* وسط چین عمودی محتوا */
+    }
+    header{
+        margin-bottom: 10vw;
+    }
+
+    header h1 {
+        font-size: 6vw;
+    }
+
+    header h2 {
+        font-size: 4.5vw;
+    }
+
+    .input-group label{
+        font-size: 3.5vw;
+    }
+    .input-group input {
+        font-size: 5vw;
+        border: #33333365 1px solid;
+        border-radius: 2vw;
+    }
+
+    .submit-btn {
+        border-radius: 2vw;
+        margin-top: 1vw;
+        font-size: 4vw;
+        padding: 3% 4%;
+    }
+
+    .error-message {
+        font-size: 3vw;
+    }
+    .register-forgetpass{
+        font-size: 3vw;
+
+    }
+
+    .terms {
+        font-size: 2.5vw;
+    }
+}
+
+
+/* ====================== */
+/* دسکتاپ متوسط (1025px – 1440px) */
+/* ====================== */
+@media (min-width: 1025px) and (max-width: 1440px) {
+    .container {
+        width: 60%;
+        max-width: 600px;
+        padding: 2.5rem;
+    }
+
+    header h1 {
+        font-size: 2.2rem;
+    }
+
+    header h2 {
+        font-size: 1.5rem;
+    }
+
+    .input-group label,
+    .input-group input {
+        font-size: 1rem;
+    }
+}
+
+/* ====================== */
+/* دسکتاپ بزرگ و 4K (1441px به بالا) */
+/* ====================== */
+/* @media (min-width: 1441px) {
+    .container {
+        width: 50%;
+        max-width: 700px;
+        padding: 3rem;
+    }
+
+    header h1 {
+        font-size: 2.5rem;
+    }
+
+    header h2 {
+        font-size: 1.8rem;
+    }
+
+    .input-group label,
+    .input-group input {
+        font-size: 1.1rem;
+    }
+} */
+
