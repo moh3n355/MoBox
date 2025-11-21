@@ -201,3 +201,162 @@ header h2 {
   .show-and-edit-phone img {
     margin: 0;
   }
+
+
+
+  @media (min-width: 300px) and (max-width: 480px) {
+    .container {
+        width: 100%;
+        max-width: 100%;
+        padding: 5%;
+        border-radius: 5%;
+        background-color: red; /* تست */
+    }
+
+    header h1 {
+        font-size: 6vw;
+    }
+
+    header h2 {
+        font-size: 4.5vw;
+    }
+
+    .input-group label,
+    .input-group input {
+        font-size: 3.5vw;
+    }
+
+    .submit-btn {
+        font-size: 4vw;
+        padding: 3% 4%;
+    }
+
+    .error-message {
+        font-size: 3vw;
+    }
+
+    .terms {
+        font-size: 3vw;
+    }
+}
+
+/* ====================== */
+/* موبایل بزرگ / فبلت کوچک (481px – 767px) */
+/* ====================== */
+@media (min-width: 481px) and (max-width: 760px) {
+    .container {
+        width: 90%;
+        max-width: 90%;
+        padding: 5%;
+    }
+
+    header h1 {
+        font-size: 5vw;
+    }
+
+    header h2 {
+        font-size: 3.5vw;
+    }
+
+    .input-group label,
+    .input-group input {
+        font-size: 2.8vw;
+    }
+
+    .submit-btn {
+        font-size: 3vw;
+        padding: 2.5% 3%;
+    }
+
+    .error-message {
+        font-size: 2.5vw;
+    }
+
+    .terms {
+        font-size: 2.5vw;
+    }
+}
+
+/* ====================== */
+/* تبلت / دسکتاپ کوچک (768px – 1024px) */
+/* ====================== */
+@media (min-width: 761px) and (max-width: 1024px) {
+    body{
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        width: 100%;
+        max-width: 100%;
+        height: 100vh;      /* ارتفاع کل صفحه */
+        margin: 0;           /* بدون فاصله اطراف */
+        padding: 5%;         /* فاصله داخلی نسبی */
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* وسط چین عمودی محتوا */
+    }
+    header{
+        margin-bottom: 10vw;
+    }
+
+    header h1 {
+        font-size: 6vw;
+    }
+
+    header h2 {
+        font-size: 4.5vw;
+    }
+
+    .input-group label{
+        font-size: 3.5vw;
+    }
+    .input-group input {
+        font-size: 5vw;
+        border: #33333365 1px solid;
+        border-radius: 2vw;
+    }
+
+    .submit-btn {
+        border-radius: 2vw;
+        margin-top: 1vw;
+        font-size: 4vw;
+        padding: 3% 4%;
+    }
+
+    .error-message {
+        font-size: 3vw;
+    }
+    .register-forgetpass{
+        font-size: 3vw;
+
+    }
+
+    .terms {
+        font-size: 2.5vw;
+    }
+}
+
+
+/* ====================== */
+/* دسکتاپ متوسط (1025px – 1440px) */
+/* ====================== */
+@media (min-width: 1025px) and (max-width: 1440px) {
+    .container {
+        width: 60%;
+        max-width: 600px;
+        padding: 2.5rem;
+    }
+
+    header h1 {
+        font-size: 2.2rem;
+    }
+
+    header h2 {
+        font-size: 1.5rem;
+    }
+
+    .input-group label,
+    .input-group input {
+        font-size: 1rem;
+    }
+}

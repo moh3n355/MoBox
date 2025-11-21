@@ -7,23 +7,23 @@
     <title>داشبورد مدیریتی</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    @vite(['resources/css/admin-dashboard.css' ,'resources/js/admin-dashboard.js'])
+    @vite(['resources/css/admin-dashboard.css', 'resources/js/admin-dashboard.js'])
 
 </head>
 
 <body>
     <div class="container">
-        {{-- <div class="header-dashboard">
+        <div class="header-dashboard">
             <div class="header-title">
-                <h1>داشبورد مدیریتی</h1>
+                <h1>پنل ادمین</h1>
                 <p>نمای کلی از وضعیت سفارشات و نظرات کاربران</p>
             </div>
             <div class="header-actions">
 
             </div>
-        </div> --}}
+        </div>
         <div class="dashboard">
-            <div class="card">
+            <div class="card" id="orders">
                 <div class="card-title">
                     <i class="fas fa-chart-pie"></i>
                     <h2>انواع سفارشات</h2>
@@ -31,6 +31,7 @@
                 <div class="chart-container">
                     <canvas id="ordersChart"></canvas>
                 </div>
+
                 <div class="stats">
                     <div class="stat-item">
                         <div class="stat-value" id="totalOrders">0</div>
@@ -43,7 +44,7 @@
                 </div>
             </div>
 
-            <div class="card">
+            <div class="card" id="comments">
                 <div class="card-title">
                     <i class="fas fa-comments"></i>
                     <h2>نظرات کاربران</h2>
@@ -55,6 +56,8 @@
                     </div>
                 </div>
             </div>
+
+
         </div>
     </div>
 
