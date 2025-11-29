@@ -29,8 +29,7 @@ header {
     /* box-shadow: 0 2px 6px rgba(0,0,0,0.08); */
     position: sticky;
     top: 0;
-    z-index: 1000;
-    max-height: 10vh;
+    z-index: 9999;
 }
 
 /* === Logo === */
@@ -70,6 +69,7 @@ header {
     overflow: hidden;
     min-width: 140px;
     flex-direction: column;
+    z-index: 1000; /* از همه بالاتر */
 }
 
 .dropdown-menu a {
@@ -448,10 +448,9 @@ header {
         gap: 0.5rem;
     }
 
-    .nav .nav-item {
-        font-size: 10rem;
+    .nav-item{
+        display: none;
     }
-
 
     .search-box {
         width: 40%;
@@ -465,21 +464,27 @@ header {
 
     .hero {
         overflow: hidden;
-        justify-content: start;
-        background: url(/public/images/HERO-mobile.png);
+        justify-content: center;
+        align-items: center;
+        background:none;
         background-color: #255294;
         min-height: 60vh;
-        background-repeat: no-repeat;
-        background-size: 95%;
-        background-position: left bottom;
         padding: 1.5rem 1rem;
-        gap: 1rem;
+        gap: 3rem;
+    }
+    .login-btn {
+        display:none;
     }
 
     .logo img {
         margin-top: 1vw;
-        width: 140px;
+        width: 80%;
         height: auto;
+    }
+
+    .hero-text{
+        text-align: center;
+        align-items: center;
     }
 
     .hero-text h1 {
@@ -514,19 +519,23 @@ header {
 }
 
 @media (max-width: 480px) {
+
     .nav {
         gap: 1rem;
     }
+    .nav-item{
+        display: none;
+    }
 
     .nav-link {
-        font-size: 0.6rem;
+        font-size: 0.9rem;
     }
 
     .login-btn {
-        position: fixed;
+        /* position: fixed;
         top: 0.8rem;
-        left: 0.5rem;
-        display:flex;
+        left: 0.5rem; */
+        display:none;
         flex-direction: row;
         justify-content: center;
         align-items: center;
@@ -542,18 +551,30 @@ header {
         font-size: 0.9rem;
         padding: 0.5rem 1rem;
     }
-
+    .logo{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
     .logo img {
-        width: 140px;
+        width: 75%;
         height: auto;
     }
 
+    .hero-text{
+        text-align: center;
+        align-items: center;
+    }
+
     .hero-text h1 {
-        font-size: 1.2rem;
+        font-size: 1.5rem;
     }
 
     .hero-text p {
-        font-size: 0.8rem;
+        font-size: 1rem;
+    }
+    .hero-text .buynow-btn{
+        font-size: 1.2rem;
     }
 
     .categories {

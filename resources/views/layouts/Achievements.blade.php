@@ -36,14 +36,36 @@
   opacity: 0.9;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 860px) {
   .stats {
     flex-direction: column;
+    align-items: normal;
+    gap: 2rem;
+  }
+  .stat-box{
+    padding: 0.5rem 0.5rem;
+  }
+  .stat-box h2 {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .stats {
+    padding:   10%;
+    flex-direction: column;
+    align-items: normal;
     gap: 2rem;
   }
   .stat-box h2 {
     font-size: 2.5rem;
   }
+}
+
+@media (max-width: 480px) {
+
+
+
 }
 
 </style>
