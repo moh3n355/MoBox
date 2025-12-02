@@ -29,9 +29,9 @@
 
 
 
-
 <x-layout>
 
+    <x-search-filter>
 
     <head>
         <meta charset="UTF-8">
@@ -40,8 +40,7 @@
         @vite(['resources/css/products.css', 'resources/js/products.js'])
 
     </head>
-    <div class="products-container">
-        <div class="grid-box">
+
 
             @for ($i = 0; $i < 5; $i++)
             <a class="add-to-cart" href="#" data-product-id="{{ $i + 1 }}">
@@ -66,8 +65,6 @@
             </a>
             @endfor
 
-        </div>
-    </div>
 
-
+</x-search-filter>
 </x-layout>

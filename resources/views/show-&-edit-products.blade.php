@@ -1,86 +1,61 @@
-<!DOCTYPE html>
-<html lang="فا" dir="rtl">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>مدیریت کالاها</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    @vite(['resources/css/show-&-edit-products.css', 'resources/js/show-&-edit-products.js'])
+<x-layout>
 
 
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Product Card</title>
+        @vite(['resources/css/products.css', 'resources/js/products.js', 'resources/js/show-&-edit-products.js', 'resources/css/show-&-edit-products.css'])
 
-<body>
-    <div class="container">
-        <div class="page-header">
-            <div class="title">
-                <i class="fa-solid fa-box-open"></i>
-                <h1>مدیریت کالاها</h1>
-            </div>
-            <div class="actions">
-                <button class="btn btn-secondary" id="btn-refresh"><i class="fa-solid fa-rotate"></i></button>
-                <button class="btn btn-primary" id="btn-add"><i class="fa-solid fa-plus"></i> افزودن کالا</button>
-            </div>
+        <style>
+
+        </style>
+    </head>
+
+    <div class="page-header">
+        <div class="topic">
+            <i class="fa-solid fa-box-open"></i>
+            <h1>مدیریت کالاها</h1>
         </div>
-
-        <div class="card">
-            <div class="toolbar">
-                <div class="search">
-                    <input type="text" id="search" placeholder="جستجوی نام، کد یا دسته‌بندی...">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </div>
-                <div class="actions">
-                    <select id="filter-status" class="btn btn-secondary" style="padding:10px 12px">
-                        <option value="">همه وضعیت‌ها</option>
-                        <option value="فعال">فعال</option>
-                        <option value="ناموجود">ناموجود</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="table-wrapper">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>نام کالا</th>
-                            <th>کد کالا</th>
-                            <th>دسته‌بندی</th>
-                            <th>قیمت</th>
-                            <th>موجودی</th>
-                            <th>وضعیت</th>
-                            <th style="width:160px">عملیات</th>
-                        </tr>
-                    </thead>
-                    <tbody id="products-tbody">
-
-@for ($i =0 ; $i <40 ; $i++)
-<tr data-id="${p.id}">
-    <td>{{ 'test' }}</td>
-    <td><span class="tag">{{ 'test' }}</span></td>
-    <td>{{ 'test' }}</td>
-    <td class="price">{{ 'test' }}</td>
-    <td class="qty">{{ 'test' }}</td>
-    <td>
-        <span class="status-badge ${p.status==='فعال'?'status-active':'status-out'}">
-            <i class="fa-solid ${p.status==='فعال'?'fa-circle':'fa-circle-xmark'}"></i>
-          {{ 'test' }}
-        </span>
-    </td>
-    <td>
-        <div class="table-actions">
-            <button class="btn btn-secondary" data-action="edit"><i class="fa-solid fa-pen"></i> ویرایش</button>
-            <button class="btn btn-danger" data-action="delete"><i class="fa-solid fa-trash"></i> حذف</button>
+        <div class="actions">
+            <button class="btn btn-primary" id="btn-add"><i class="fa-solid fa-plus"></i> افزودن کالا</button>
         </div>
-    </td>
-</tr>
-@endfor
+    </div>
+
+    <div class="products-container">
+        <div class="grid-box">
+
+            @for ($i = 0; $i < 5; $i++)
+                <div class="card">
+
+                    <div class="card-buttons">
+                        <a class="info-btn" href="#" data-product-id="{{ $i + 1 }}"><i
+                                class="fas fa-info"></i></a>
+                        <button class="edit-btn" data-product-id="{{ $i + 1 }}"><i
+                                class="fas fa-edit"></i></button>
+                        <button class="delete-btn" data-product-id="{{ $i + 1 }}"><i
+                                class="fas fa-trash-alt"></i></button>
+                    </div>
+
+                    <div class="product-image">
+                        <img src="/images/s26.webp" alt="Product {{ $i + 1 }}">
+                    </div>
+                    <h3 class="title">گوشی موبایل Galaxy s26 Ultra </h3>
+                    <p class="desc"> رم 12GB حافظه TB 1</p>
+
+                    <div class="cost">
+                        <p class="discount">7%</p>
+                        <p class="old-price">20,000,00</p>
+                    </div>
+
+                    <p class="price">12,000,000</p>
 
 
-                    </tbody>
-                </table>
-            </div>
+
+
+                </div>
+            @endfor
+
         </div>
     </div>
 
@@ -88,7 +63,8 @@
 
     <!-- Modal: Add/Edit Product -->
     <div class="modal-backdrop" id="modal-backdrop">
-<form id="upload-form" action="{{ route('show-&-edit-products') }}" method="POST" enctype="multipart/form-data">
+        <form id="upload-form" action="{{ route('show-&-edit-products') }}" method="POST"
+            enctype="multipart/form-data">
             @csrf
             <div class="modal" id="modal" role="dialog" aria-modal="true">
                 <div class="modal-header">
@@ -98,26 +74,17 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                        <div class="form-control" >
-                            <button type="submit" name="category" value="MobileKeys" class="btn btn-primary">موبایل</button>
-                            <button type="submit" name="category" value="LabtopKeys" class="btn btn-primary">لپتاپ</button>
-                            <button type="submit" name="category" value="WatchKeys" class="btn btn-primary">ساعت هوشمند</button>
-                            <button type="submit" name="category" value="AirPadKeys" class="btn btn-primary">ایرپاد</button>
+                    <div class="form-control">
+                        <button type="submit" name="category" value="MobileKeys"
+                            class="btn btn-primary">موبایل</button>
+                        <button type="submit" name="category" value="LabtopKeys" class="btn btn-primary">لپتاپ</button>
+                        <button type="submit" name="category" value="WatchKeys" class="btn btn-primary">ساعت
+                            هوشمند</button>
+                        <button type="submit" name="category" value="AirPadKeys"
+                            class="btn btn-primary">ایرپاد</button>
                     </div>
                 </div>
-
-
-
-
-                {{-- <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" id="btn-cancel">انصراف</button>
-                    <button type="submit" class="btn btn-primary" id="btn-save">ذخیره</button>
-                </div> --}}
             </div>
         </form>
-
     </div>
-
-</body>
-
-</html>
+</x-layout>
