@@ -68,8 +68,8 @@
             @csrf
             <div class="modal" id="modal" role="dialog" aria-modal="true">
                 <div class="modal-header">
-                    <h3 class="modal-title" id="modal-title">افزودن کالا</h3>
-                    <button type="button" class="btn btn-secondary" id="modal-close">
+                    <h3 class="modal-title" id="modal-title">انتخاب دسته بندی:</h3>
+                    <button type="button" class="btn-secondary" id="modal-close">
                         <i class="fa-solid fa-xmark"></i>
                     </button>
                 </div>
