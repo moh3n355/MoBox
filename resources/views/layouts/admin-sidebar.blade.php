@@ -26,7 +26,7 @@
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
         box-shadow: 16px 0 40px rgba(0,0,0,.35);
-        z-index: 1050;
+        z-index: 99999;
         transform: translateX(-100%);
         transition: transform .3s ease;
     }
@@ -79,26 +79,42 @@
 </style>
 
 <script>
-    (function(){
+    (function () {
         const sidebar = document.getElementById('adminSidebar');
-        const sidebarToggle = document.getElementById('sidebarToggle');
-        const sidebarClose = document.getElementById('sidebarClose');
-        if (!sidebar || !sidebarToggle) return;
+        const toggle = document.getElementById('sidebarToggle');
+        const closeBtn = document.getElementById('sidebarClose');
 
-        function openSidebar(){ sidebar.classList.add('open'); }
-        function closeSidebar(){ sidebar.classList.remove('open'); }
+        if (!sidebar || !toggle) return;
 
-        sidebarToggle.addEventListener('click', function(){
-            if (window.matchMedia('(min-width: 1024px)').matches) {
-                document.body.classList.toggle('sidebar-pinned');
-            } else {
-                openSidebar();
+        const open = () => sidebar.classList.add('open');
+        const close = () => sidebar.classList.remove('open');
+        const toggleSidebar = () => sidebar.classList.toggle('open');
+
+        // کلیک روی همبرگر
+        toggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleSidebar();
+        });
+
+        // دکمه بستن
+        closeBtn?.addEventListener('click', close);
+
+        // کلیک بیرون از سایدبار = بستن
+        document.addEventListener('click', (e) => {
+            if (
+                sidebar.classList.contains('open') &&
+                !sidebar.contains(e.target)
+            ) {
+                close();
             }
         });
-        sidebarClose && sidebarClose.addEventListener('click', closeSidebar);
-        sidebar.addEventListener('click', function(e){
-            if (e.target === sidebar && !window.matchMedia('(min-width: 1024px)').matches) closeSidebar();
+
+        // کلیک داخل سایدبار باعث بسته شدن نشه
+        sidebar.addEventListener('click', (e) => {
+            e.stopPropagation();
         });
+
     })();
-</script>
+    </script>
+
 
