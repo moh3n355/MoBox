@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
         newRow.classList.add('spec-row');
         newRow.innerHTML = `
             <input type="text" class="spec-key" placeholder="نام ویژگی" required>
-            <input type="text" class="spec-value" placeholder="مقدار">
+            <input type="text" class="spec-value" placeholder="مقدار" >
             <button type="button" class="remove-btn"><i class="fas fa-trash"></i></button>
         `;
 
@@ -104,5 +104,28 @@ document.addEventListener("DOMContentLoaded", () => {
             alert("خطا در آپلود تصاویر!");
         }
     });
+
+
+
+
+
+
+
+//menu filed
+
+const toggleBtn = document.getElementById('toggle-specs');
+const specsDiv = document.getElementById('specifications');
+
+toggleBtn.addEventListener('click', () => {
+    specsDiv.classList.toggle('open');
+    toggleBtn.classList.toggle('open');
+
+    if (specsDiv.classList.contains('open')) {
+        toggleBtn.innerHTML = 'پنهان کردن مشخصات <i class="fa-solid fa-chevron-up"></i>';
+    } else {
+        toggleBtn.innerHTML = 'نمایش مشخصات <i class="fa-solid fa-chevron-down"></i>';
+    }
+});
+
 
 });

@@ -1,3 +1,4 @@
+/* ==================== متغیرهای رنگی ==================== */
 :root {
     --primary: #4b6cb7;
     --primary-2: #182848;
@@ -8,6 +9,18 @@
     --text: #e9eef7;
     --muted: #a9b4c7;
     --success: #2ecc71;
+    --shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    --transition: all 0.3s ease;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --radius-lg: 16px;
+}
+
+/* ==================== ریست و تنظیمات پایه ==================== */
+* {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -20,51 +33,82 @@ body {
     background-attachment: fixed;
     margin: 0;
     color: var(--text);
+    line-height: 1.5;
+    min-height: 100vh;
+    padding: 0;
+    overflow-x: hidden;
 }
 
+/* ==================== کانتینر اصلی ==================== */
 .container {
     background: var(--card);
     border: 1px solid var(--stroke);
-    border-radius: 16px;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, .25);
-    padding: 16px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    max-width: fit-content;
-    margin: 3% auto;
-    padding: 28px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    padding: 24px 20px;
+    max-width: 96%;
+    width: 100%;
+    margin: 2% auto;
+    transition: var(--transition);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
-.form-control {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto auto auto;
-    gap: 8px;
-
+@media (min-width: 768px) {
+    .container {
+        max-width: 650px;
+        padding: 32px 28px;
+        margin: 3% auto;
+    }
 }
 
-.form-control label {
-    display: block;
-    font-size: 12px;
-    color: var(--muted);
+@media (min-width: 1024px) {
+    .container {
+        max-width: 1000px;
+    }
 }
 
-.field p {
-    padding: 10px;
-    border: 1px solid var(--stroke);
-    border-radius: 10px;
-    background: rgba(255, 255, 255, .06);
-    color: var(--muted);
-    font-size: 13px;
-    margin: 0;
-    user-select: none;
+/* ==================== هدر فرم ==================== */
+.form-header {
+    text-align: center;
+    margin-bottom: 28px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--stroke);
+}
+
+.form-header h1 {
+    margin: 0 0 8px 0;
+    font-size: 24px;
     font-weight: 700;
-
+    background: linear-gradient(to right, var(--primary), var(--text));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
-/* 🔹 CSS */
+.form-header p {
+    margin: 0;
+    font-size: 14px;
+    color: var(--muted);
+}
+
+/* ==================== کنترل‌های فرم ==================== */
+.form-control {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* استایل فیلدها در دسکتاپ */
+@media (min-width: 768px) {
+    .form-control {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto auto auto;
+        gap: 16px;
+    }
+}
+
 .field {
     display: flex;
     flex-direction: column;
@@ -72,198 +116,582 @@ body {
     margin-bottom: 0;
 }
 
-label {
-    font-size: 13px;
+.field label {
+    font-size: 14px;
     color: var(--muted);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
+.field label::after {
+    content: " *";
+    color: var(--danger);
+    opacity: 0.7;
+    font-size: 12px;
+}
+
+/* فیلدهای کشیده در موبایل */
+@media (max-width: 767px) {
+    .field-wide {
+        grid-column: span 2;
+    }
+}
+
+@media (min-width: 768px) {
+    .field-wide {
+        grid-column: span 2;
+    }
+}
+
+/* ==================== فیلدهای ورودی ==================== */
+.form-control input,
+.form-control textarea,
+.form-control select {
+    padding: 14px 16px;
+    border: 1px solid var(--stroke);
+    border-radius: var(--radius);
+    outline: none;
+    font-size: 15px;
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--text);
+    transition: var(--transition);
+    font-family: inherit;
+    width: 100%;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.form-control input:focus,
+.form-control textarea:focus,
+.form-control select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(75, 108, 183, 0.2);
+    transform: translateY(-1px);
+}
+
+/* استایل placeholder */
+.form-control input::placeholder,
+.form-control textarea::placeholder {
+    color: rgba(169, 180, 199, 0.6);
+}
+
+/* استایل textarea */
+.form-control textarea {
+    width: 100%;
+    min-height: 150px;
+    max-height: 250px;
+    resize: vertical;
+    line-height: 1.6;
+}
+
+@media (max-width: 767px) {
+    .form-control textarea {
+        min-height: 120px;
+    }
+}
+
+/* استایل select */
+/* .select-wrapper {
+    position: relative;
+}
+
+.select-wrapper::after {
+    content: "▼";
+    position: absolute;
+    top: 50%;
+    left: 16px;
+    transform: translateY(-50%);
+    font-size: 12px;
+    color: var(--muted);
+    pointer-events: none;
+} */
+
+/* ==================== مشخصات پویا ==================== */
 .specifications {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 3px;
+    margin-top: 8px;
 }
 
 .spec-row {
     display: grid;
-    grid-template-columns: 1fr 1fr 0.2fr;
-    gap: 5px;
+    grid-template-columns: 1fr 1.5fr 0.05fr;
+    gap: 3px;
+    align-items: center;
+    animation: slideIn 0.3s ease;
+}
+
+.spec-row+hr {
+    border: none;
+    height: 1px;
+    margin: 1px 0;
+    background: var(--primary);
+    box-shadow: 0 0 10px var(--primary);
+    opacity: 0.4;
+}
+
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 767px) {
+    .spec-row {
+        display: flex;
+        justify-content: center;
+        align-items: start;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .spec-row input {
+        width: 100%;
+    }
+
+    .remove-btn {
+        align-self: flex-end;
+        min-width: 40px;
+        min-height: 40px;
+        aspect-ratio: auto;
+    }
 }
 
 .spec-row input {
-    padding: 10px;
+    padding: 12px 14px;
     border: 1px solid var(--stroke);
-    border-radius: 10px;
+    border-radius: var(--radius-sm);
     background: rgba(255, 255, 255, 0.06);
     color: var(--text);
-    font-size: 13px;
+    font-size: 14px;
     outline: none;
+    transition: var(--transition);
+}
+
+.spec-row input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(75, 108, 183, 0.2);
+}
+
+/* دکمه‌های مشخصات */
+.spec-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .add-spec {
-    align-self: flex-start;
     background: var(--primary);
     color: var(--text);
     border: none;
-    border-radius: 8px;
-    padding: 8px 14px;
-    font-size: 100%;
+    border-radius: var(--radius-sm);
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: 600;
     cursor: pointer;
-    transition:0.5s;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 12px rgba(75, 108, 183, 0.3);
 }
 
 .add-spec:hover {
     background: var(--primary-2);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(75, 108, 183, 0.4);
 }
+
+.add-spec:active {
+    transform: translateY(0);
+}
+
 .remove-btn {
-    justify-content: center;
-    background-color: #ff4d4d;     /* قرمز ملایم */
-    color: white;                  /* رنگ آیکن سفید */
+    background-color: rgba(231, 76, 60, 0.9);
+    color: white;
     border: none;
-    font-size: 100%;
-    border-radius: 8px;            /* گوشه‌های گرد */
-    padding: 0;            /* فضای داخلی مناسب */
-    cursor: pointer;               /* اشاره‌گر دست هنگام hover */
-    transition: background 0.3s ease;
-  }
-
-  .remove-btn:hover {
-    background-color: #e60000;     /* قرمز تیره‌تر هنگام hover */
-  }
-
-.form-control input,
-.form-control textarea,
-.form-control select {
-    padding: 10px;
-    border: 1px solid var(--stroke);
-    border-radius: 10px;
-    outline: none;
-    font-size: 13px;
-    background: rgba(255, 255, 255, .06);
-    color: var(--text);
+    font-size: 18px;
+    border-radius: var(--radius-sm);
+    padding: 8px;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+    aspect-ratio: 1;
 }
 
+.remove-btn:hover {
+    background-color: rgba(230, 0, 0, 0.9);
+    transform: scale(1.05);
+}
 
-
-/* .image-upload-multiple {
+/* ==================== آپلود تصویر ==================== */
+.image-upload-multiple {
     display: flex;
     flex-direction: column;
-    gap: 1vw;
+    gap: 16px;
     width: 100%;
-  } */
+}
 
-  .image-picker-multiple {
+.image-picker-multiple {
     position: relative;
     width: 100%;
-    max-height: 350px;
-    height: 100%;
+    min-height: 180px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     border: 2px dashed var(--stroke);
-    border-radius: 1vw;
-    background: rgba(255, 255, 255, 0.0=5);
-    padding: 0 0 1vw 0;
+    border-radius: var(--radius);
+    background: rgba(255, 255, 255, 0.05);
+    padding: 24px 16px;
     box-sizing: border-box;
     cursor: pointer;
-    transition: all 0.3s ease;
-    overflow:auto;
-  }
-
-  .image-picker-multiple::-webkit-scrollbar {
-    width: 8px;
+    transition: var(--transition);
+    overflow: hidden;
 }
 
-.image-picker-multiple::-webkit-scrollbar-thumb {
-    background-color: rgba(75, 108, 183, 0.5);
-    border-radius: 4px;
-}
-
-.image-picker-multiple::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
-}
-  .image-picker-multiple span i{
-    width: 100%;
-  }
-
-  .image-picker-multiple:hover {
+.image-picker-multiple:hover {
     border-color: var(--primary);
-    background: rgba(75,108,183,0.1);
-  }
+    background: rgba(75, 108, 183, 0.1);
+}
 
-  .image-picker-multiple .placeholder {
+.image-picker-multiple:active {
+    transform: scale(0.98);
+}
+
+.image-picker-multiple .placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
     color: var(--muted);
-    font-size: calc(10rem);
+    font-size: 16px;
     text-align: center;
     pointer-events: none;
-  }
+    transition: var(--transition);
+}
 
-  .image-picker-multiple input[type="file"] {
+.image-picker-multiple .placeholder i {
+    font-size: 48px;
+    opacity: 0.7;
+}
+
+.image-picker-multiple input[type="file"] {
     position: absolute;
     inset: 0;
     opacity: 0;
     cursor: pointer;
-  }
-
-  /* گالری پیش‌نمایش تصاویر */
-  .preview-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 0.8vw;
-    overflow: auto;
-    margin-top: 1vw;
-  }
-  textarea {
-    width: 95%;
-    height: 185px;        /* ارتفاع دلخواه */
-    padding: 10px;        /* فاصله متن از لبه‌ها */
-    border: 2px solid #3498db; /* رنگ و ضخامت حاشیه */
-    border-radius: 8px;   /* گوشه‌های گرد */
-    font-size: 16px;      /* اندازه متن */
-    resize: none;     /* فقط قابلیت تغییر ارتفاع */
-    outline: none;        /* حذف حالت فوکوس پیش‌فرض */
-    overflow: hidden;
-}
-
-textarea:focus {
-    border-color: #ffffff91; /* رنگ حاشیه هنگام فوکوس */
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
-}
-
-input:focus {
-    border-color: #ffffff91; /* رنگ حاشیه هنگام فوکوس */
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
-}
-
-.container-field{
-    display: grid;
-    grid-template-columns: 1fr;
+    width: 100%;
     height: 100%;
 }
 
-  .preview-container img {
-    width: 6vw;
-    height: 6vw;
-    object-fit: cover;
-    border-radius: 0.8vw;
-    border: 1px solid var(--stroke);
-    transition: transform 0.3s ease;
-  }
+/* پیش‌نمایش تصاویر */
+.preview-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 12px;
+    margin-top: 8px;
+    max-height: 250px;
+    overflow-y: auto;
+    padding-right: 8px;
+}
 
-  .preview-container img:hover {
-    transform: scale(1.05);
-  }
-
-  /* موبایل */
-  @media (max-width: 768px) {
+@media (max-width: 767px) {
     .preview-container {
-        grid-template-columns: 1fr 1fr;
-      }
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+        gap: 10px;
+        max-height: 200px;
+    }
+}
+
+/* اسکرول بار برای پیش‌نمایش */
+.preview-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.preview-container::-webkit-scrollbar-thumb {
+    background-color: rgba(75, 108, 183, 0.5);
+    border-radius: 3px;
+}
+
+.preview-container::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+}
+
+.preview-item {
+    position: relative;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: var(--transition);
+}
+
+.preview-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.preview-container img {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    display: block;
+}
+
+@media (max-width: 767px) {
     .preview-container img {
-      width: 15vw;
-      height: 15vw;
+        height: 80px;
     }
-    .image-picker-multiple .placeholder {
-      font-size: 6rem;
+}
+
+.preview-remove {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    background: rgba(231, 76, 60, 0.9);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 14px;
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.preview-item:hover .preview-remove {
+    opacity: 1;
+}
+
+/* ==================== دکمه‌های فرم ==================== */
+
+
+
+.submit-btn,
+.cancel-btn {
+    width: 100%;
+    padding: 14px 28px;
+    border-radius: var(--radius);
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    border: none;
+    min-width: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (max-width: 767px) {
+
+    .submit-btn,
+    .cancel-btn {
+        width: 100%;
+        padding: 16px;
     }
-  }
+}
+
+.submit-btn {
+    background: var(--primary);
+    color: var(--text);
+    font-size: large;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-shadow: 0 4px 12px rgba(75, 108, 183, 0.3);
+}
+
+.submit-btn:hover {
+    background: var(--primary-2);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(75, 108, 183, 0.4);
+}
+
+.submit-btn:active {
+    transform: translateY(0);
+}
+
+
+
+/* ==================== وضعیت لودینگ ==================== */
+/* .loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(15, 19, 36, 0.9);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.loading-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.loader {
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    border-top-color: var(--primary);
+    animation: spin 1s ease-in-out infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+} */
+
+/* ==================== نوتیفیکیشن ==================== */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 16px 24px;
+    border-radius: var(--radius);
+    background: var(--card);
+    border-left: 4px solid var(--primary);
+    box-shadow: var(--shadow);
+    transform: translateX(120%);
+    transition: transform 0.4s ease;
+    z-index: 1000;
+    max-width: 320px;
+    backdrop-filter: blur(10px);
+}
+
+.notification.show {
+    transform: translateX(0);
+}
+
+.notification.success {
+    border-left-color: var(--success);
+}
+
+.notification.error {
+    border-left-color: var(--danger);
+}
+
+/* ==================== submit btn =============== */
+.submit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/*
+#submit-btn {
+    width: 100%;
+    background: var(--);
+    color: var(--muted);
+    padding: 1rem 2rem;
+    font-weight: 700;
+    font-size: large;
+    border-radius: 1rem;
+
+} */
+
+/* ==================== بهبود UX موبایل ==================== */
+@media (max-width: 767px) {
+
+    /* افزایش اندازه فونت برای خوانایی بهتر */
+    body {
+        font-size: 16px;
+    }
+
+    /* افزایش اندازه فیلدهای لمسی */
+    .form-control input,
+    .form-control textarea,
+    .form-control select,
+    .add-spec,
+    .remove-btn,
+    .submit-btn,
+    .cancel-btn {
+        min-height: 48px;
+    }
+
+    /* حذف انیمیشن‌های سنگین در موبایل */
+    .preview-item:hover,
+    .add-spec:hover,
+    .submit-btn:hover,
+    .cancel-btn:hover {
+        transform: none;
+    }
+
+    /* نمایش دکمه حذف در پیش‌نمایش بدون hover */
+    .preview-remove {
+        opacity: 1;
+        width: 28px;
+        height: 28px;
+    }
+
+    /* بهبود ظاهر اسکرول‌بار در موبایل */
+    .preview-container::-webkit-scrollbar {
+        width: 4px;
+    }
+}
+
+/* ==================== انیمیشن‌های ظریف ==================== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.container {
+    animation: fadeIn 0.5s ease;
+}
+
+/* ==================== حالت تاریک/روشن ==================== */
+/* @media (prefers-color-scheme: light) {
+    :root {
+        --bg: #f5f7fb;
+        --card: rgba(255, 255, 255, 0.95);
+        --stroke: rgba(0, 0, 0, 0.1);
+        --text: #2c3e50;
+        --muted: #7f8c8d;
+    }
+
+    body {
+        background:
+            radial-gradient(1200px 600px at 50% 50%, rgba(75, 108, 183, 0.15) 0%, rgba(75, 108, 183, 0) 75%),
+            radial-gradient(1000px 500px at 50% 50%, rgba(24, 40, 72, 0.1) 0%, rgba(24, 40, 72, 0) 40%),
+            var(--bg);
+    }
+} */

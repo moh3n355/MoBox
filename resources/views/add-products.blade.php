@@ -83,22 +83,23 @@
                 <div class="field">
                     <label>مشخصات کالا:</label>
 
+                    {{-- <button type="button" class="toggle-specs" id="toggle-specs">
+                        نمایش مشخصات
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button> --}}
+
 
                     <div class="specifications" id="specifications">
-                        <table>
-                            <tr>
-                                <td>ویژگی:</td>
-                                <td>مقدار:</td>
-                            </tr>
-                        </table>
+
 
                         <!-- ویژگی از پیش‌تعریف‌شده -->
 
                         @foreach ($keys as $key)
                             <div class="spec-row">
-                                <p>{{ $key }}</p>
+                                <p>{{ $key }}:</p>
                                 <input type="text" class="spec-value" placeholder="">
                             </div>
+                            <hr>
                         @endforeach
 
 
@@ -112,15 +113,10 @@
 
 
 
-
-
-
-
-
-
             </div>
-
-            <input type="submit" name="" id="">
+            <div class="submit">
+            <button type="submit" name="" class="submit-btn">افزودن محصول</button>
+        </div>
         </form>
     </div>
 </body>
