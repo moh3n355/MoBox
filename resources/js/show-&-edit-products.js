@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-
+    const close_btn = document.getElementById("modal-close");
     const add_product_btn = document.getElementById("btn-add");
     const modal = document.getElementById("modal-backdrop");
 
@@ -8,10 +8,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // برای بستن مودال با دکمه ×
-    // add_product_btn.addEventListener('blur', () => {
-    //     modal.style.display = 'none';
-    // }
-    // );
+    close_btn.addEventListener('click', () => {
+        modal.classList.remove('modal-backdrop-show');
+    }
+    );
 
 
     const input = document.getElementById("images");
