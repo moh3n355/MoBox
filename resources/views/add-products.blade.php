@@ -94,9 +94,9 @@
 
                         <!-- ویژگی از پیش‌تعریف‌شده -->
 
-                        @foreach ($keys as $key)
+                        @foreach ($keys as $key => $value)
                             <div class="spec-row">
-                                <p>{{ $key }}:</p>
+                                <p>{{ is_int($key) ? $value : $key }}:</p>
                                 <input type="text" class="spec-value" placeholder="">
                             </div>
                             <hr>

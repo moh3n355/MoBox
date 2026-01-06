@@ -31,7 +31,7 @@
 
 <x-layout>
 
-    <x-search-filter>
+    <x-search-filter :filters="$filters">
 
     <head>
         <meta charset="UTF-8">
@@ -57,6 +57,7 @@
                     </div>
 
                     <p class="price">12,000,000</p>
+
 
 
 

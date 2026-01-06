@@ -1,10 +1,12 @@
 <div>
+    @props(['filters'])
 
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>فیلتر محصولات</title>
         <link rel="stylesheet" href="style.css">
+        <script src="//unpkg.com/alpinejs" defer></script>
         <style>
             /* استایل پایه */
             * {
@@ -72,16 +74,24 @@
             }
 
             .filter-title {
-                font-size: 1.1rem;
-                color: #555;
-                margin-bottom: 15px;
-                font-weight: 600;
+                font-size: 16px;
+                font-weight: bold;
+                cursor: pointer;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .toggle-icon {
+                font-size: 20px;
+                font-weight: bold;
             }
 
             .filter-options {
                 display: flex;
                 flex-direction: column;
                 gap: 12px;
+                margin-top: 10px;
             }
 
             .filter-option {
@@ -90,6 +100,7 @@
                 cursor: pointer;
                 padding: 8px 0;
                 position: relative;
+                gap: 10px
             }
 
             .filter-option input {
@@ -105,6 +116,22 @@
                 position: relative;
                 transition: all 0.3s ease;
             }
+
+            .clear-filters {
+                display: inline-block;
+                padding: 6px 12px;
+                background-color: #ff4757;
+                color: white;
+                border-radius: 5px;
+                text-decoration: none;
+                font-size: 14px;
+                cursor: pointer;
+            }
+
+            .clear-filters:hover {
+                background-color: #ff3742;
+            }
+
 
             .filter-option input:checked+.checkmark {
                 background: #007bff;
@@ -342,6 +369,10 @@
             .cat-nav:hover {
                 color: white;
             }
+
+            [x-cloak] {
+                display: none !important;
+            }
         </style>
 
         <section class="categories-slider">
@@ -370,7 +401,6 @@
             <button class="cat-nav right">❮</button>
         </section>
 
-
     </head>
 
     <div class="container">
@@ -378,36 +408,55 @@
         <aside class="filters-sidebar">
             <div class="filters-header">
                 <h2>فیلتر محصولات</h2>
-                <button class="clear-filters">پاک کردن همه</button>
-            </div>
+                <div x-data>
+                    <a href="#" class="clear-filters"
+                        @click.prevent="
+                    document.querySelectorAll('#filterForm input[type=checkbox]').forEach(cb => cb.checked = false);
+                    document.getElementById('filterForm').submit();
+                 ">
+                        پاک کردن همه
+                    </a>
 
-
-            <!-- برند -->
-            <div class="filter-group">
-                <h3 class="filter-title">برند</h3>
-                <div class="filter-options">
-                    <label class="filter-option">
-                        <input type="checkbox" value="apple">
-                        <span class="checkmark"></span>
-                        اپل
-                    </label>
-                    <label class="filter-option">
-                        <input type="checkbox" value="samsung">
-                        <span class="checkmark"></span>
-                        سامسونگ
-                    </label>
-                    <label class="filter-option">
-                        <input type="checkbox" value="xiaomi">
-                        <span class="checkmark"></span>
-                        شیائومی
-                    </label>
-                    <label class="filter-option">
-                        <input type="checkbox" value="huawei">
-                        <span class="checkmark"></span>
-                        هوآوی
-                    </label>
                 </div>
             </div>
+
+
+
+            {{-- filter ha --}}
+
+            <form id="filterForm" action=# method="GET">
+
+                @foreach ($filters as $group => $items)
+                    @if (!empty($items))
+                        <div class="filter-group" x-data="{ open: false }">
+
+                            <h3 class="filter-title" @click="open = !open">
+                                <span>{{ $group }}</span>
+                                <span class="toggle-icon">
+                                    <span x-show="!open">+</span>
+                                    <span x-show="open">−</span>
+                                </span>
+                            </h3>
+
+                            <div class="filter-options" x-show="open" x-transition x-cloak>
+                                @foreach ($items as $item)
+                                    <label class="filter-option">
+                                        <input type="checkbox" name="{{ $group }}[]" value="{{ $item }}"
+                                            {{ in_array($item, request($group, [])) ? 'checked' : '' }}>
+                                        {{ $item }}
+                                        <span class="checkmark"></span>
+                                    </label>
+                                @endforeach
+                            </div>
+
+                        </div>
+                    @endif
+                @endforeach
+
+            </form>
+
+
+
 
             <!-- محدوده قیمت -->
             <div class="filter-group">
@@ -465,5 +514,12 @@
                 behavior: "smooth"
             });
         });
+
+        document.querySelectorAll('#filterForm input[type="checkbox"]').forEach(cb => {
+            cb.addEventListener('change', () => {
+                document.getElementById('filterForm').submit();
+            });
+        });
     </script>
+
 </div>
