@@ -9,7 +9,7 @@
 
 </head>
 
-<body>
+
     <div class="container">
         <div class="header-dashboard">
             <div class="header-title">
@@ -60,5 +60,3 @@
     </div>
 
 
-
-</body>

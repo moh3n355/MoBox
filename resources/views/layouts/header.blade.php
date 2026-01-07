@@ -6,6 +6,7 @@
             <input type="text" name="" id="">
         </div>
 
+
         <div class="nav-item">
             <a href="#" class="nav-link" id="home">خانه</a>
         </div>
@@ -32,7 +33,16 @@
             </div>
         </div>
 
+
+        <button class="theme-toggle" id="themeToggle">
+            <span class="sun-icon"><i class="fas fa-sun"></i></span>
+            <span class="moon-icon"><i class="fas fa-moon"></i></span>
+        </button>
+
+
     </nav>
+
+
     {{-- if have not been user login --}}
 
     @if (auth()->check())
@@ -54,6 +64,7 @@
         </div>
     @else
         <div class="icons">
+
             <a href="{{ route('auth') }}" alt="" class="login-btn">ورود | ثبت نام</a>
 
             <button class="sidebar-toggle" id="sidebarToggle" aria-label="باز کردن منو">
@@ -64,4 +75,35 @@
     @endif
 
     </div>
+
+
+
 </header>
+
+<script>
+ document.addEventListener('DOMContentLoaded', () => {
+
+const toggle = document.getElementById('themeToggle');
+if (!toggle) return;
+
+const saved = localStorage.getItem('theme');
+
+if (saved === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+}
+
+toggle.addEventListener('click', () => {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+
+    if (isDark) {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'light');
+    } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+    }
+});
+
+});
+
+</script>

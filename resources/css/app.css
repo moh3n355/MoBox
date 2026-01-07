@@ -5,13 +5,73 @@
     box-sizing: border-box;
 }
 
+:root {
+    /* ===== تم روشن (پیش‌فرض) ===== */
+    --bg-primary: #fafafa;
+    --bg-secondary: #ffffff;
+    --text-primary: #222;
+    --text-secondary: #ffffff;
+    --text-muted: #333;
+    --primary-color: #336CB1;
+    --primary-hover: #255294;
+    --accent-color: #007aff;
+    --accent-hover: #005fcc;
+    --button-primary: #F59E0B;
+    --button-primary-hover: #b9790a;
+    --button-secondary: #007bffbf;
+    --alert-color: #ff3b30;
+    --border-color: #ffffff;
+    --border-color-secondary: #dee2e6;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --hero-overlay: rgba(0, 0, 0, 0.3);
+    --footer-bg: #0d1b2a;
+    --footer-border: #1b263b;
+    --footer-link: #00b4d8;
+    --footer-link-hover: #90e0ef;
+    --card-bg: rgba(255, 255, 255, 0.06);
+    --card-border: #336CB1;
+    --search-shadow: #007bffbf;
+    --gradient-start: #336cb1;
+    --gradient-end: #007aff;
+}
+
+[data-theme="dark"] {
+    /* ===== تم تاریک ===== */
+    --bg-primary: #121212;
+    --bg-secondary: #1e1e1e;
+    --text-primary: #ffffff;
+    --text-secondary: #e0e0e0;
+    --text-muted: #adb5bd;
+    --primary-color: #1e3a8a;
+    --primary-hover: #1e40af;
+    --accent-color: #3b82f6;
+    --accent-hover: #2563eb;
+    --button-primary: #d97706;
+    --button-primary-hover: #b45309;
+    --button-secondary: #1d4ed8;
+    --alert-color: #dc2626;
+    --border-color: #424242;
+    --border-color-secondary: #374151;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    --hero-overlay: rgba(0, 0, 0, 0.6);
+    --footer-bg: #030712;
+    --footer-border: #111827;
+    --footer-link: #60a5fa;
+    --footer-link-hover: #93c5fd;
+    --card-bg: rgba(30, 41, 59, 0.2);
+    --card-border: #1e40af;
+    --search-shadow: #1d4ed8bf;
+    --gradient-start: #1e3a8a;
+    --gradient-end: #3b82f6;
+}
 
 body {
     position: relative;
     direction: rtl;
     font-family: "Vazirmatn", sans-serif;
-    background-color: #fafafa;
-    color: #222;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 
@@ -20,19 +80,16 @@ body {
 
 /* === Header === */
 header {
-    /* background-color: #336cb100; */
-    background-color: #336CB1;
+    background-color: var(--primary-color);
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1.2rem 2rem;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    box-shadow: 0 2px 6px var(--shadow-color);
     position: sticky;
     top: 0;
     z-index: 9999;
 }
-
-/* === Logo === */
 
 /* === Navigation === */
 .nav {
@@ -48,13 +105,13 @@ header {
 
 .nav-link {
     text-decoration: none;
-    color: #ffffff;
+    color: var(--text-secondary);
     font-weight: 500;
     transition: 0.2s ease;
 }
 
 .nav-link:hover {
-    color: #007aff;
+    color: var(--accent-color);
 }
 
 /* === Dropdown Menus === */
@@ -63,25 +120,25 @@ header {
     position: absolute;
     top: 120%;
     right: 0;
-    background: #fff;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background: var(--bg-secondary);
+    box-shadow: 0 4px 12px var(--shadow-color);
     border-radius: 8px;
     overflow: hidden;
     min-width: 140px;
     flex-direction: column;
-    z-index: 1000; /* از همه بالاتر */
+    z-index: 1000;
 }
 
 .dropdown-menu a {
     padding: 0.7rem 1rem;
     display: block;
-    color: #333;
+    color: var(--text-primary);
     text-decoration: none;
     transition: background 0.2s ease;
 }
 
 .dropdown-menu a:hover {
-    background: #f0f0f0;
+    background: var(--bg-primary);
 }
 
 /* نمایش منو هنگام هاور */
@@ -93,11 +150,11 @@ header {
 .search-box {
     display: flex;
     align-items: center;
-    border: 1px solid #ffffff;
+    border: 1px solid var(--border-color);
     border-radius: 20px;
     padding: 0rem 0rem;
-    background: #ffffff;
-    box-shadow: 1px 1px 10px #007bffbf;
+    background: var(--bg-secondary);
+    box-shadow: 1px 1px 10px var(--search-shadow);
 }
 
 .search-box input {
@@ -106,27 +163,28 @@ header {
     background: transparent;
     padding: 0;
     font-size: 0.9rem;
+    color: var(--text-primary);
 }
 
 .search-box input::placeholder {
-    color: #ffffff;
+    color: var(--text-secondary);
 }
 
 .search-box button {
-    background: #007bffbf;
+    background: var(--button-secondary);
     padding: 0.3rem 0.6rem;
     cursor: pointer;
-    color: #ffffff;
-    border: 0px solid #ffffff;
+    color: var(--text-secondary);
+    border: 0px solid var(--border-color);
     border-radius: 5px 20px 20px 5px;
     margin-left: 0.3rem;
 }
 
-.icons{
+.icons {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 2rem;
+    gap: 1rem;
 }
 
 /* === User & Cart === */
@@ -142,14 +200,15 @@ header {
     border: none;
     cursor: pointer;
     font-size: 1.2rem;
+    color: var(--text-secondary);
 }
 
 .cart-badge {
     position: absolute;
     top: -5px;
     left: -8px;
-    background: #ff3b30;
-    color: #fff;
+    background: var(--alert-color);
+    color: var(--text-secondary);
     font-size: 0.7rem;
     padding: 2px 5px;
     border-radius: 50%;
@@ -158,6 +217,7 @@ header {
 .user-icon {
     position: relative;
     cursor: pointer;
+    color: var(--text-secondary);
 }
 
 .user-icon i {
@@ -174,28 +234,28 @@ header {
     position: absolute;
     top: 130%;
     right: 0;
-    background: #fff;
+    background: var(--bg-secondary);
     border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px var(--shadow-color);
     overflow: hidden;
     flex-direction: column;
 }
 
 #user-profile a {
     padding: 0.6rem 1rem;
-    color: #333;
+    color: var(--text-primary);
     text-decoration: none;
     transition: 0.2s;
 }
 
 #user-profile a:hover {
-    background: #f2f2f2;
+    background: var(--bg-primary);
 }
 
 /* === Login Button === */
 .login-btn {
-    background: #007aff;
-    color: #fff;
+    background: var(--accent-color);
+    color: var(--text-secondary);
     text-decoration: none;
     padding: 0.5rem 1.1rem;
     border-radius: 20px;
@@ -203,22 +263,22 @@ header {
 }
 
 .login-btn:hover {
-    background: #005fcc;
+    background: var(--accent-hover);
 }
 
 .sidebar-toggle {
     z-index: 1100;
-    /* background: linear-gradient(135deg, var(--primary), var(--primary-2)); */
-    background: #336cb1;
-    color: #fff;
+    background: var(--primary-color);
+    color: var(--text-secondary);
     border: none;
     border-radius: 10px;
     padding: 10px;
     cursor: pointer;
-
 }
 
-.sidebar-toggle i { font-size: 25px; }
+.sidebar-toggle i {
+    font-size: 25px;
+}
 
 .sidebar-toggle:focus,
 .sidebar-toggle:active,
@@ -237,25 +297,42 @@ header {
     background-size: cover;
     background-position: top;
     background-repeat: no-repeat;
-
+    background-color: var(--primary-color); /* رنگ پس‌زمینه جایگزین */
     gap: clamp(2rem, 5vw, 4rem);
-    color: #fff;
+    color: var(--text-secondary);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: start;
     text-align: center;
-
     padding: 3rem 2rem;
     border-radius: 0 0 2rem 2rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px var(--shadow-color);
+    position: relative;
+}
+
+/* Overlay برای خوانایی بهتر متن در تم تاریک */
+[data-theme="dark"] .hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--hero-overlay);
+    border-radius: 0 0 2rem 2rem;
+    z-index: 1;
+}
+
+.hero > * {
+    position: relative;
+    z-index: 2;
 }
 
 .logo {
     display: flex;
     align-items: center;
-    align-items: center;
-    /* gap: 0.3rem; */
+    gap: 0.3rem;
 }
 
 .logo img {
@@ -264,7 +341,6 @@ header {
     object-fit: contain;
 }
 
-
 .hero-text {
     display: flex;
     align-items: flex-start;
@@ -272,7 +348,6 @@ header {
     flex-direction: column;
     animation-delay: 0.8s;
 }
-
 
 /* ====== animation ===== */
 .logo,
@@ -305,29 +380,25 @@ header {
     }
 }
 
-/* ======================== */
-
-
 /* === Texts === */
 .hero-text h1 {
     font-size: 2.5rem;
     font-weight: 700;
     margin-bottom: 1rem;
-    text-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 3px 10px var(--hero-overlay);
 }
 
 .hero-text p {
     font-size: 1.2rem;
     margin-bottom: 2rem;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    text-shadow: 0 2px 8px var(--hero-overlay);
     opacity: 0.95;
 }
 
-
 /* === Call-to-Action Button === */
 .buynow-btn {
-    background: #F59E0B;
-    color: #ffffff;
+    background: var(--button-primary);
+    color: var(--text-secondary);
     text-decoration: none;
     padding: 0.9rem 2rem;
     border-radius: 30px;
@@ -338,17 +409,16 @@ header {
 }
 
 .buynow-btn:hover {
-    background: #b9790a;
+    background: var(--button-primary-hover);
     transform: translateY(-3px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 6px 15px var(--shadow-color);
 }
 
 
-/* ================================= categoryes ======================= */
+/* ================================= categories ======================= */
 
 .categories {
     display: grid;
-    /* تعداد ستون‌ها به‌صورت خودکار تنظیم میشه */
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     justify-content: center;
     align-items: center;
@@ -358,23 +428,22 @@ header {
 }
 
 .category {
-    background: rgba(255, 255, 255, 0.06);
-    border: 3px solid #336CB1;
+    background: var(--card-bg);
+    border: 3px solid var(--card-border);
     border-radius: clamp(0.5rem, 1vw, 1rem);
     max-width: 100px;
     min-width: 80px;
     margin: 0 auto;
     text-align: center;
     padding: clamp(0.5rem, 1.2vw, 1rem);
-    /* background-color: #4c9dff; */
-    box-shadow: clamp(4px, 0.2vw, 10px) clamp(4px, 0.1vw, 10px) clamp(8px, 1vw, 12px) #336CB1;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: clamp(4px, 0.2vw, 10px) clamp(4px, 0.1vw, 10px) clamp(8px, 1vw, 12px) var(--card-border);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
 }
 
 .category:hover {
-    background-color: #f59f0b;
+    background-color: var(--button-primary);
     transform: translateY(-5%);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 10px 20px var(--shadow-color);
 }
 
 .category img {
@@ -388,13 +457,13 @@ header {
 
 /* ---------- Footer Style ---------- */
 .footer {
-    background: #0d1b2a;
-    color: #ffffff;
+    background: var(--footer-bg);
+    color: var(--text-secondary);
     text-align: center;
     padding: 1.5rem 1rem;
     font-family: "Vazirmatn", sans-serif;
-    border-top: 3px solid #1b263b;
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+    border-top: 3px solid var(--footer-border);
+    box-shadow: 0 -2px 10px var(--shadow-color);
 }
 
 .footer p {
@@ -408,7 +477,7 @@ header {
 }
 
 .footer-links a {
-    color: #00b4d8;
+    color: var(--footer-link);
     text-decoration: none;
     margin: 0 10px;
     font-size: 0.9rem;
@@ -416,7 +485,7 @@ header {
 }
 
 .footer-links a:hover {
-    color: #90e0ef;
+    color: var(--footer-link-hover);
     transform: translateY(-2px);
 }
 
@@ -434,7 +503,7 @@ header {
 
 @media (max-width: 768px) {
     header {
-        background-color: #255294;
+        background-color: var(--primary-hover);
         overflow: hidden;
         flex-direction: row;
         align-items: flex-start;
@@ -448,7 +517,7 @@ header {
         gap: 0.5rem;
     }
 
-    .nav-item{
+    .nav-item {
         display: none;
     }
 
@@ -459,21 +528,21 @@ header {
 
     .search-box input {
         width: 100%;
-
     }
 
     .hero {
         overflow: hidden;
         justify-content: center;
         align-items: center;
-        background:none;
-        background-color: #255294;
+        background: none;
+        background-color: var(--primary-hover);
         min-height: 60vh;
         padding: 1.5rem 1rem;
         gap: 3rem;
     }
+
     .login-btn {
-        display:none;
+        display: none;
     }
 
     .logo img {
@@ -482,7 +551,7 @@ header {
         height: auto;
     }
 
-    .hero-text{
+    .hero-text {
         text-align: center;
         align-items: center;
     }
@@ -519,11 +588,11 @@ header {
 }
 
 @media (max-width: 480px) {
-
     .nav {
         gap: 1rem;
     }
-    .nav-item{
+
+    .nav-item {
         display: none;
     }
 
@@ -532,15 +601,12 @@ header {
     }
 
     .login-btn {
-        /* position: fixed;
-        top: 0.8rem;
-        left: 0.5rem; */
-        display:none;
+        display: none;
         flex-direction: row;
         justify-content: center;
         align-items: center;
-        font-size: clamp(0.4rem , 0.5rem , 0.8rem);
-        padding: clamp(0.5rem , 0.5rem , 0.6rem )  clamp(0.7rem , 2rem , 1.2rem );
+        font-size: clamp(0.4rem, 0.5rem, 0.8rem);
+        padding: clamp(0.5rem, 0.5rem, 0.6rem) clamp(0.7rem, 2rem, 1.2rem);
     }
 
     .search-box input {
@@ -551,17 +617,19 @@ header {
         font-size: 0.9rem;
         padding: 0.5rem 1rem;
     }
-    .logo{
+
+    .logo {
         display: flex;
         justify-content: center;
         align-items: center;
     }
+
     .logo img {
         width: 75%;
         height: auto;
     }
 
-    .hero-text{
+    .hero-text {
         text-align: center;
         align-items: center;
     }
@@ -573,7 +641,8 @@ header {
     .hero-text p {
         font-size: 1rem;
     }
-    .hero-text .buynow-btn{
+
+    .hero-text .buynow-btn {
         font-size: 1.2rem;
     }
 
@@ -584,4 +653,52 @@ header {
     .category {
         padding: 0.3rem;
     }
+}
+/* اضافه کردن دکمه تغییر تم */
+.theme-toggle {
+    /* background: var(--accent-color); */
+    background: none;
+    color: var(--text-secondary);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    margin-right: 1rem;
+}
+
+.theme-toggle:hover {
+    /* background: var(--accent-hover); */
+    transform: rotate(30deg);
+}
+
+/* پنهان کردن آیکون‌ها بر اساس تم */
+.theme-toggle .sun-icon {
+    display: block;
+}
+
+.theme-toggle .moon-icon {
+    display: none;
+}
+
+/* در تم تاریک: خورشید مخفی، ماه نمایش */
+[data-theme="dark"] .theme-toggle .sun-icon {
+    display: none;
+}
+
+[data-theme="dark"] .theme-toggle .moon-icon {
+    display: block;
+}
+
+/* انیمیشن برای تغییر تم */
+* {
+    transition: background-color 0.3s ease,
+                color 0.3s ease,
+                border-color 0.3s ease,
+                box-shadow 0.3s ease;
 }
