@@ -1,4 +1,26 @@
+
 :root {
+    /* ===== تم روشن ===== */
+    --primary: #3b82f6;
+    --primary-2: #1d4ed8;
+    --bg: #f8fafc;
+    --card: rgba(255, 255, 255, 0.9);
+    --stroke: rgba(0, 0, 0, 0.08);
+    --text: #1e293b;
+    --muted: #64748b;
+    --warning: #f59e0b;
+    --danger: #dc2626;
+    --border-radius: 16px;
+    --header-bg: linear-gradient(180deg, rgba(59, 130, 246, .08), rgba(29, 78, 216, .04));
+    --stat-bg: linear-gradient(180deg, rgba(59, 130, 246, .06), rgba(29, 78, 216, .03));
+    --shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+    --shadow-hover: 0 18px 50px rgba(0, 0, 0, 0.15);
+    --radial-1: radial-gradient(1200px 600px at 20% -20%, rgba(59, 130, 246, .15), transparent);
+    --radial-2: radial-gradient(1000px 500px at 100% 0%, rgba(29, 78, 216, .20), transparent);
+    --avatar-gradient: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    --gradient-text: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+}
+[data-theme="dark"]  {
     /* ===== تم تاریک (پیش‌فرض) ===== */
     --primary: #4b6cb7;
     --primary-2: #182848;
@@ -21,27 +43,6 @@
     --card-hover-transform: translateY(-5px);
     --backdrop-blur: blur(10px);
     --backdrop-blur-header: blur(8px);
-}
-
-[data-theme="light"] {
-    /* ===== تم روشن ===== */
-    --primary: #3b82f6;
-    --primary-2: #1d4ed8;
-    --bg: #f8fafc;
-    --card: rgba(255, 255, 255, 0.9);
-    --stroke: rgba(0, 0, 0, 0.08);
-    --text: #1e293b;
-    --muted: #64748b;
-    --warning: #f59e0b;
-    --danger: #dc2626;
-    --header-bg: linear-gradient(180deg, rgba(59, 130, 246, .08), rgba(29, 78, 216, .04));
-    --stat-bg: linear-gradient(180deg, rgba(59, 130, 246, .06), rgba(29, 78, 216, .03));
-    --shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
-    --shadow-hover: 0 18px 50px rgba(0, 0, 0, 0.15);
-    --radial-1: radial-gradient(1200px 600px at 20% -20%, rgba(59, 130, 246, .15), transparent);
-    --radial-2: radial-gradient(1000px 500px at 100% 0%, rgba(29, 78, 216, .20), transparent);
-    --avatar-gradient: linear-gradient(135deg, #3b82f6, #1d4ed8);
-    --gradient-text: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
 }
 
 body {

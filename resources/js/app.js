@@ -1,4 +1,6 @@
 import './bootstrap';
+import './admin-dashboard'
+
 
 function setupDropdown(buttonId, menuId, otherMenus = []) {
     const button = document.getElementById(buttonId);
