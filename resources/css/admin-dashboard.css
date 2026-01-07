@@ -56,7 +56,7 @@ body {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.container {
+.container-dashboard {
     padding: 2rem 1.25rem;
     max-width: 1280px;
     margin: 0 auto;
@@ -102,7 +102,7 @@ body {
 #orders { grid-area: orders; }
 #comments { grid-area: comments; }
 
-.card {
+.card-dashboard {
     background: var(--card);
     border: 1px solid var(--stroke);
     border-radius: var(--border-radius);
@@ -116,12 +116,12 @@ body {
     box-sizing: border-box;
 }
 
-.card:hover {
+.card-dashboard:hover {
     transform: var(--card-hover-transform);
     box-shadow: var(--shadow-hover);
 }
 
-.card-title {
+.card-dashboard-title {
     display: flex;
     align-items: center;
     margin-bottom: 20px;

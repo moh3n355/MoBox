@@ -1,0 +1,92 @@
+
+:root {
+    /* ===== تم روشن (پیش‌فرض) ===== */
+    --bg-primary: #fafafa;
+    --bg-secondary: #ffffff;
+    --text-primary: #222;
+    --text-secondary: #e0e0e0;
+    --text-muted: #5a5a5a;
+    --primary-color: #336CB1;
+    --primary-hover: #255294;
+    --accent-color: #007aff;
+    --accent-hover: #005fcc;
+    --button-primary: #F59E0B;
+    --button-primary-hover: #b9790a;
+    --button-secondary: #007bffbf;
+    --alert-color: #ff3b30;
+    --border-color: #ffffff;
+    --border-color-secondary: #dee2e6;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --hero-overlay: rgba(0, 0, 0, 0.3);
+    --footer-bg: #0d1b2a;
+    --footer-border: #1b263b;
+    --footer-link: #00b4d8;
+    --footer-link-hover: #90e0ef;
+    --card-bg: rgba(255, 255, 255, 0.06);
+    --card-border: #336CB1;
+    --search-shadow: #007bffbf;
+    --gradient-start: #336cb1;
+    --gradient-end: #007aff;
+
+
+    /* +++++++ search filter ++++++ */
+
+    --filter-bg: #ffffff;
+    --filter-text: #333333;
+    --filter-border: #eeeeee;
+    --filter-checkmark: #007bff;
+    --filter-clear-bg: #ff4757;
+    --filter-clear-hover: #ff3742;
+    --filter-apply-bg: #007bff;
+    --filter-apply-hover: #0056b3;
+    --categories-bg: #336CB1;
+    --categories-nav-color: #cccccc;
+    --categories-nav-hover: #ffffff;
+    --category-icon-filter: brightness(0) saturate(100%) invert(100%) sepia(10%) hue-rotate(220deg);
+}
+
+[data-theme="dark"] {
+    /* ===== تم تاریک ===== */
+    --bg-primary: #121212;
+    --bg-secondary: #1e1e1e;
+    --text-primary: #ffffff;
+    --text-secondary: #e0e0e0;
+    --text-muted: #adb5bd;
+    --primary-color: #1e3a8a;
+    --primary-hover: #1e40af;
+    --accent-color: #3b82f6;
+    --accent-hover: #2563eb;
+    --button-primary: #d97706;
+    --button-primary-hover: #b45309;
+    --button-secondary: #1d4ed8;
+    --alert-color: #dc2626;
+    --border-color: #424242;
+    --border-color-secondary: #374151;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    --hero-overlay: rgba(0, 0, 0, 0.6);
+    --footer-bg: #030712;
+    --footer-border: #111827;
+    --footer-link: #60a5fa;
+    --footer-link-hover: #93c5fd;
+    --card-bg: rgba(30, 41, 59, 0.2);
+    --card-border: #1e40af;
+    --search-shadow: #1d4ed8bf;
+    --gradient-start: #1e3a8a;
+    --gradient-end: #3b82f6;
+
+
+
+    /* +++++ search filter++++ */
+    --filter-bg: #1e1e1e;
+    --filter-text: #ffffff;
+    --filter-border: #424242;
+    --filter-checkmark: #3b82f6;
+    --filter-clear-bg: #dc2626;
+    --filter-clear-hover: #b91c1c;
+    --filter-apply-bg: #2563eb;
+    --filter-apply-hover: #1d4ed8;
+    --categories-bg: #1e3a8a;
+    --categories-nav-color: #666666;
+    --categories-nav-hover: #ffffff;
+    --category-icon-filter: brightness(0) saturate(100%) invert(100%);
+}

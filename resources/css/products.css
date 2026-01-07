@@ -1,7 +1,55 @@
+:root {
+    /* رنگ‌های تم روشن (پیش‌فرض) */
+    --bg-primary: #f5f5f5;
+    --bg-card: #ffffffdf;
+    --text-primary: #222;
+    --text-secondary: #f5f5f5;
+    --text-muted: #888;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    --shadow-hover: rgba(0, 0, 0, 0.15);
+    --border-color: #e0e0e0;
+    --discount-bg: #336CB1;
+    --discount-text: white;
+    --shipping-bg: #f0f0f0;
+    --shipping-text: #2ecc71;
+    --price-color: #222;
+    --old-price-color: #888;
+}
+
+[data-theme="dark"] {
+    /* رنگ‌های تم تاریک */
+    --bg-primary: #121212;
+    --bg-card: #1e1e1edf;
+    --text-primary: #e0e0e0;
+    --text-secondary: #f5f5f5;
+    --text-muted: #888;
+    --shadow-color: rgba(0, 0, 0, 0.5);
+    --shadow-hover: rgba(0, 0, 0, 0.3);
+    --border-color: #333;
+    --discount-bg: #4a86cf;
+    --discount-text: #fff;
+    --shipping-bg: #2d2d2d;
+    --shipping-text: #4cd964;
+    --price-color: #4a86cf;
+    --old-price-color: #aaa;
+}
+
+/* استایل‌های پایه */
+* {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    margin: 0;
+}
+
 .products-container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
+    /* background-color: var(--bg-primary); */
 }
 
 .grid-box {
@@ -9,19 +57,21 @@
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 20px;
 }
+
 /* کارت محصول */
 .card {
-    background-color: #ffffffdf;
+    background-color: var(--bg-card);
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 12px var(--shadow-color);
     padding: 16px;
     text-align: center;
     transition: transform 0.3s, box-shadow 0.3s;
+    border: 1px solid var(--border-color);
 }
 
 .card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    box-shadow: 0 8px 20px var(--shadow-hover);
 }
 
 /* تصویر محصول */
@@ -29,6 +79,7 @@
     width: 100%;
     border-radius: 12px;
     object-fit: cover;
+    border: 1px solid var(--border-color);
 }
 
 /* عنوان و توضیحات */
@@ -36,13 +87,14 @@
     font-size: 1.1rem;
     font-weight: bold;
     margin: 10px 0 5px 0;
-    color: #222;
+    color: var(--text-primary);
 }
 
 .card .desc {
     font-size: 0.9rem;
-    color: #555;
+    color: var(--text-muted);
     margin-bottom: 10px;
+    line-height: 1.4;
 }
 
 /* بخش قیمت */
@@ -52,11 +104,12 @@
     align-items: center;
     gap: 8px;
     margin-bottom: 8px;
+    flex-wrap: wrap;
 }
 
 .card .discount {
-    background-color: #336CB1;
-    color: white;
+    background-color: var(--discount-bg);
+    color: var(--discount-text);
     font-weight: bold;
     padding: 2px 6px;
     border-radius: 4px;
@@ -65,7 +118,7 @@
 
 .card .old-price {
     font-size: 0.9rem;
-    color: #888;
+    color: var(--old-price-color);
     text-decoration: line-through;
 }
 
@@ -73,11 +126,20 @@
 .card .price {
     font-size: 1.2rem;
     font-weight: bold;
-    color: #222;
+    color: var(--price-color);
     margin-bottom: 12px;
 }
 
-/* دکمه افزودن به سبد خرید */
+.shipping {
+    display: inline-block;
+    background-color: var(--shipping-bg);
+    color: var(--shipping-text);
+    font-size: 0.85rem;
+    padding: 3px 8px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
 .add-to-cart {
     display: inline-block;
     color: #fff;
@@ -92,8 +154,7 @@
     transform: translateY(-5px);
 }
 
-
-/* ریسپانسیو کارت‌ها */
+/* ریسپانسیو */
 @media (max-width: 768px) {
     .card {
         padding: 12px;
@@ -107,19 +168,31 @@
         font-size: 1.1rem;
     }
 
-    .card .add-to-cart {
-        padding: 8px 14px;
-        font-size: 0.9rem;
+    .grid-box {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 15px;
+    }
+
+    .products-container {
+        padding: 15px;
     }
 }
 
+@media (max-width: 480px) {
+    .grid-box {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 10px;
+    }
 
-.shipping {
-    display: inline-block;
-    background-color: #f0f0f0;
-    color: #2ecc71;
-    font-size: 0.85rem;
-    padding: 3px 8px;
-    border-radius: 5px;
-    margin-bottom: 10px;
+    .card .title {
+        font-size: 0.95rem;
+    }
+
+    .card .desc {
+        font-size: 0.85rem;
+    }
+
+    .card .price {
+        font-size: 1rem;
+    }
 }
