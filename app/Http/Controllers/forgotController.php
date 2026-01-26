@@ -42,7 +42,10 @@ class forgotController extends Controller
         $user->userpassword = bcrypt($NwePassword);
         $user->save();
 
-        return redirect()->route('auth.dynamic', ['type' => 'show-password'])
+        session(['Verify' => true,
+                 'code_verified_expires' => now()->addMinutes(1)
+            ]);
+        return redirect()->route('show-password')
         ->with([
             'NwePassword' => $NwePassword,
             'UserName' => $UserName,

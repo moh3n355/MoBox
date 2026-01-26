@@ -54,7 +54,7 @@
     </div>
     @else
         <div class="icons">
-            <a href="{{ route('auth.dynamic', ['type' => 'login']) }}" alt="" class="login-btn">ورود | ثبت نام</a>
+            <a href="{{ route('login') }}" alt="" class="login-btn">ورود | ثبت نام</a>
         </div>
     @endif
 

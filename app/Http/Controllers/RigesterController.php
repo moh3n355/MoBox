@@ -17,7 +17,7 @@ class RigesterController extends Controller
             PutData::AddNweUser( $request->input('set-username'), session()->get('phone')
             , bcrypt($request->input('set-password')));
 
-            return redirect()->route('auth.dynamic', ['type' => 'login'])
+            return redirect()->route('login')
                  ->with([
                      'success' => 'ثبت نام با موفقیت انجام شد!'
                 ]);

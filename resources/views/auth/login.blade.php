@@ -42,8 +42,8 @@
             <button type="submit" class="submit-btn">ورود</button>
 
             <div class="register-forgetpass">
-                <a href="{{ route('auth.dynamic', ['type' => 'register']) }}">ثبت‌نام</a>
-                <a href="{{ route('auth.dynamic', ['type' => 'forgot']) }}">فراموشی رمز عبور</a>
+                <a href="{{ route('register') }}">ثبت‌نام</a>
+                <a href="{{ route('forgot') }}">فراموشی رمز عبور</a>
             </div>
 
             <div class="terms">

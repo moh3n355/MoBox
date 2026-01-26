@@ -30,7 +30,7 @@
             <button type="submit" class="submit-btn">ثبت نام</button>
 
             <div class="register-forgetpass">
-                <a href="{{ route('auth.dynamic', ['type' => 'login']) }}">ورود</a>
+                <a href="{{ route('login') }}">ورود</a>
             </div>
 
             <div class="terms">

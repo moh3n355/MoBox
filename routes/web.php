@@ -10,6 +10,8 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RigesterController;
 use App\Http\Controllers\ForgotController;
 use App\Http\Controllers\SendVerifyCode;
+use App\Http\Middleware\CodeSended;
+use App\Http\Middleware\Verified;
 
 
 // روت home بیرون از گروه
@@ -20,27 +22,38 @@ Route::get('/', function () {
 // بقیه روت‌ها داخل گروه با prefix /auth
 Route::group(['prefix' => 'auth'], function () {
 
-    Route::get('/{type}', function ($type) {
-        $allowed = [
-            'login'    => 'login',
-            'register' => 'register',
-            'forgot'   => 'forgot',
-            'verify'   => 'verify',
-            'set-username-password'=> 'set-username-password',
-            'show-password' => 'show-username-password',
-        ];
+    Route::get('/login', function () {
+        return view('auth.login', ['type' => 'login']);
+    })->name('login');
 
-        if (! array_key_exists($type, $allowed)) {
-            abort(404);
-        }
+    Route::get('/register', function () {
+        return view('auth.register', ['type' => 'register']);
+    })->name('register');
 
-        return view('auth.' . $allowed[$type], ['type' => $type]);
-    })->name('auth.dynamic');
+    Route::get('/forgot', function () {
+        return view('auth.forgot', ['type' => 'forgot']);
+    })->name('forgot');
+
+    Route::get('/verify', function () {
+        return view('auth.verify', ['type' => 'verify']);
+    })->middleware(CodeSended::class)
+    ->name('verify');   
+
+    Route::get('/set-username-password', function () {
+        return view('auth.set-username-password', ['type' => 'set-username-password']);
+    })->middleware(Verified::class)
+    ->name('set-username-password');
+
+    Route::get('/show-password', function () {
+        return view('auth.show-username-password', ['type' => 'show-username-password']);
+    })->middleware(Verified::class)
+    ->name('show-username-password');
 
     Route::post('/Resumelogin', [LoginController::class, 'check'])->name('Resumelogin');
 
     Route::post('/ResumeRegister', function(){
         session(['TypeForAfterVerify' => 'register',
+                'code_verified_expires' => now()->addMinutes(1),
                 'phone' => request()->input('phone')]);
 
         return app(CheckNumber::class)->check(request());
@@ -52,7 +65,9 @@ Route::group(['prefix' => 'auth'], function () {
     )->name('set-username-password');
 
     Route::post('/Resumeforgot', function(){
-        session(['TypeForAfterVerify' => 'forgot',]);
+        session(['TypeForAfterVerify' => 'forgot',
+                 'code_verified_expires' => now()->addMinutes(1 )
+                ]);
 
         return app(CheckNumber::class)->check(request());
     })->name('Resumeforgot');
@@ -77,7 +92,7 @@ Route::get('/verify/edit-profile', [EditProfileController::class, 'EditCredition
 Route::get('/edit-phone', function () {
     session(['ForRedirectrAfterVerify' => 'edit-phone',]);
 
-    return redirect()->route('auth.dynamic', ['type' => 'register']);
+    return redirect()->route('register');
 })->name('edit-phone');
 
 
