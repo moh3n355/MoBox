@@ -226,3 +226,15 @@ Route::post('/test-upload', function (Request $request) {
     ]);
 })->name('test');
 
+Route::get('/products', function () {
+
+    // $filters = [
+    //     'سازنده' => ['Apple', 'Asus', 'Dell','hp','lenovo'],
+    //     'پردازنده'   => ['i5', 'i7', 'i9'],
+    //     'کارت گرافیک'   => ['RTX 4060', 'RTX 4070', 'Apple GPU'],
+    // ];
+
+    $filters= config('LabtopKeys');
+
+    return view('products',compact('filters'));
+})->name('products');
