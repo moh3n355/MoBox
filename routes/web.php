@@ -238,3 +238,6 @@ Route::get('/products', function () {
 
     return view('products',compact('filters'));
 })->name('products');
+
+
+Route::post('/productsfilter', [ProductController::class, 'index']);
