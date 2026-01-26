@@ -1,4 +1,3 @@
-
 <?php
 
 use App\Http\Controllers\EditProfileController;
@@ -21,15 +20,15 @@ Route::group(['prefix' => 'auth'], function () {
 
     Route::get('/{type}', function ($type) {
         $allowed = [
-            'login'    => 'login',
+            'login' => 'login',
             'register' => 'register',
-            'forgot'   => 'forgot',
-            'verify'   => 'verify',
-            'set-username-password'=> 'set-username-password',
+            'forgot' => 'forgot',
+            'verify' => 'verify',
+            'set-username-password' => 'set-username-password',
             'show-password' => 'show-username-password',
         ];
 
-        if (! array_key_exists($type, $allowed)) {
+        if (!array_key_exists($type, $allowed)) {
             abort(404);
         }
 
@@ -42,13 +41,13 @@ Route::group(['prefix' => 'auth'], function () {
 
     Route::get('/ResumeAuth/{type}', function ($type) {
         $allowed = [
-            'login'    => 'login',
+            'login' => 'login',
             'register' => 'register',
-            'forgot'   => 'forgot',
-            'verify'   => 'verify',
+            'forgot' => 'forgot',
+            'verify' => 'verify',
         ];
 
-        if (! array_key_exists($type, $allowed)) {
+        if (!array_key_exists($type, $allowed)) {
             abort(404);
         }
 
@@ -58,37 +57,30 @@ Route::group(['prefix' => 'auth'], function () {
     Route::get('/ResumeAuth/{type}', function ($type) {
 
         if ($type == 'register') {
-            if(!app(ForgotController::class)->CheckUserNumber(request())){
+            if (!app(ForgotController::class)->CheckUserNumber(request())) {
                 session(['TypeForAfterVerify' => 'register',]);
 
                 return app(SendVerifyCode::class)->CreateAndSendVerifyCode(request());
-            }
-            else{
+            } else {
                 return back()->withErrors(['phone' => 'این شماره قبلا ثبت نام شده است']);
             }
-        }
-        else if ($type == 'forgot') {
-            if(app(ForgotController::class)->CheckUserNumber(request())){
+        } else if ($type == 'forgot') {
+            if (app(ForgotController::class)->CheckUserNumber(request())) {
                 session(['TypeForAfterVerify' => 'forgot',]);
 
                 return app(SendVerifyCode::class)->CreateAndSendVerifyCode(request());
 
-            }
-            else{
+            } else {
                 return back()->withErrors(['phone' => 'این شماره ثبت نام نشده']);
             }
-        }
-        else if($type == 'login') {
+        } else if ($type == 'login') {
             return app(LoginController::class)->check(request());
 
-        }
-        else if($type == 'verify') {
+        } else if ($type == 'verify') {
             return app(SendVerifyCode::class)->VerifyCode(request());
-        }
-        else if($type == 'set-username-password') {
+        } else if ($type == 'set-username-password') {
             return app(RigesterController::class)->PutData(request());
-        }
-        else{
+        } else {
             abort(404);
         }
     })->name('ResumeAuth');
@@ -101,11 +93,15 @@ Route::get('/shopping-cart', function () {
 })->name('shopping-cart');
 
 
-Route::get('/edit-profile', [ReciveDataController::class, 'ReciveAddresses']
+Route::get(
+    '/edit-profile',
+    [ReciveDataController::class, 'ReciveAddresses']
 )->name('edit-profile');
 
 
-Route::get('/verify/edit-profile', [EditProfileController::class, 'EditCreditional']
+Route::get(
+    '/verify/edit-profile',
+    [EditProfileController::class, 'EditCreditional']
 )->name('verify-edit-profile');
 
 Route::get('/edit-phone', function () {
@@ -129,31 +125,33 @@ Route::get('/add-address', function () {
     return view(view: 'address');
 })->name('add-address');
 
-Route::POST('/verify/address', [EditProfileController::class, 'UpdateAddress']
+Route::POST(
+    '/verify/address',
+    [EditProfileController::class, 'UpdateAddress']
 )->name('verify-addresa');
 
-Route::get('/delete/address/{index}', [EditProfileController::class,'DeleteAddress'])
+Route::get('/delete/address/{index}', [EditProfileController::class, 'DeleteAddress'])
     ->name('DeleteAddress');
 
 
 
-Route::get('/order-track', function(){
+Route::get('/order-track', function () {
     return view('order-tracking');
 })->name('order-track');
 
 
-Route::get('/admin', function(){
+Route::get('/admin', function () {
     return view('admin-panel');
 })->name('admin');
 
 // Admin Products (front-end only)
-Route::get('/admin/products', function(){
+Route::get('/admin/products', function () {
     return view('show-&-edit-products');
 })->name('admin.products');
 
 
 // Dashboard data endpoints
-Route::get('/admin/orders-data', function(){
+Route::get('/admin/orders-data', function () {
     return response()->json([
         'total' => 1250,
         'completed' => 72,
@@ -166,7 +164,7 @@ Route::get('/admin/orders-data', function(){
     ]);
 })->name('admin.orders-data');
 
-Route::get('/admin/comments-data', function(){
+Route::get('/admin/comments-data', function () {
     return response()->json([
         ['author' => 'علی رضایی', 'date' => '1403/07/10', 'text' => 'خیلی عالی بود، ممنون!', 'rating' => 5],
         ['author' => 'مریم احمدی', 'date' => '1403/07/08', 'text' => 'کیفیت معمولی ولی ارسال سریع.', 'rating' => 3],
@@ -186,27 +184,23 @@ Route::get('/produce-show', function () {
 
 Route::get('/add-product', function (Request $request) {
     $category = session('categoryinput'); // از session بخون
-        $keys = config($category);
-    return view('add-products' , compact('keys'));
+    $keys = config($category);
+    return view('add-products', compact('keys'));
 })->name('add-products');
 
 
 
 Route::POST('/show-and-edit-products', function (Request $request) {
     $categoryinput = $request->input('category');
-    if ($categoryinput  == 'LabtopKeys') {
-        $category = 'لپتاپ و اولترابوک' ;
-    }
-    elseif ($categoryinput  == 'MobileKeys') {
+    if ($categoryinput == 'LabtopKeys') {
+        $category = 'لپتاپ و اولترابوک';
+    } elseif ($categoryinput == 'MobileKeys') {
         $category = 'موبایل و تلفن هوشمند';
-    }
-    elseif ($categoryinput  == 'WatchKeys') {
+    } elseif ($categoryinput == 'WatchKeys') {
         $category = 'ساعت هوشمند';
-    }
-    elseif ($categoryinput  == 'َAirPadKeys') {
+    } elseif ($categoryinput == 'َAirPadKeys') {
         $category = 'ایرپاد و هندزفری';
-    }
-    else {
+    } else {
         $category = 'انتخاب نشده است';
     }
     Session::put('categoryinput', $categoryinput);
@@ -224,7 +218,7 @@ Route::POST('/show-and-edit-products', function (Request $request) {
 Route::post('/test-upload', function (Request $request) {
 
 
-        dd($request->all());
+    dd($request->all());
 
 })->name('test');
 
@@ -249,15 +243,22 @@ Route::post('/test-upload', function (Request $request) {
 
 
 
-Route::get('/products', function () {
+Route::get('/products', function (Request $request) {
 
-    // $filters = [
-    //     'سازنده' => ['Apple', 'Asus', 'Dell','hp','lenovo'],
-    //     'پردازنده'   => ['i5', 'i7', 'i9'],
-    //     'کارت گرافیک'   => ['RTX 4060', 'RTX 4070', 'Apple GPU'],
-    // ];
+    dump($request['category_filter']);
 
-    $filters= config('LabtopKeys');
+    $cat_key = $request['category_filter'];
 
-    return view('products',compact('filters'));
+    if (!empty($cat_key) && $cat_key == 'LabtopKeys' || $cat_key == 'MobileKeys' || $cat_key == 'AirPadKeys' || $cat_key == 'WatchKeys') {
+        $filters = config($cat_key);
+    } else {
+        $filters = config('LabtopKeys');
+    }
+
+
+
+    return view('products', compact('filters'));
 })->name('products');
+
+
+

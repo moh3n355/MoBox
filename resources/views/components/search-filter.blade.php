@@ -12,19 +12,19 @@
 
             <div class="categories-track">
 
-                <a href="#" class="category-item">
+                <a href="{{ route('products' , ['category_filter' => 'MobileKeys']) }}" class="category-item">
                     <img src="/images/mobile.png" alt="">
                     <span>موبایل و تبلت</span>
                 </a>
-                <a href="#" class="category-item">
+                <a href="{{ route('products' , ['category_filter' => 'LabtopKeys']) }}" class="category-item">
                     <img src="/images/laptop3.png" alt="">
                     <span>لپتاپ و اولترابوک</span>
                 </a>
-                <a href="#" class="category-item">
+                <a href="{{ route('products' , ['category_filter' => 'WatchKeys']) }}" class="category-item">
                     <img src="/images/smartwatch.png" alt="">
                     <span>ساعت هوشمند</span>
                 </a>
-                <a href="#" class="category-item">
+                <a href="{{ route('products' , ['category_filter' => 'AirPadKeys']) }}" class="category-item" value="airpods">
                     <img src="/images/airpod.png" alt="">
                     <span>ایرپاد و هندزفری</span>
                 </a>
@@ -84,6 +84,7 @@
                         </div>
                     @endif
                 @endforeach
+
 
             </form>
 
