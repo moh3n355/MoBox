@@ -64,13 +64,10 @@
         </div>
     @else
         <div class="icons">
-
             <a href="{{ route('auth') }}" alt="" class="login-btn">ورود | ثبت نام</a>
-
-            <button class="sidebar-toggle" id="sidebarToggle" aria-label="باز کردن منو">
+             <button class="sidebar-toggle" id="sidebarToggle" aria-label="باز کردن منو">
                 <i class="fas fa-bars"></i>
             </button>
-
         </div>
     @endif
 
