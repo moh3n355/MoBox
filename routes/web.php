@@ -211,10 +211,3 @@ Route::post('/test-upload', function (Request $request) {
     ]);
 })->name('test');
 
-
-
-
-
-Route::get('/products', function () {
-    return view('products');
-})->name('products');
