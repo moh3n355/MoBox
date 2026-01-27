@@ -16,7 +16,7 @@
     </header>
 
     <main>
-        <form method="POST" action="{{ route('ResumeAuth', ['type' => 'register']) }}">
+        <form method="POST" action="{{ route('ResumeRegister')}}">
             @csrf
             <div class="input-group">
                 <label for="phone">شماره موبایل:</label>
@@ -30,7 +30,7 @@
             <button type="submit" class="submit-btn">ثبت نام</button>
 
             <div class="register-forgetpass">
-                <a href="{{ route('auth.dynamic', ['type' => 'login']) }}">ورود</a>
+                <a href="{{ route('login') }}">ورود</a>
             </div>
 
             <div class="terms">

@@ -6,10 +6,11 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
-    Public function check($request){
+    Public function check(Request $request){
         $UserNameInputed = $request->input('username');
         $UserPassInputed = $request->input('password');
 
@@ -22,7 +23,7 @@ class LoginController extends Controller
             return redirect()->route('home');
         }
         else{
-            return back()->withErrors(['password' => 'رمز یا نام کاربری اشتباه است']);  
+            return back()->withErrors(['password' => 'رمز یا نام کاربری اشتباه است']);
         }
     }
 }

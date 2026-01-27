@@ -23,7 +23,7 @@
     </header>
 
     <main>
-        <form method="" action="{{ route('ResumeAuth', ['type' => 'verify']) }}">
+        <form method="POST" action="{{ route('VerifyCode')}}">
             @csrf
             <div class="input-group">
                 <label>لطفا کد تایید ارسال شده را وارد کنید</label>

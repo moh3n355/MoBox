@@ -31,7 +31,7 @@
                 </div>
             </div>
 
-            <a href="{{ route('auth.dynamic', ['type' => 'login']) }}" class="submit-btn">
+            <a href="{{ route('login') }}" class="submit-btn">
                 برگشت به صفحه ورود
             </a>
 

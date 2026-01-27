@@ -8,17 +8,9 @@ use App\Models\User;
 
 
 class forgotController extends Controller
-{   
-    public function CheckUserNumber($request){
-        if(User::where('phone', $request->input('phone'))->exists()){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
+{
 
-    public function CreateAndUpdatePassword($request){
+    public function CreateAndUpdatePassword(Request $request){
         $lower = 'abcdefghijklmnopqrstuvwxyz';
         $upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $digits = '0123456789';
@@ -50,7 +42,10 @@ class forgotController extends Controller
         $user->userpassword = bcrypt($NwePassword);
         $user->save();
 
-        return redirect()->route('auth.dynamic', ['type' => 'show-password'])
+        session(['Verify' => true,
+                 'code_verified_expires' => now()->addMinutes(1)
+            ]);
+        return redirect()->route('show-password')
         ->with([
             'NwePassword' => $NwePassword,
             'UserName' => $UserName,

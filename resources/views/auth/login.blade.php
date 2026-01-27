@@ -19,7 +19,7 @@
     </header>
 
     <main>
-        <form method="POST" action="{{ route('ResumeAuth', ['type' => 'login']) }}">
+        <form method="POST" action="{{ route('Resumelogin') }}">
             @csrf
             <div class="input-group">
                 <label for="username">لطفا نام کاربری خود را وارد کنید:</label>
@@ -42,8 +42,8 @@
             <button type="submit" class="submit-btn">ورود</button>
 
             <div class="register-forgetpass">
-                <a href="{{ route('auth.dynamic', ['type' => 'register']) }}">ثبت‌نام</a>
-                <a href="{{ route('auth.dynamic', ['type' => 'forgot']) }}">فراموشی رمز عبور</a>
+                <a href="{{ route('register') }}">ثبت‌نام</a>
+                <a href="{{ route('forgot') }}">فراموشی رمز عبور</a>
             </div>
 
             <div class="terms">

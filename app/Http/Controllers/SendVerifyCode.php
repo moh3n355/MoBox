@@ -25,7 +25,6 @@ class SendVerifyCode extends Controller
             'phone' => $targetNumber
         ]);
 
-        // dd(RateLimiter::remaining($targetNumber, 5));
         if (RateLimiter::remaining($targetNumber, 5) <= 0) {
             return back()->withErrors([
             'phone' => 'تعداد درخواست بیش از حد مجاز است. لطفاً بعد از ۱۰ دقیقه دوباره تلاش کنید.'
@@ -53,12 +52,15 @@ class SendVerifyCode extends Controller
                 //پایان ارسال پیامک
 
                 RateLimiter::hit($targetNumber, 600);
-
-                return redirect()->route('auth.dynamic', ['type' => "verify"]);
+                
+                session(['CodeSended' => true,
+                         'code_verified_expires' => now()->addMinutes(1)
+                        ]);
+                return redirect()->route("verify");
                 } catch (Throwable $error) {
                 // متن خطا (اگه JSON باشه)
                 $message = $error->getMessage();
-    
+
                 // تلاش برای تبدیل به آرایه
                 $data = json_decode($message, true);
 
@@ -84,13 +86,16 @@ class SendVerifyCode extends Controller
         if(!Hash::check($VerifyCodeInputed, $VerifyCodeHashed) || now()->diffInSeconds($TimeCreditCode) > 60){
            return back()->withErrors(['verify_code' => 'کد تایید صحیح نمیباشد']);
         }
-        else{ 
+        else{
             if(session('TypeForAfterVerify') == 'register'){
                 if(session('ForRedirectrAfterVerify') == 'edit-phone'){
                     return app(EditProfileController::class)->UpdatePhone( $request);
                 }
                 else{
-                return redirect()->route('auth.dynamic', ['type' => "set-username-password"]);
+                session(['Verify' => true,
+                         'code_verified_expires' => now()->addMinutes(1)
+                        ]);
+                return redirect()->route("set-username-password");
                 }
             }
             elseif(session("TypeForAfterVerify") == "forgot"){
