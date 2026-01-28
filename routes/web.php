@@ -9,30 +9,59 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RigesterController;
 use App\Http\Controllers\ForgotController;
 use App\Http\Controllers\SendVerifyCode;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ShopingCartController;
 use App\Http\Middleware\CodeSended;
 use App\Http\Middleware\Verified;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
-
-// روت home بیرون از گروه
+// Home route
 Route::get('/', function () {
-    return view(view: 'home');
+    return view('home');
 })->name('home');
 
-// بقیه روت‌ها داخل گروه با prefix /auth
-Route::group(['prefix' => 'auth'], function () {
+Route::get('/exit', function () {
+    Auth::logout();
+    return view('home');
+})->name('exit');
+
+// Auth group
+Route::group(['prefix' => 'auth'], function () 
+{
 
     Route::get('/login', function () {
         return view('auth.login', ['type' => 'login']);
     })->name('login');
 
+    Route::post('/Resumelogin', [LoginController::class, 'check'])
+        ->name('Resumelogin');
+
     Route::get('/register', function () {
         return view('auth.register', ['type' => 'register']);
     })->name('register');
+
+    Route::post('/ResumeRegister', function () {
+        session([
+            'TypeForAfterVerify' => 'register',
+            'code_verified_expires' => now()->addMinutes(1),
+            'phone' => request()->input('phone')
+        ]);
+
+        return app(CheckNumber::class)->check(request());
+    })->name('ResumeRegister');
+
+    Route::get('/set-username-password', function () {
+        return view('auth.set-username-password', ['type' => 'set-username-password']);
+    })->middleware(Verified::class)
+      ->name('set-username-password');
 
     Route::get('/forgot', function () {
         return view('auth.forgot', ['type' => 'forgot']);
     })->name('forgot');
 
+<<<<<<< HEAD
+=======
     Route::get('/verify', function () {
         return view('auth.verify', ['type' => 'verify']);
     })->middleware(CodeSended::class)
@@ -67,6 +96,7 @@ Route::group(['prefix' => 'auth'], function () {
         [RigesterController::class, 'PutData']
     )->name('set-username-password');
 
+>>>>>>> 45ba1a38ddcaaf245d1c83f5a4cdd2a7017ac980
     Route::post('/Resumeforgot', function () {
         session([
             'TypeForAfterVerify' => 'forgot',
@@ -76,18 +106,40 @@ Route::group(['prefix' => 'auth'], function () {
         return app(CheckNumber::class)->check(request());
     })->name('Resumeforgot');
 
+<<<<<<< HEAD
+    Route::get('/show-password', function () {
+        return view('auth.show-username-password', ['type' => 'show-username-password']);
+    })->middleware(Verified::class)
+      ->name('show-username-password');
+
+    Route::get('/verify', function () {
+        return view('auth.verify', ['type' => 'verify']);
+    })->middleware(CodeSended::class)
+      ->name('verify');
+
+    Route::post('/VerifyCode', [SendVerifyCode::class, 'VerifyCode'])
+        ->name('VerifyCode');
+=======
     Route::post(
         '/show-username-password',
         [ForgotController::class, 'CreateAndUpdatePassword']
     )->name('show-username-password');
+>>>>>>> 45ba1a38ddcaaf245d1c83f5a4cdd2a7017ac980
 });
 
-
+// Shopping cart
 Route::get('/shopping-cart', function () {
-    return view(view: 'shopping-cart');
+    return view('shopping-cart');
 })->name('shopping-cart');
 
+// Edit profile
+Route::get('/edit-profile', [ReciveDataController::class, 'ReciveAddresses'])
+    ->name('edit-profile');
 
+<<<<<<< HEAD
+Route::get('/verify/edit-profile', [EditProfileController::class, 'EditCreditional'])
+    ->name('verify-edit-profile');
+=======
 Route::get(
     '/edit-profile',
     [ReciveDataController::class, 'ReciveAddresses']
@@ -98,54 +150,71 @@ Route::get(
     '/verify/edit-profile',
     [EditProfileController::class, 'EditCreditional']
 )->name('verify-edit-profile');
+>>>>>>> 45ba1a38ddcaaf245d1c83f5a4cdd2a7017ac980
 
 Route::get('/edit-phone', function () {
-    session(['ForRedirectrAfterVerify' => 'edit-phone',]);
-
+    session(['ForRedirectrAfterVerify' => 'edit-phone']);
     return redirect()->route('register');
 })->name('edit-phone');
 
-
-Route::get('/ticket', action: function () {
-    return view(view: 'ticket');
+// Ticket
+Route::get('/ticket', function () {
+    return view('ticket');
 })->name('ticket');
 
-Route::get('/exit', function () {
-    Auth::logout();
-    return view(view: 'home');
-})->name('exit');
+// Exit
 
 
+// Address routes
 Route::get('/add-address', function () {
-    return view(view: 'address');
+    return view('address');
 })->name('add-address');
 
+<<<<<<< HEAD
+Route::post('/verify/address', [EditProfileController::class, 'UpdateAddress'])
+    ->name('verify-addresa');
+=======
 Route::POST(
     '/verify/address',
     [EditProfileController::class, 'UpdateAddress']
 )->name('verify-addresa');
+>>>>>>> 45ba1a38ddcaaf245d1c83f5a4cdd2a7017ac980
 
 Route::get('/delete/address/{index}', [EditProfileController::class, 'DeleteAddress'])
     ->name('DeleteAddress');
 
+<<<<<<< HEAD
+// Order tracking
+=======
 
 
+>>>>>>> 45ba1a38ddcaaf245d1c83f5a4cdd2a7017ac980
 Route::get('/order-track', function () {
     return view('order-tracking');
 })->name('order-track');
 
+<<<<<<< HEAD
+// Admin panel
+=======
 
+>>>>>>> 45ba1a38ddcaaf245d1c83f5a4cdd2a7017ac980
 Route::get('/admin', function () {
     return view('admin-panel');
 })->name('admin');
 
+<<<<<<< HEAD
+=======
 // Admin Products (front-end only)
+>>>>>>> 45ba1a38ddcaaf245d1c83f5a4cdd2a7017ac980
 Route::get('/admin/products', function () {
     return view('show-&-edit-products');
 })->name('admin.products');
 
+<<<<<<< HEAD
+=======
 
 // Dashboard data endpoints
+>>>>>>> 45ba1a38ddcaaf245d1c83f5a4cdd2a7017ac980
 Route::get('/admin/orders-data', function () {
     return response()->json([
         'total' => 1250,
@@ -167,25 +236,22 @@ Route::get('/admin/comments-data', function () {
     ]);
 })->name('admin.comments-data');
 
-
-
-
-
-// Test route for product detail page
+// Product views
 Route::get('/produce-show', function () {
     return view('produce-show');
 });
 
-
 Route::get('/add-product', function (Request $request) {
+<<<<<<< HEAD
+    $category = session('categoryinput');
+=======
     $category = session('categoryinput'); // از session بخون
+>>>>>>> 45ba1a38ddcaaf245d1c83f5a4cdd2a7017ac980
     $keys = config($category);
     return view('add-products', compact('keys'));
 })->name('add-products');
 
-
-
-Route::POST('/show-and-edit-products', function (Request $request) {
+Route::post('/show-and-edit-products', function (Request $request) {
     $categoryinput = $request->input('category');
     if ($categoryinput == 'LabtopKeys') {
         $category = 'لپتاپ و اولترابوک';
@@ -193,7 +259,11 @@ Route::POST('/show-and-edit-products', function (Request $request) {
         $category = 'موبایل و تلفن هوشمند';
     } elseif ($categoryinput == 'WatchKeys') {
         $category = 'ساعت هوشمند';
+<<<<<<< HEAD
+    } elseif ($categoryinput == 'AirPadKeys') {
+=======
     } elseif ($categoryinput == 'َAirPadKeys') {
+>>>>>>> 45ba1a38ddcaaf245d1c83f5a4cdd2a7017ac980
         $category = 'ایرپاد و هندزفری';
     } else {
         $category = 'انتخاب نشده است';
@@ -201,9 +271,11 @@ Route::POST('/show-and-edit-products', function (Request $request) {
     Session::put('categoryinput', $categoryinput);
     Session::put('category', $category);
     return redirect(route('add-products'));
-
 })->name('show-&-edit-products');
 
+<<<<<<< HEAD
+// Test upload
+=======
 // Route::get('/test', function (Request $request) {
 // dd($request);
 // })->name('test');
@@ -218,12 +290,12 @@ Route::post('/test-upload', function (Request $request) {
 })->name('test');
 
 
+>>>>>>> 45ba1a38ddcaaf245d1c83f5a4cdd2a7017ac980
 Route::post('/test-upload', function (Request $request) {
     $paths = [];
 
     if ($request->hasFile('images')) {
         foreach ($request->file('images') as $file) {
-            // ذخیره فایل در پوشه public/uploads
             $paths[] = $file->store('uploads', 'public');
         }
     }
@@ -234,6 +306,45 @@ Route::post('/test-upload', function (Request $request) {
     ]);
 })->name('test');
 
+<<<<<<< HEAD
+// Products page
+Route::get('/products', function () {
+    $filters = config('LabtopKeys');
+    return view('products', compact('filters'));
+})->name('products');
+
+Route::get('/form', function () {
+    return view('form');
+})->name('form');
+
+// Products group
+Route::group(['prefix' => 'products'], function () 
+{
+    Route::get('/filter', [ProductController::class, 'filter'])->name('filter');
+
+    Route::get('/search', [ProductController::class, 'search'])->name('search');
+    
+    Route::get('/getById/{id}', [ProductController::class, 'getById'])->name('getById');
+});
+
+Route::group(['prefix' => 'admin'], function()
+{
+     Route::get('/AllUser', [ReciveDataController::class, 'ReciveAllUsers'])->name('ReciveALLUser');
+});
+
+Route::group(['prefix' => 'profile'], function()
+{
+    Route::get('/shoping-cart/add/{id}', [ShopingCartController::class, 'add'])->name('AddToShopingCart');
+
+    Route::get('/shoping-cart/remove/{id}', [ShopingCartController::class, 'remove'])->name('RemoveAsShopingCart');
+
+    Route::get('/shoping-cart/BelongToUser', [ShopingCartController::class, 'BelongToUser'])->name('ProuductBelongToUser');
+
+});
+
+
+
+=======
 
 
 Route::get('/products', function (Request $request) {
@@ -260,4 +371,5 @@ Route::post('/productsfilter', [ProductController::class, 'index']);
 Route::post('/test2', function (Request $request) {
     dump($request->all());
 })->name('test2');
+>>>>>>> 45ba1a38ddcaaf245d1c83f5a4cdd2a7017ac980
 
