@@ -47,24 +47,24 @@
 
     @if (auth()->check())
         <div class="contain-cart-profile">
-            <button class="shopping-cart">
+            <a href="{{ route('shopping-cart') }}" class="shopping-cart">
                 <i class="fas fa-shopping-cart"></i>
                 <span class="cart-badge">3</span>
-            </button>
+            </a>
 
             <div class="user-icon" id="userMenuBtn">
                 <i class="fas fa-user"></i>
                 <div class="dropdown-menu" id="user-profile">
                     <a href="{{ route('edit-profile') }}">پروفایل</a>
                     <a href="#">تنظیمات</a>
-                    <a href="#">خروج</a>
+                    <a href="{{ route('exit') }}">خروج</a>
                 </div>
             </div>
 
         </div>
     @else
         <div class="icons">
-            <a href="#" alt="" class="login-btn">ورود | ثبت نام</a>
+            <a href="{{ route('login') }}" alt="" class="login-btn">ورود | ثبت نام</a>
              <button class="sidebar-toggle" id="sidebarToggle" aria-label="باز کردن منو">
                 <i class="fas fa-bars"></i>
             </button>
