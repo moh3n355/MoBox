@@ -35,6 +35,7 @@ class ProductController extends Controller
         }
 
      // فیلتر داینامیک JSON
+     //باید key ها دقیقا هم نام های تعریف شده در config باشد
         if (!empty($data['filters'])) {
             foreach ($data['filters'] as $key => $value) {
              if (is_array($value)) {
@@ -66,7 +67,7 @@ class ProductController extends Controller
 
     public function search(Request $request)
     {
-        $search = $request->input('search', null);
+        $search = $request->input('search', null); //کلمه سرچ شده
         $type   = $request->input('type', null); // فیلتر type
 
         $query = Product::query();
