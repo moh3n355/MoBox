@@ -2,36 +2,34 @@
     @props(['filters'])
 
 
-        <script src="//unpkg.com/alpinejs" defer></script>
-        <style>
+    {{-- <script src="//unpkg.com/alpinejs" defer></script> --}}
 
-        </style>
+    <section class="categories-slider">
+        <button class="cat-nav left">❯</button>
 
-        <section class="categories-slider">
-            <button class="cat-nav left">❯</button>
+        <div class="categories-track">
 
-            <div class="categories-track">
+            <a href="{{ route('products', ['category_filter' => 'MobileKeys']) }}" class="category-item">
+                <img src="/images/mobile.png" alt="">
+                <span>موبایل و تبلت</span>
+            </a>
+            <a href="{{ route('products', ['category_filter' => 'LabtopKeys']) }}" class="category-item">
+                <img src="/images/laptop3.png" alt="">
+                <span>لپتاپ و اولترابوک</span>
+            </a>
+            <a href="{{ route('products', ['category_filter' => 'WatchKeys']) }}" class="category-item">
+                <img src="/images/smartwatch.png" alt="">
+                <span>ساعت هوشمند</span>
+            </a>
+            <a href="{{ route('products', ['category_filter' => 'AirPadKeys']) }}" class="category-item"
+                value="airpods">
+                <img src="/images/airpod.png" alt="">
+                <span>ایرپاد و هندزفری</span>
+            </a>
+        </div>
 
-                <a href="#" class="category-item">
-                    <img src="/images/mobile.png" alt="">
-                    <span>موبایل و تبلت</span>
-                </a>
-                <a href="#" class="category-item">
-                    <img src="/images/laptop3.png" alt="">
-                    <span>لپتاپ و اولترابوک</span>
-                </a>
-                <a href="#" class="category-item">
-                    <img src="/images/smartwatch.png" alt="">
-                    <span>ساعت هوشمند</span>
-                </a>
-                <a href="#" class="category-item">
-                    <img src="/images/airpod.png" alt="">
-                    <span>ایرپاد و هندزفری</span>
-                </a>
-            </div>
-
-            <button class="cat-nav right">❮</button>
-        </section>
+        <button class="cat-nav right">❮</button>
+    </section>
 
     </head>
 
@@ -56,10 +54,11 @@
 
             {{-- filter ha --}}
 
-            <form id="filterForm" action=# method="GET">
+            <form id="filterForm" action={{ route('test2') }}  method="POST">
+                @csrf
 
                 @foreach ($filters as $group => $items)
-                    @if (!empty($items))
+                    @if (!empty($items) && $group != 'category')
                         <div class="filter-group" x-data="{ open: false }">
 
                             <h3 class="filter-title" @click="open = !open">
@@ -85,26 +84,57 @@
                     @endif
                 @endforeach
 
-            </form>
+                <!-- محدوده قیمت -->
+                <div class="filter-group" x-data="{ open: false }">
+                    <h3 class="filter-title"  @click="open = !open">محدوده قیمت (تومان)
+                    <span class="toggle-icon">
+                        <span x-show="!open">+</span>
+                        <span x-show="open">−</span>
+                    </span>
+                    </h3>
 
 
-
-
-            <!-- محدوده قیمت -->
-            <div class="filter-group">
-                <h3 class="filter-title">محدوده قیمت (تومان)</h3>
-                <div class="price-range">
-                    <div class="price-inputs">
-                        <input type="number" id="min-price" placeholder="حداقل قیمت">
-                        <span>تا</span>
-                        <input type="number" id="max-price" placeholder="حداکثر قیمت">
-                    </div>
+                    <div class="filter-options" x-show="open" x-transition x-cloak>
+                        <div class="price-range">
+                            <div class="price-inputs">
+                                <input type="number" name="min_price" id="min-price" placeholder="حداقل قیمت">
+                                <span>تا</span>
+                                <input type="number" name="max_price" id="max-price" placeholder="حداکثر قیمت">
+                            </div>
+                        </div>
                 </div>
-            </div>
 
-            <!-- دکمه اعمال فیلتر -->
-            <button class="apply-filters">اعمال فیلترها</button>
+                </div>
+
+                {{-- -- تخفیف --  --}}
+                <div class="filter-group" x-data="{ open: false }">
+
+                    <h3 class="filter-title" @click="open = !open">تخفیف
+                        <span class="toggle-icon">
+                            <span x-show="!open">+</span>
+                            <span x-show="open">−</span>
+                        </span>
+                    </h3>
+
+                    <div class="filter-options" x-show="open" x-transition x-cloak>
+                            <label class="filter-option">
+                                <input type="checkbox" name="discont" value="true">
+                                <span class="checkmark"></span>
+                            </label>
+                    </div>
+
+                </div>
+
+                <!-- دکمه اعمال فیلتر -->
+                <button type="submit" class="apply-filters">اعمال فیلترها</button>
         </aside>
+
+        </form>
+
+
+
+
+
 
         <!-- بخش محصولات -->
         <main class="products-section">

@@ -1,5 +1,13 @@
+
+
+import Alpine from 'alpinejs';
+
+window.Alpine = Alpine;
+Alpine.start();
+
 import './bootstrap';
-import './admin-dashboard'
+import './admin-dashboard';
+import './show-&-edit-products';
 
 
 function setupDropdown(buttonId, menuId, otherMenus = []) {
