@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
+
 
 class ReciveDataController extends Controller
 {
@@ -19,5 +22,12 @@ class ReciveDataController extends Controller
     }
 
         return view('edit-profile', compact('addresses'));
+    }
+
+    public function ReciveAllUsers(){
+
+        $users = User::all();
+
+        return response()->json($users);
     }
 }
