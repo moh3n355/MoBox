@@ -3,9 +3,6 @@
 
 
     {{-- <script src="//unpkg.com/alpinejs" defer></script> --}}
-    <style>
-
-    </style>
 
     <section class="categories-slider">
         <button class="cat-nav left">❯</button>
@@ -61,7 +58,7 @@
                 @csrf
 
                 @foreach ($filters as $group => $items)
-                    @if (!empty($items))
+                    @if (!empty($items) && $group != 'category')
                         <div class="filter-group" x-data="{ open: false }">
 
                             <h3 class="filter-title" @click="open = !open">
