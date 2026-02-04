@@ -9,20 +9,19 @@
 
         <div class="categories-track">
 
-            <a href="{{ route('products', ['category_filter' => 'MobileKeys']) }}" class="category-item">
+            <a href="{{ route('products', ['type' => 'MobileKeys']) }}" class="category-item">
                 <img src="/images/mobile.png" alt="">
                 <span>موبایل و تبلت</span>
             </a>
-            <a href="{{ route('products', ['category_filter' => 'LabtopKeys']) }}" class="category-item">
+            <a href="{{ route('products', ['type' => 'LabtopKeys']) }}" class="category-item">
                 <img src="/images/laptop3.png" alt="">
                 <span>لپتاپ و اولترابوک</span>
             </a>
-            <a href="{{ route('products', ['category_filter' => 'WatchKeys']) }}" class="category-item">
+            <a href="{{ route('products', ['type' => 'WatchKeys']) }}" class="category-item">
                 <img src="/images/smartwatch.png" alt="">
                 <span>ساعت هوشمند</span>
             </a>
-            <a href="{{ route('products', ['category_filter' => 'AirPadKeys']) }}" class="category-item"
-                value="airpods">
+            <a href="{{ route('products', ['type' => 'AirPadKeys']) }}" class="category-item" value="airpods">
                 <img src="/images/airpod.png" alt="">
                 <span>ایرپاد و هندزفری</span>
             </a>
@@ -54,8 +53,8 @@
 
             {{-- filter ha --}}
 
-            <form id="filterForm" action={{ route('test2') }}  method="POST">
-                @csrf
+            <form id="filterForm" action={{ route('mainfull_filters') }} method="get">
+                {{-- @csrf --}}
 
                 @foreach ($filters as $group => $items)
                     @if (!empty($items) && $group != 'category')
@@ -86,11 +85,11 @@
 
                 <!-- محدوده قیمت -->
                 <div class="filter-group" x-data="{ open: false }">
-                    <h3 class="filter-title"  @click="open = !open">محدوده قیمت (تومان)
-                    <span class="toggle-icon">
-                        <span x-show="!open">+</span>
-                        <span x-show="open">−</span>
-                    </span>
+                    <h3 class="filter-title" @click="open = !open">محدوده قیمت (تومان)
+                        <span class="toggle-icon">
+                            <span x-show="!open">+</span>
+                            <span x-show="open">−</span>
+                        </span>
                     </h3>
 
 
@@ -102,7 +101,7 @@
                                 <input type="number" name="max_price" id="max-price" placeholder="حداکثر قیمت">
                             </div>
                         </div>
-                </div>
+                    </div>
 
                 </div>
 
@@ -117,10 +116,10 @@
                     </h3>
 
                     <div class="filter-options" x-show="open" x-transition x-cloak>
-                            <label class="filter-option">
-                                <input type="checkbox" name="discont" value="true">
-                                <span class="checkmark"></span>
-                            </label>
+                        <label class="filter-option">
+                            <input type="checkbox" name="discont" value="true">
+                            <span class="checkmark"></span>
+                        </label>
                     </div>
 
                 </div>
@@ -182,6 +181,118 @@
                 document.getElementById('filterForm').submit();
             });
         });
-    </script>
+
+
+const form = document.getElementById('filterForm');
+const productsGrid = document.querySelector('.products-grid');
+const sortSelect = document.getElementById('sort-select');
+
+// جمع‌آوری داده‌ها و ساخت payload
+function buildPayload() {
+    const filters = {}; // کل فیلترها داخل این شیء
+    // چک‌باکس‌ها
+    form.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+        if (!cb.checked) return;
+
+        const name = cb.name.replace('[]','');
+
+        // موجودی
+        if (name === 'available') {
+            filters.available = true;
+            return;
+        }
+
+        // تخفیف
+        if (name === 'discont') {
+            filters.discont = true;
+            return;
+        }
+
+        // فیلترهای داینامیک مثل RAM، حافظه، و غیره
+        if (!filters[name]) filters[name] = [];
+        filters[name].push(cb.value);
+    });
+
+    // محدوده قیمت
+    const minPrice = form.querySelector('input[name="min_price"]')?.value;
+    const maxPrice = form.querySelector('input[name="max_price"]')?.value;
+    if (minPrice) filters.min_price = Number(minPrice);
+    if (maxPrice) filters.max_price = Number(maxPrice);
+
+    // مرتب‌سازی
+    if (sortSelect && sortSelect.value) {
+        filters.sort = sortSelect.value;
+    }
+
+    // تمام فیلترها داخل یک key به نام filters
+    return { filters };
+}
+
+// ارسال فیلترها با fetch
+function sendFilters() {
+    const payload = buildPayload();
+
+    fetch("{{ route('filter') }}", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify(payload)
+    })
+    .then(res => res.json())
+    .then(products => renderProducts(products))
+    .catch(err => console.error('Filter error:', err));
+}
+
+// رندر محصولات در صفحه
+function renderProducts(products) {
+    productsGrid.innerHTML = '';
+
+    if (!products.length) {
+        productsGrid.innerHTML = `<div class="empty"><p>محصولی با این فیلتر پیدا نشد</p></div>`;
+        return;
+    }
+
+    products.forEach(p => {
+        productsGrid.innerHTML += `
+            <article class="product-card">
+                <h3>${p.name}</h3>
+                <p>${Number(p.price).toLocaleString()} تومان</p>
+            </article>
+        `;
+    });
+}
+
+// debounce برای جلوگیری از ارسال request زیاد
+function debounce(fn, delay) {
+    let timeout;
+    return function() {
+        clearTimeout(timeout);
+        timeout = setTimeout(fn, delay);
+    };
+}
+
+// همه رویدادها
+// چک‌باکس‌ها
+form.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+    cb.addEventListener('change', debounce(sendFilters, 300));
+});
+
+// محدوده قیمت
+form.querySelectorAll('input[type="number"]').forEach(input => {
+    input.addEventListener('input', debounce(sendFilters, 500));
+});
+
+// مرتب‌سازی
+if (sortSelect) {
+    sortSelect.addEventListener('change', sendFilters);
+}
+
+// جلوگیری از submit فرم (کل فرم فقط JS)
+form.addEventListener('submit', e => e.preventDefault());
+</script>
+
 
 </div>

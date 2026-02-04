@@ -12,12 +12,15 @@ class ProductController extends Controller
 {
     public function filter(Request $request)
     {
-        $data = $request->input('filters', []); // اینجا تمام آرایه فرستاده شده رو میگیریم
+        $type = 'laptop';
+        $data = $request->all(); // اینجا تمام آرایه فرستاده شده رو میگیریم
+        // dd(vars: $data);
+
         $query = Product::query();
 
         // فیلتر نوع محصول
-        if (!empty($data['type'])) {
-            $query->where('type', $data['type']);
+        if (!empty($type)) {
+            $query->where('type', $type);
         }
 
      // فقط موجودی
@@ -27,6 +30,7 @@ class ProductController extends Controller
 
       // قیمت
         if (!empty($data['min_price'])) {
+            // dd($data['min_price']);
             $query->where('price', '>=', $data['min_price']);
         }
 
@@ -76,7 +80,7 @@ class ProductController extends Controller
             return response()->json(['data' => [], 'message' => 'Nothing to search']);
         }
 
-        
+
         // فیلتر type اگر ارسال شده
         if (!empty($type)) {
             $query->where('type', $type);
