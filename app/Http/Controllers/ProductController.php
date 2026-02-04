@@ -12,10 +12,10 @@ class ProductController extends Controller
 {
     public function filter(Request $request)
     {
-        $type = 'laptop';
+        $type = session()->get('type');
         $data = $request->all(); // اینجا تمام آرایه فرستاده شده رو میگیریم
-        // dd(vars: $data);
-
+            // dd(vars: $data);
+// dd($type);
         $query = Product::query();
 
         // فیلتر نوع محصول
