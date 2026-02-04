@@ -29,10 +29,10 @@ return new class extends Migration
                   ->comment('discount percentage');
 
             $table->enum('type', [
-                'laptop',
-                'mobile',
-                'watch',
-                'airpad'
+                'labtopkeys',
+                'mobilekeys',
+                'watchkeys',
+                'airpadkeys'
             ]);
 
             $table->timestamps();

@@ -166,7 +166,7 @@ Route::get('/add-product', function (Request $request) {
 
 Route::post('/show-and-edit-products', function (Request $request) {
     $categoryinput = $request->input('category');
-    if ($categoryinput == 'LabtopKeys') {
+    if ($categoryinput == 'LaptopKeys') {
         $category = 'لپتاپ و اولترابوک';
     } elseif ($categoryinput == 'MobileKeys') {
         $category = 'موبایل و تلفن هوشمند';

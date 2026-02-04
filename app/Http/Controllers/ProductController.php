@@ -12,10 +12,10 @@ class ProductController extends Controller
 {
     public function filter(Request $request)
     {
-        $type = 'laptop';
+        $type = session()->get('type');
         $data = $request->all(); // اینجا تمام آرایه فرستاده شده رو میگیریم
-        // dd(vars: $data);
-
+            // dd(vars: $data);
+// dd($type);
         $query = Product::query();
 
         // فیلتر نوع محصول
@@ -39,6 +39,7 @@ class ProductController extends Controller
         }
 
      // فیلتر داینامیک JSON
+     //باید key ها دقیقا هم نام های تعریف شده در config باشد
         if (!empty($data['filters'])) {
             foreach ($data['filters'] as $key => $value) {
              if (is_array($value)) {
@@ -69,9 +70,9 @@ class ProductController extends Controller
     }
 
     public function search(Request $request)
-{
-    $search = $request->input('search', null);
-    $type   = $request->input('category', null);
+    {
+        $search = $request->input('search', null);
+        $type   = $request->input('type', null); // فیلتر type
 
     $query = Product::query();
 
