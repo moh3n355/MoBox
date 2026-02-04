@@ -69,52 +69,41 @@ class ProductController extends Controller
     }
 
     public function search(Request $request)
-    {
-        $search = $request->input('search', null);
-        $type   = $request->input('type', null); // فیلتر type
+{
+    $search = $request->input('search', null);
+    $type   = $request->input('category', null);
 
-        $query = Product::query();
+    $query = Product::query();
 
-        if (empty($search)) {
-            return response()->json(['data' => [], 'message' => 'Nothing to search']);
-        }
+    if (empty($search)) {
+        return response()->json(['data' => [], 'message' => 'Nothing to search']);
+    }
 
+    // فیلتر type اگر ارسال شده
+    if (!empty($type)) {
+        $query->where('type', $type);
+    }
 
-        // فیلتر type اگر ارسال شده
-        if (!empty($type)) {
-            $query->where('type', $type);
-        };
+    $tokens = preg_split('/\s+/', $search, -1, PREG_SPLIT_NO_EMPTY);
+    $rankSqlParts = [];
 
-        $query = Product::query();
+    foreach ($tokens as $i => $token) {
+        $token = trim($token);
+        if (!$token) continue;
+        $rankSqlParts[] = "CASE WHEN name LIKE '%{$token}%' THEN ".(count($tokens) - $i)." ELSE 0 END";
+        $rankSqlParts[] = "CASE WHEN data LIKE '%{$token}%' THEN ".((count($tokens) - $i)/2)." ELSE 0 END";
+    }
 
-        if(!empty($search)){
-        $tokens = preg_split('/\s+/', $search, -1, PREG_SPLIT_NO_EMPTY);
-
-
-
-        // ساخت ستون rank مجازی با CASE WHEN
-        $rankSqlParts = [];
-        foreach ($tokens as $i => $token) {
-            $token = trim($token);
-            if (!$token) continue;
-
-            // وزن بیشتر برای match در name
-            $rankSqlParts[] = "CASE WHEN name LIKE '%{$token}%' THEN ".(count($tokens) - $i)." ELSE 0 END";
-
-            // وزن کمتر برای match در data
-            $rankSqlParts[] = "CASE WHEN data LIKE '%{$token}%' THEN ".(count($tokens) - $i)/2 ." ELSE 0 END";
-        }
-
+    if (!empty($rankSqlParts)) {
         $rankSql = implode(' + ', $rankSqlParts);
-
         $query->selectRaw("*, ($rankSql) as rank")
               ->orderByDesc('rank');
-        }
-
-        $products = $query->get();
-
-        return response()->json($products);
     }
+
+    $products = $query->get();
+
+    return response()->json($products);
+}
 
    public function getById(Request $request)
     {

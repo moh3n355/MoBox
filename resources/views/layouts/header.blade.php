@@ -1,15 +1,45 @@
 <header class="main-header">
 
     <nav class="nav">
+
         <div class="search-box">
-            <button><i class="fas fa-search"></i></button>
-            <input type="text" name="" id="">
+            <form action="{{ route('products') }}" method="GET" id="search_form">
+                <button type="submit"><i class="fas fa-search"></i></button>
+
+                <input type="text" name="search" placeholder="جستجو..." autocomplete="off" id="searchInput">
+
+                <input type="hidden" name="category" id="categoryInput">
+
+                <div class="dropdown" id="categoryDropdown">
+                    <!-- دسته‌بندی‌ها -->
+                    <div class="search-cat">
+                        <div class="liveInputDisplay" style="font-weight:bold;"></div>
+                        <div data-value="laptop">در دسته لپتاپ و اولترابوک</div>
+                    </div>
+                    <div class="search-cat">
+                        <div class="liveInputDisplay" style="font-weight:bold;"></div>
+                        <div data-value="mobile">در دسته موبایل و تبلت</div>
+                    </div>
+                    <div class="search-cat">
+                        <div class="liveInputDisplay" style="font-weight:bold;"></div>
+                        <div data-value="watch">در دسته ساعت هوشمند</div>
+                    </div>
+                    <div class="search-cat">
+                        <div class="liveInputDisplay" style="font-weight:bold;"></div>
+                        <div data-value="audio">در دسته ایرپاد و هندزفری</div>
+                    </div>
+                </div>
+            </form>
         </div>
+
+
+
 
 
         <div class="nav-item">
             <a href="#" class="nav-link" id="home">خانه</a>
         </div>
+
 
         <div class="nav-item">
             <a href="#" class="nav-link" id="categories">دسته‌بندی</a>
@@ -65,7 +95,7 @@
     @else
         <div class="icons">
             <a href="{{ route('login') }}" alt="" class="login-btn">ورود | ثبت نام</a>
-             <button class="sidebar-toggle" id="sidebarToggle" aria-label="باز کردن منو">
+            <button class="sidebar-toggle" id="sidebarToggle" aria-label="باز کردن منو">
                 <i class="fas fa-bars"></i>
             </button>
         </div>
@@ -78,29 +108,28 @@
 </header>
 
 <script>
- document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', () => {
 
-const toggle = document.getElementById('themeToggle');
-if (!toggle) return;
+        const toggle = document.getElementById('themeToggle');
+        if (!toggle) return;
 
-const saved = localStorage.getItem('theme');
+        const saved = localStorage.getItem('theme');
 
-if (saved === 'dark') {
-    document.documentElement.setAttribute('data-theme', 'dark');
-}
+        if (saved === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
 
-toggle.addEventListener('click', () => {
-    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        toggle.addEventListener('click', () => {
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
 
-    if (isDark) {
-        document.documentElement.removeAttribute('data-theme');
-        localStorage.setItem('theme', 'light');
-    } else {
-        document.documentElement.setAttribute('data-theme', 'dark');
-        localStorage.setItem('theme', 'dark');
-    }
-});
+            if (isDark) {
+                document.documentElement.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
 
-});
-
+    });
 </script>

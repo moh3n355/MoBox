@@ -213,7 +213,8 @@ Route::get('/form', function () {
 // Products group
 Route::group(['prefix' => 'products'], function () {
 
-    Route::get('mainfull_filters', function (Request $request){
+    Route::get('mainfull_filters', function (Request $request)
+    {
 
         $filters = $request->all();
         $config = config(session()->get('type'));
@@ -228,7 +229,6 @@ Route::group(['prefix' => 'products'], function () {
         $filters['filters'] = $DynamicKeys;
         return redirect()->route('filter', $filters);
     })->name('mainfull_filters');
-
 
     Route::get('/filter', [ProductController::class, 'filter'])->name('filter');
 
@@ -251,7 +251,11 @@ Route::group(['prefix' => 'profile'], function () {
 });
 
 
+Route::get('test', function (Request $request)
+{
 
+return view('test');
+})->name('test');
 
 
 

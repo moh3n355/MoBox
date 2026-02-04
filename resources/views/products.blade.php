@@ -12,30 +12,72 @@
 
     </head>
 
+    @php
+        dump($filters);
+    @endphp
 
-            @for ($i = 0; $i < 5; $i++)
-            <a class="add-to-cart" href="#" data-product-id="{{ $i + 1 }}">
-                <div class="card">
-                    <div class="product-image">
-                        <img src="/images/s26.webp" alt="Product {{ $i + 1 }}">
-                    </div>
-                    <h3 class="title">گوشی موبایل Galaxy s26 Ultra </h3>
-                    <p class="desc"> رم 12GB حافظه TB 1</p>
-
-                    <div class="cost">
-                        <p class="discount">7%</p>
-                        <p class="old-price">20,000,00</p>
-                    </div>
-
-                    <p class="price">12,000,000</p>
-
-
-
-
-
+    {{-- <div id="productsContainer">
+        @foreach($products as $product)
+        <a class="add-to-cart" href="/" data-product-id="{{ $product['id'] }}">
+            <div class="card">
+                <div class="product-image">
+                    <img src="{{ $product['image'] }}" alt="{{ $product['name'] }}">
                 </div>
-            </a>
-            @endfor
+                <h3 class="title">{{ $product['name'] }}</h3>
+                <p class="desc">{{ $product['desc'] }}</p>
+
+                <div class="cost">
+                    @if(!empty($product['discount']))
+                        <p class="discount">{{ $product['discount'] }}%</p>
+                    @endif
+
+                    @if(!empty($product['old_price']))
+                        <p class="old-price">{{ $product['old_price'] }}</p>
+                    @endif
+                </div>
+
+                <p class="price">{{ $product['price'] }}</p>
+            </div>
+        </a>
+        @endforeach
+    </div> --}}
+
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+
+        // متغیر برای ذخیره نتایج
+        let products = [];
+
+        // تابع ساده برای fetch کردن JSON
+        async function getProducts() {
+            try {
+                const response = await fetch(`/products/search?search=${}&category=labtop`, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json' // مهم برای دریافت JSON
+                    }
+                });
+
+                // بررسی وضعیت پاسخ
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                // دریافت JSON
+                products = await response.json();
+
+                // نمایش در کنسول
+                console.log('نتایج JSON:', products);
+
+            } catch (error) {
+                console.error('خطا در دریافت اطلاعات:', error);
+            }
+        }
+
+        // صدا زدن تابع
+        getProducts();
+</script>
 
 
 </x-search-filter>

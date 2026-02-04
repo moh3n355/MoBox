@@ -127,6 +127,33 @@ header {
     border-radius: 5px 20px 20px 5px;
     margin-left: 0.3rem;
 }
+.search-box .dropdown {
+    position: absolute;
+    top: 100%;
+    width: 40%;
+    right: 0;
+    left: 0;
+    background: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 12px;
+    /* margin-top: 6px; */
+    display: none;
+    z-index: 100;
+    backdrop-filter: blur(10px) saturate(180%);
+    -webkit-backdrop-filter: blur(10px) saturate(180%);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    color: #fff;
+}
+
+.search-box .dropdown div {
+    padding: 10px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.search-box .dropdown .search-cat:hover {
+    background: rgba(255,255,255,0.1);
+}
 
 .icons {
     display: flex;
