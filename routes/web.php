@@ -27,8 +27,7 @@ Route::get('/exit', function () {
 })->name('exit');
 
 // Auth group
-Route::group(['prefix' => 'auth'], function () 
-{
+Route::group(['prefix' => 'auth'], function () {
 
     Route::get('/login', function () {
         return view('auth.login', ['type' => 'login']);
@@ -54,7 +53,7 @@ Route::group(['prefix' => 'auth'], function ()
     Route::get('/set-username-password', function () {
         return view('auth.set-username-password', ['type' => 'set-username-password']);
     })->middleware(Verified::class)
-      ->name('set-username-password');
+        ->name('set-username-password');
 
     Route::get('/forgot', function () {
         return view('auth.forgot', ['type' => 'forgot']);
@@ -72,12 +71,12 @@ Route::group(['prefix' => 'auth'], function ()
     Route::get('/show-password', function () {
         return view('auth.show-username-password', ['type' => 'show-username-password']);
     })->middleware(Verified::class)
-      ->name('show-username-password');
+        ->name('show-username-password');
 
     Route::get('/verify', function () {
         return view('auth.verify', ['type' => 'verify']);
     })->middleware(CodeSended::class)
-      ->name('verify');
+        ->name('verify');
 
     Route::post('/VerifyCode', [SendVerifyCode::class, 'VerifyCode'])
         ->name('VerifyCode');
@@ -116,7 +115,7 @@ Route::get('/add-address', function () {
 Route::post('/verify/address', [EditProfileController::class, 'UpdateAddress'])
     ->name('verify-addresa');
 
-Route::get('/delete/address/{index}', [EditProfileController::class,'DeleteAddress'])
+Route::get('/delete/address/{index}', [EditProfileController::class, 'DeleteAddress'])
     ->name('DeleteAddress');
 
 // Order tracking
@@ -200,8 +199,10 @@ Route::post('/test-upload', function (Request $request) {
 })->name('test');
 
 // Products page
-Route::get('/products', function () {
-    $filters = config('LabtopKeys');
+Route::get('/products', function (Request $request) {
+
+    $filters = config($request['type']);
+    session(['type' => $request['type']]);
     return view('products', compact('filters'));
 })->name('products');
 
@@ -210,22 +211,37 @@ Route::get('/form', function () {
 })->name('form');
 
 // Products group
-Route::group(['prefix' => 'products'], function () 
-{
+Route::group(['prefix' => 'products'], function () {
+
+    Route::get('mainfull_filters', function (Request $request){
+
+        $filters = $request->all();
+        $config = config(session()->get('type'));
+        $DynamicKeys = [];
+
+        foreach ($filters as $key => $value) {
+            if (array_key_exists($key, $config)) {
+                $DynamicKeys[$key] = $value;
+                unset($filters[$key]);
+            }
+        }
+        $filters['filters'] = $DynamicKeys;
+        return redirect()->route('filter', $filters);
+    })->name('mainfull_filters');
+
+
     Route::get('/filter', [ProductController::class, 'filter'])->name('filter');
 
     Route::get('/search', [ProductController::class, 'search'])->name('search');
-    
+
     Route::get('/getById/{id}', [ProductController::class, 'getById'])->name('getById');
 });
 
-Route::group(['prefix' => 'admin'], function()
-{
-     Route::get('/AllUser', [ReciveDataController::class, 'ReciveAllUsers'])->name('ReciveALLUser');
+Route::group(['prefix' => 'admin'], function () {
+    Route::get('/AllUser', [ReciveDataController::class, 'ReciveAllUsers'])->name('ReciveALLUser');
 });
 
-Route::group(['prefix' => 'profile'], function()
-{
+Route::group(['prefix' => 'profile'], function () {
     Route::get('/shoping-cart/add/{id}', [ShopingCartController::class, 'add'])->name('AddToShopingCart');
 
     Route::get('/shoping-cart/remove/{id}', [ShopingCartController::class, 'remove'])->name('RemoveAsShopingCart');
@@ -234,7 +250,8 @@ Route::group(['prefix' => 'profile'], function()
 
 });
 
-//dssdf
+
+
 
 
 
