@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 class CheckNumber extends Controller
 {
     public function check(Request $request){
-        var_dump(1);
         function InnerCheck($request){
             if(User::where('phone', $request->input('phone'))->exists()){
                 return true;
