@@ -44,7 +44,7 @@
 
             <div class="problem-to-verify">
                 <time id="resend-timer" datetime="">01:00</time>
-                <a href="">کد را دریافت نکردید؟ دریافت دوباره کد</a>
+                <a href="#" id="resumeLink">کد را دریافت نکردید؟ دریافت دوباره کد</a>
             </div>
 
             <div class="terms">
@@ -54,11 +54,23 @@
     </main>
 </div>
 
-<!-- اضافه کردن پاپ‌آپ -->
+<!-- فرم مخفی بیرون از فرم اصلی -->
+<form id="resumeForm" method="POST" action="{{ route('ResumeRegister') }}" style="display:none;">
+    @csrf
+    <input type="hidden" name="phone" value="{{ session('phone') }}">
+</form>
+
+<!-- JS برای لینک POST -->
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        alert("با توجه به اینکه پروژه در حال توسعه میباشد, درحال حاضر کد تایید پیامک نمیشود و کد تایید 12345 در نظر گرفته میشود"); // متن دلخواه خودت رو اینجا بذار
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('resumeLink').addEventListener('click', function(e) {
+        e.preventDefault(); // جلوی رفتار پیش‌فرض لینک
+        document.getElementById('resumeForm').submit(); // ارسال فرم
     });
+
+    // پاپ‌آپ اطلاع‌رسانی
+    alert("با توجه به اینکه پروژه در حال توسعه میباشد, درحال حاضر کد تایید پیامک نمیشود و کد تایید 12345 در نظر گرفته میشود");
+});
 </script>
 
 </body>
