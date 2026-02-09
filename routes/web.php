@@ -200,9 +200,16 @@ Route::post('/test-upload', function (Request $request) {
 
 // Products page
 Route::get('/products', function (Request $request) {
+    // dump($request->all());
 
     $filters = config($request['type']);
-    session(['type' => $request['type']]);
+
+    session([
+        'category' => $request['category'],
+        'search' => $request['search']
+    ]);
+
+
     return view('products', compact('filters'));
 })->name('products');
 
@@ -213,10 +220,11 @@ Route::get('/form', function () {
 // Products group
 Route::group(['prefix' => 'products'], function () {
 
-    Route::get('mainfull_filters', function (Request $request)
-    {
+    Route::get('mainfull_filters', function (Request $request) {
 
         $filters = $request->all();
+
+        dd($filters);
         $config = config(session()->get('type'));
         $DynamicKeys = [];
 
@@ -251,10 +259,9 @@ Route::group(['prefix' => 'profile'], function () {
 });
 
 
-Route::get('test', function (Request $request)
-{
+Route::get('test', function (Request $request) {
 
-return view('test');
+    return view('test');
 })->name('test');
 
 

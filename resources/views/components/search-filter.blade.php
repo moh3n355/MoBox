@@ -9,19 +9,19 @@
 
         <div class="categories-track">
 
-            <a href="{{ route('products', ['type' => 'MobileKeys']) }}" class="category-item">
+            <a href="{{ route('products', ['type' => 'MobileKeys','category' => 'mobile']) }}" class="category-item">
                 <img src="/images/mobile.png" alt="">
                 <span>موبایل و تبلت</span>
             </a>
-            <a href="{{ route('products', ['type' => 'LabtopKeys']) }}" class="category-item">
+            <a href="{{ route('products', ['type' => 'LabtopKeys' , 'category' => 'laptop']) }}" class="category-item">
                 <img src="/images/laptop3.png" alt="">
                 <span>لپتاپ و اولترابوک</span>
             </a>
-            <a href="{{ route('products', ['type' => 'WatchKeys']) }}" class="category-item">
+            <a href="{{ route('products', ['type' => 'WatchKeys' ,'category' => 'watch']) }}" class="category-item">
                 <img src="/images/smartwatch.png" alt="">
                 <span>ساعت هوشمند</span>
             </a>
-            <a href="{{ route('products', ['type' => 'AirPadKeys']) }}" class="category-item" value="airpods">
+            <a href="{{ route('products', ['type' => 'AirPadKeys' ,'category' => 'airPad']) }}" class="category-item" value="airpods">
                 <img src="/images/airpod.png" alt="">
                 <span>ایرپاد و هندزفری</span>
             </a>
@@ -55,6 +55,9 @@
 
             <form id="filterForm" action={{ route('mainfull_filters') }} method="get">
                 {{-- @csrf --}}
+                {{-- @php
+                    dump($filters);
+                @endphp --}}
 
                 @foreach ($filters as $group => $items)
                     @if (!empty($items) && $group != 'category')
@@ -148,11 +151,11 @@
                 </div>
             </div>
 
-            <div class="products-grid">
+            {{-- <div class="products-grid"> --}}
 
                 {{ $slot }}
 
-            </div>
+            {{-- </div> --}}
 
         </main>
     </div>

@@ -14,7 +14,7 @@ class ProductController extends Controller
     {
         $type = session()->get('type');
         $data = $request->all(); // اینجا تمام آرایه فرستاده شده رو میگیریم
-            // dd(vars: $data);
+        // dd(vars: $data);
 // dd($type);
         $query = Product::query();
 
@@ -23,12 +23,12 @@ class ProductController extends Controller
             $query->where('type', $type);
         }
 
-     // فقط موجودی
+        // فقط موجودی
         if (!empty($data['available'])) {
             $query->where('amount', '>', 0);
         }
 
-      // قیمت
+        // قیمت
         if (!empty($data['min_price'])) {
             // dd($data['min_price']);
             $query->where('price', '>=', $data['min_price']);
@@ -38,30 +38,33 @@ class ProductController extends Controller
             $query->where('price', '<=', $data['max_price']);
         }
 
-     // فیلتر داینامیک JSON
-     //باید key ها دقیقا هم نام های تعریف شده در config باشد
+        // فیلتر داینامیک JSON
+        //باید key ها دقیقا هم نام های تعریف شده در config باشد
         if (!empty($data['filters'])) {
             foreach ($data['filters'] as $key => $value) {
-             if (is_array($value)) {
-                 $query->where(function($q) use ($key, $value) {
-                     foreach ($value as $item) {
-                         $q->orWhereJsonContains("data->$key", $item);
-                     }
-                  });
-             } else {
-                  $query->whereJsonContains("data->$key", $value);
-              }
-          }
+                if (is_array($value)) {
+                    $query->where(function ($q) use ($key, $value) {
+                        foreach ($value as $item) {
+                            $q->orWhereJsonContains("data->$key", $item);
+                        }
+                    });
+                } else {
+                    $query->whereJsonContains("data->$key", $value);
+                }
+            }
         }
 
-      // مرتب‌سازی
+        // مرتب‌سازی
         switch ($data['sort'] ?? '') {
             case 'newest':
-                $query->latest('created_at'); break;
+                $query->latest('created_at');
+                break;
             case 'cheapest':
-                $query->orderBy('price','asc'); break;
+                $query->orderBy('price', 'asc');
+                break;
             case 'expensive':
-                $query->orderBy('price','desc'); break;
+                $query->orderBy('price', 'desc');
+                break;
             default:
                 $query->latest('created_at');
         }
@@ -71,42 +74,45 @@ class ProductController extends Controller
 
     public function search(Request $request)
     {
+
         $search = $request->input('search', null);
-        $type   = $request->input('type', null); // فیلتر type
+        $type = $request->input('category', null); // فیلتر type
 
-    $query = Product::query();
+        $query = Product::query();
 
-    if (empty($search)) {
-        return response()->json(['data' => [], 'message' => 'Nothing to search']);
+        if (empty($search) && empty($type)) {
+            return response()->json([data =>[],'message' => 'Nothing to search']);
+        }
+
+
+        // فیلتر type اگر ارسال شده
+        if (!empty($type)) {
+            $query->where('type', $type);
+        }
+
+        $tokens = preg_split('/\s+/', $search, -1, PREG_SPLIT_NO_EMPTY);
+        $rankSqlParts = [];
+
+        foreach ($tokens as $i => $token) {
+            $token = trim($token);
+            if (!$token)
+                continue;
+            $rankSqlParts[] = "CASE WHEN name LIKE '%{$token}%' THEN " . (count($tokens) - $i) . " ELSE 0 END";
+            $rankSqlParts[] = "CASE WHEN data LIKE '%{$token}%' THEN " . ((count($tokens) - $i) / 2) . " ELSE 0 END";
+        }
+
+        if (!empty($rankSqlParts)) {
+            $rankSql = implode(' + ', $rankSqlParts);
+            $query->selectRaw("*, ($rankSql) as rank")
+                ->orderByDesc('rank');
+        }
+
+        $products = $query->get();
+
+        return response()->json($products);
     }
 
-    // فیلتر type اگر ارسال شده
-    if (!empty($type)) {
-        $query->where('type', $type);
-    }
-
-    $tokens = preg_split('/\s+/', $search, -1, PREG_SPLIT_NO_EMPTY);
-    $rankSqlParts = [];
-
-    foreach ($tokens as $i => $token) {
-        $token = trim($token);
-        if (!$token) continue;
-        $rankSqlParts[] = "CASE WHEN name LIKE '%{$token}%' THEN ".(count($tokens) - $i)." ELSE 0 END";
-        $rankSqlParts[] = "CASE WHEN data LIKE '%{$token}%' THEN ".((count($tokens) - $i)/2)." ELSE 0 END";
-    }
-
-    if (!empty($rankSqlParts)) {
-        $rankSql = implode(' + ', $rankSqlParts);
-        $query->selectRaw("*, ($rankSql) as rank")
-              ->orderByDesc('rank');
-    }
-
-    $products = $query->get();
-
-    return response()->json($products);
-}
-
-   public function getById(Request $request)
+    public function getById(Request $request)
     {
         $ids = $request->input('id');
 
