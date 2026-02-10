@@ -200,14 +200,17 @@ Route::post('/test-upload', function (Request $request) {
 
 // Products page
 Route::get('/products', function (Request $request) {
-    // dump($request->all());
 
-    $filters = config($request['type']);
+
 
     session([
+        // 'type' =>$request['type'] ,
+        'type' =>'MobileKeys',
         'category' => $request['category'],
         'search' => $request['search']
     ]);
+
+    $filters = config(session('type'));
 
 
     return view('products', compact('filters'));
@@ -222,23 +225,36 @@ Route::group(['prefix' => 'products'], function () {
 
     Route::get('mainfull_filters', function (Request $request) {
 
-        $filters = $request->all();
+        $set_filters = $request->all();
 
-        dd($filters);
+
         $config = config(session()->get('type'));
         $DynamicKeys = [];
+        $StaticKeys = [];
+        // dd($config);
 
-        foreach ($filters as $key => $value) {
+        foreach ($set_filters as $key => $value) {
             if (array_key_exists($key, $config)) {
                 $DynamicKeys[$key] = $value;
-                unset($filters[$key]);
+                unset($set_filters[$key]);
+            } else {
+                $StaticKeys[$key] = $value;
+                unset($set_filters[$key]);
             }
         }
-        $filters['filters'] = $DynamicKeys;
-        return redirect()->route('filter', $filters);
+
+
+        session([
+            'set_filters' => [
+                'dynamic' => $DynamicKeys,
+                'static' => $StaticKeys
+            ]
+        ]);
+
+        return redirect()->route('products');
     })->name('mainfull_filters');
 
-    Route::get('/filter', [ProductController::class, 'filter'])->name('filter');
+    Route::post('/filter', [ProductController::class, 'filter'])->name('filter');
 
     Route::get('/search', [ProductController::class, 'search'])->name('search');
 
@@ -261,7 +277,7 @@ Route::group(['prefix' => 'profile'], function () {
 
 Route::get('test', function (Request $request) {
 
-    return view('test');
+     return view('test');
 })->name('test');
 
 

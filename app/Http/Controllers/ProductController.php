@@ -12,10 +12,27 @@ class ProductController extends Controller
 {
     public function filter(Request $request)
     {
+
+        $set_filters = $request->input('set_filters', []);
+
+        // $dynamic = $set_filters['dynamic'] ?? [];
+        // $static  = $set_filters['static'] ?? [];
+
+        // $data = array_merge($dynamic, $static);
+
+
+        // $set_filters = $request->all();
+
+
+
         $type = session()->get('type');
-        $data = $request->all(); // اینجا تمام آرایه فرستاده شده رو میگیریم
-        // dd(vars: $data);
-// dd($type);
+        $data = $set_filters; // اینجا تمام آرایه فرستاده شده رو میگیریم
+
+
+
+
+
+
         $query = Product::query();
 
         // فیلتر نوع محصول
@@ -68,6 +85,7 @@ class ProductController extends Controller
             default:
                 $query->latest('created_at');
         }
+
 
         return $query->get();
     }
