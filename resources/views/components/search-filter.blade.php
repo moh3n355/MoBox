@@ -7,7 +7,7 @@
     <section class="categories-slider">
         <button class="cat-nav left">❯</button>
 
-♦        <form id="categoryform" action="{{ route('set_filters') }}" method="GET">
+        <form id="categoryform" action="{{ route('set_filters') }}" method="GET">
             <div class="categories-track">
 
                 <input type="hidden" name="type" id="typeInput">
@@ -110,7 +110,7 @@
                         <div class="price-range">
                             <div class="price-inputs">
                                 <input type="number" name="min_price" id="min-price"
-                                    value="{{ session('set_filters.filters.min_price') }}"  placeholder="حداقل قیمت">
+                                    value="{{ session('set_filters.filters.min_price') }}" placeholder="حداقل قیمت">
                                 <span>تا</span>
                                 <input type="number" name="max_price" id="max-price"
                                     value="{{ session('set_filters.filters.max_price') }}" placeholder="حداکثر قیمت">
@@ -206,8 +206,8 @@
                 category = clickedCategoryBtn.dataset.category || '';
             } else {
                 // اگر تغییر checkbox است، مقدار session blade استفاده شود
-                type = '{{ session("set_filters.params.type") }}';
-                category = '{{ session("set_filters.params.category") }}';
+                type = '{{ session('set_filters.params.type') }}';
+                category = '{{ session('set_filters.params.category') }}';
             }
 
             // اضافه کردن hidden ها به filterForm

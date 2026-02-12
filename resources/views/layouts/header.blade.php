@@ -3,7 +3,7 @@
     <nav class="nav">
 
         <div class="search-box">
-♫            <form action="{{ route('set_filters') }}" method="GET" id="search_form">
+            <form action="{{ route('set_filters') }}" method="GET" id="search_form">
                 <button type="submit"><i class="fas fa-search"></i></button>
 
                 <input type="text" name="search" placeholder="جستجو..." autocomplete="off" id="searchInput">
@@ -101,7 +101,6 @@
         </div>
     @endif
 
-    </div>
 
 
 

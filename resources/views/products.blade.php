@@ -123,7 +123,6 @@
                 }
 
 
-♦
                 if (Object.values(filters).some(v => v !== null && v !== '')) {
                     console.log('true filter block');
                     getProducts_with_filter();

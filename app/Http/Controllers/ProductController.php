@@ -12,6 +12,7 @@ class ProductController extends Controller
 {
     public function filter(Request $request)
     {
+
         // return (session()->all());
 
         $set_filters = $request->input('set_filters', []);
@@ -21,7 +22,7 @@ class ProductController extends Controller
 
 
 
-        $type = session()->get('set_filters.params.type');
+        $type = session()->get('set_filters.params.category');
         $data = $set_filters['filters']; // اینجا تمام آرایه فرستاده شده رو میگیریم
 
 
@@ -29,6 +30,8 @@ class ProductController extends Controller
 
 
         $query = Product::query();
+
+        // return $query->where('type', $type)->get();        ;
 
         // فیلتر نوع محصول
         if (!empty($type)) {
@@ -52,19 +55,29 @@ class ProductController extends Controller
 
         // فیلتر داینامیک JSON
         //باید key ها دقیقا هم نام های تعریف شده در config باشد
-        if (!empty($data['filters'])) {
-            foreach ($data['filters'] as $key => $value) {
-                if (is_array($value)) {
-                    $query->where(function ($q) use ($key, $value) {
-                        foreach ($value as $item) {
-                            $q->orWhereJsonContains("data->$key", $item);
-                        }
-                    });
-                } else {
-                    $query->whereJsonContains("data->$key", $value);
+        // if (!empty($data['filters'])) {
+            foreach ($data as $key => $value) {
+
+                // رد کردن min و max چون جدا پردازش شدن
+                if (in_array($key, ['min_price', 'max_price'])) {
+                    continue;
+                }
+
+                if (!empty($value)) {
+
+                    if (is_array($value)) {
+                        $query->where(function ($q) use ($key, $value) {
+                            foreach ($value as $item) {
+                                $q->orWhereJsonContains("data->$key", $item);
+                            }
+                        });
+                    } else {
+                        $query->whereJsonContains("data->$key", $value);
+                    }
                 }
             }
-        }
+
+        // }
 
         // مرتب‌سازی
         switch ($data['sort'] ?? '') {
