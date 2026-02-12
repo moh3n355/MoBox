@@ -3,30 +3,30 @@
     <nav class="nav">
 
         <div class="search-box">
-            <form action="{{ route('products') }}" method="GET" id="search_form">
+♫            <form action="{{ route('set_filters') }}" method="GET" id="search_form">
                 <button type="submit"><i class="fas fa-search"></i></button>
 
                 <input type="text" name="search" placeholder="جستجو..." autocomplete="off" id="searchInput">
-
                 <input type="hidden" name="category" id="categoryInput">
+                <input type="hidden" name="type" id="typeInput">
 
                 <div class="dropdown" id="categoryDropdown">
                     <!-- دسته‌بندی‌ها -->
                     <div class="search-cat">
                         <div class="liveInputDisplay" style="font-weight:bold;"></div>
-                        <div data-value="laptop">در دسته لپتاپ و اولترابوک</div>
+                        <div data-value="laptop" data-type="LabtopKeys">در دسته لپتاپ و اولترابوک</div>
                     </div>
                     <div class="search-cat">
                         <div class="liveInputDisplay" style="font-weight:bold;"></div>
-                        <div data-value="mobile">در دسته موبایل و تبلت</div>
+                        <div data-value="mobile" data-type="MobileKeys">در دسته موبایل و تبلت</div>
                     </div>
                     <div class="search-cat">
                         <div class="liveInputDisplay" style="font-weight:bold;"></div>
-                        <div data-value="watch">در دسته ساعت هوشمند</div>
+                        <div data-value="watch" data-type="WatchKeys">در دسته ساعت هوشمند</div>
                     </div>
                     <div class="search-cat">
                         <div class="liveInputDisplay" style="font-weight:bold;"></div>
-                        <div data-value="audio">در دسته ایرپاد و هندزفری</div>
+                        <div data-value="airpod" data-type="AirpadKeys" >در دسته ایرپاد و هندزفری</div>
                     </div>
                 </div>
             </form>
@@ -131,5 +131,48 @@
             }
         });
 
+
+
+// ============================ search section ==========================================
+
+    const input = document.getElementById('searchInput');
+    const dropdown = document.getElementById('categoryDropdown');
+    const categoryInput = document.getElementById('categoryInput');
+    const typeInput = document.getElementById('typeInput');
+
+    const searchForm = document.getElementById('search_form');
+
+    const liveInputs = dropdown.querySelectorAll('.liveInputDisplay');
+
+    // ابتدا مخفی
+    dropdown.style.display = 'none';
+
+    // وقتی کاربر تایپ می‌کنه → متن رو در همه liveInputDisplay ها نمایش بده
+    input.addEventListener('input', () => {
+        const value = input.value.trim();
+        if (value.length > 0) {
+            liveInputs.forEach(div => div.textContent = value);
+            dropdown.style.display = 'block';
+        } else {
+            dropdown.style.display = 'none';
+        }
     });
+
+    // کلیک بیرون → بستن
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.search-box')) dropdown.style.display = 'none';
+    });
+
+    // انتخاب دسته → ارسال فرم
+    dropdown.querySelectorAll('div[data-value]').forEach(item => {
+        item.addEventListener('click', (e) => {
+            e.preventDefault();
+            categoryInput.value = item.dataset.value;
+            typeInput.value = item.dataset.type;
+            dropdown.style.display = 'none';
+            searchForm.submit();
+        });
+    });
+});
+
 </script>

@@ -2,11 +2,11 @@
 
 return [
     'weight'=>[],
-    'battery'=>[],
+    'battery'=>['2000ma'],
     'case_battery'=>[],
     'ports'=>[],
     'noise_canceling'=>[true,false],
-    'Bluetouth'=>[],
+    'Bluetouth'=>['5.0'],
     'charginh=g'=>[],
     'additional)material'=>[],
 ]

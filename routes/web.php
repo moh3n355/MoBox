@@ -201,58 +201,54 @@ Route::post('/test-upload', function (Request $request) {
 // Products page
 Route::get('/products', function (Request $request) {
 
+    dump(session()->all());
 
-
-    session([
-        // 'type' =>$request['type'] ,
-        'type' =>'MobileKeys',
-        'category' => $request['category'],
-        'search' => $request['search']
-    ]);
-
-    $filters = config(session('type'));
+    $type = session()->get('set_filters.params.type') ?? 'MobileKeys';
+    $filters = config($type);
 
 
     return view('products', compact('filters'));
 })->name('products');
 
-Route::get('/form', function () {
-    return view('form');
-})->name('form');
 
 // Products group
 Route::group(['prefix' => 'products'], function () {
 
-    Route::get('mainfull_filters', function (Request $request) {
-
-        $set_filters = $request->all();
+    Route::get('set_filters', function (Request $request) {
 
 
-        $config = config(session()->get('type'));
-        $DynamicKeys = [];
-        $StaticKeys = [];
-        // dd($config);
 
-        foreach ($set_filters as $key => $value) {
-            if (array_key_exists($key, $config)) {
-                $DynamicKeys[$key] = $value;
-                unset($set_filters[$key]);
-            } else {
-                $StaticKeys[$key] = $value;
-                unset($set_filters[$key]);
-            }
+        if ($request->filled('type')) {
+            session(['set_filters.type' => $request->type]);
         }
 
+        if ($request->filled('category')) {
+            session(['set_filters.category' => $request->category]);
+        }
 
-        session([
-            'set_filters' => [
-                'dynamic' => $DynamicKeys,
-                'static' => $StaticKeys
+        if ($request->filled('search')) {
+            session(['set_filters.search' => $request->search]);
+        }
+
+        $set_filters = $request->except(['_token']);
+        // dd($set_filters);
+        $data = [
+          'filters' => $set_filters,
+            'params' => [
+              'type' =>  $set_filters['type'] ?? null,
+              'category' => $set_filters['category'] ?? null,
+              'search' => $set_filters['search'] ?? null
             ]
-        ]);
+        ];
+        unset($data['filters']['type'], $data['filters']['category'], $data['filters']['search']);
+
+
+        session(['set_filters' => $data]);
+
+
 
         return redirect()->route('products');
-    })->name('mainfull_filters');
+    })->name('set_filters');
 
     Route::post('/filter', [ProductController::class, 'filter'])->name('filter');
 
@@ -277,8 +273,7 @@ Route::group(['prefix' => 'profile'], function () {
 
 Route::get('test', function (Request $request) {
 
-     return view('test');
+    return view('test');
 })->name('test');
-
 
 

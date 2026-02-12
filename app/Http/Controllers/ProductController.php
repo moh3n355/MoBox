@@ -12,22 +12,17 @@ class ProductController extends Controller
 {
     public function filter(Request $request)
     {
+        // return (session()->all());
 
         $set_filters = $request->input('set_filters', []);
-
-        // $dynamic = $set_filters['dynamic'] ?? [];
-        // $static  = $set_filters['static'] ?? [];
-
-        // $data = array_merge($dynamic, $static);
-
-
-        // $set_filters = $request->all();
+        // $set_filters = session()->get('set_filters.filters', []);
 
 
 
-        $type = session()->get('type');
-        $data = $set_filters; // اینجا تمام آرایه فرستاده شده رو میگیریم
 
+
+        $type = session()->get('set_filters.params.type');
+        $data = $set_filters['filters']; // اینجا تمام آرایه فرستاده شده رو میگیریم
 
 
 
