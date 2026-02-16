@@ -7,7 +7,8 @@
 </head>
 <body>
 
-    <script>
+ 
+    {{-- <script>
         // متغیر برای ذخیره نتایج
         let products = [];
 
@@ -39,7 +40,7 @@
 
         // صدا زدن تابع
         getProducts();
-    </script>
+    </script> --}}
 
 
 </body>

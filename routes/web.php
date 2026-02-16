@@ -201,9 +201,11 @@ Route::post('/test-upload', function (Request $request) {
 // Products page
 Route::get('/products', function (Request $request) {
 
-    dump(session()->all());
+// session()->flush();
 
-    $type = session()->get('set_filters.params.type') ?? 'MobileKeys';
+        dump(session()->all());
+    $type = session()->get('set_filters.params.type');
+
     $filters = config($type);
 
 
