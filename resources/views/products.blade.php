@@ -70,7 +70,7 @@
         </div>
 
         <h3 class="title">${product.name}</h3>
-        <p class="desc">${product.desc}</p>
+        <p class="desc">${product.description}</p>
 
         <div class="cost">
             ${product.discount ? `<p class="discount">${product.discount}%</p>` : ''}
@@ -107,39 +107,43 @@
                         const container = document.getElementById('productsContainer');
                         container.innerHTML = ''; // خالی کردن قبل از اضافه کردن
 
-            //             products.forEach(product => {
-            //                 container.insertAdjacentHTML('beforeend', `
-            //     <p>
-            //         ${product.name} - ${product.price} ${product.ram ? '- RAM: ' + product.ram : ''}
-            //     </p>
-            // `);
-            //             });
 
-            products.forEach(product => {
+                        products.forEach(product => {
                             const productCard = document.createElement('a');
                             productCard.className = 'add-to-cart';
                             productCard.href = '/';
                             productCard.setAttribute('data-product-id', product.id);
 
-                            productCard.innerHTML = `
-                                <a class="add-to-cart" href="#" ">
-        <div class="card">
+                            const finalPrice = product.off ?
+                                product.price - (product.price * product.off / 100) :
+                                product.price;
+
+                                productCard.innerHTML = `
+<a class="add-to-cart" href="#">
+    <div class="card">
         <div class="product-image">
             <img src="/images/mobile-phone.png" alt="">
         </div>
-
-        <h3 class="title">${product.name}</h3>
-        <p class="desc">${product.desc}</p>
+        <div>
+            <h3 class="title">${product.name}</h3>
+            <p class="desc">${product.description}</p>
+        </div>
 
         <div class="cost">
-            ${product.discount ? `<p class="discount">${product.discount}%</p>` : ''}
-            ${product.old_price ? `<p class="old-price">${product.old_price}</p>` : ''}
-        </div>
+    ${product.off ? `<span class="discount">${product.off}%</span>` : ''}
+    ${product.off ? `<span class="old-price">${product.price}</span>` : ''}
 
-        <p class="price">${product.price}</p>
-        </div>
-        </a>
-        `;
+    <div class="price-row">
+        <span class="price">${finalPrice}</span>
+        <span class="toman">تومان</span>
+    </div>
+</div>
+
+    </div>
+</a>
+`;
+
+
 
 
                             container.appendChild(productCard);
@@ -154,19 +158,19 @@
                 async function show_begin_products() {
                     console.log('succes mother  fucker');
                     const container = document.getElementById('productsContainer');
-                    container.style ='grid-template-columns: 1fr;'
+                    container.style = 'grid-template-columns: 1fr;'
                     container.innerHTML = ''; // خالی کردن قبل از اضافه کردن
                     const productCard = document.createElement('div');
-                            productCard.style= 'font-weight: 900 ;';
-                            productCard.className = 'add-to-cart';
-                            productCard.setAttribute('data-product-id','2');
+                    productCard.style = 'font-weight: 900 ;';
+                    productCard.className = 'add-to-cart';
+                    productCard.setAttribute('data-product-id', '2');
 
-                            productCard.innerHTML = `
+                    productCard.innerHTML = `
 
         <div class="card">
           <h3 class="title">لطفا یک دسته بندی انتخاب کنید</h3>
             `;
-            container.appendChild(productCard);
+                    container.appendChild(productCard);
 
                 }
 

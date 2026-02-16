@@ -16,7 +16,6 @@ class ProductController extends Controller
         // return (session()->all());
 
         $set_filters = $request->input('set_filters', []);
-        // $set_filters = session()->get('set_filters.filters', []);
 
 
 

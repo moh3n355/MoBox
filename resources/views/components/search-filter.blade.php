@@ -132,7 +132,7 @@
 
                     <div class="filter-options" x-show="open" x-transition x-cloak>
                         <label class="filter-option">
-                            <input type="checkbox" name="discount" value="true">
+                            <input type="checkbox" name="off" value="true">
                             <span class="checkmark"></span>
                         </label>
                     </div>

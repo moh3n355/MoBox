@@ -46,7 +46,6 @@ body {
 }
 
 .products-container {
-
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
@@ -73,6 +72,14 @@ body {
 .card:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 20px var(--shadow-hover);
+}
+.product-image {
+    overflow: hidden;
+    aspect-ratio: 1/1;     /* نسبت تصویر مربع */
+    width: 100%;
+    height: auto;          /* اندازه ثابت */
+    overflow: hidden;       /* بیرون‌زدگی رو مخفی کن */
+    border-radius: 12px;
 }
 
 /* تصویر محصول */
@@ -131,6 +138,13 @@ body {
     margin-bottom: 12px;
 }
 
+.toman {
+    color: #121212;
+    margin-right: 0.1rem;
+    font-weight: 900;
+    font-size: small;
+}
+
 .shipping {
     display: inline-block;
     background-color: var(--shipping-bg);
@@ -141,10 +155,12 @@ body {
     margin-bottom: 10px;
     font-weight: 500;
 }
+
 .add-to-cart {
     display: inline-block;
     color: #fff;
-    text-decoration: none; /* حذف underline لینک */
+    text-decoration: none;
+    /* حذف underline لینک */
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;
