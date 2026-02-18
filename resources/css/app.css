@@ -1,9 +1,13 @@
+@import "@fortawesome/fontawesome-free/css/all.min.css";
+
+
 @import "../theme/theme-core.css";
 @import "./admin-dashboard.css";
  @import "./products.css";
 @import "./show-&-edit-products.css";
 @import "./search-filter.css";
 @import "./shopping-cart.css";
+@import "./produce-show.css";
 
 /* === Reset & Base === */
 * {

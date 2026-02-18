@@ -55,26 +55,26 @@ class ProductController extends Controller
         // فیلتر داینامیک JSON
         //باید key ها دقیقا هم نام های تعریف شده در config باشد
         // if (!empty($data['filters'])) {
-            foreach ($data as $key => $value) {
+        foreach ($data as $key => $value) {
 
-                // رد کردن min و max چون جدا پردازش شدن
-                if (in_array($key, ['min_price', 'max_price'])) {
-                    continue;
-                }
+            // رد کردن min و max چون جدا پردازش شدن
+            if (in_array($key, ['min_price', 'max_price'])) {
+                continue;
+            }
 
-                if (!empty($value)) {
+            if (!empty($value)) {
 
-                    if (is_array($value)) {
-                        $query->where(function ($q) use ($key, $value) {
-                            foreach ($value as $item) {
-                                $q->orWhereJsonContains("data->$key", $item);
-                            }
-                        });
-                    } else {
-                        $query->whereJsonContains("data->$key", $value);
-                    }
+                if (is_array($value)) {
+                    $query->where(function ($q) use ($key, $value) {
+                        foreach ($value as $item) {
+                            $q->orWhereJsonContains("data->$key", $item);
+                        }
+                    });
+                } else {
+                    $query->whereJsonContains("data->$key", $value);
                 }
             }
+        }
 
         // }
 
@@ -106,7 +106,7 @@ class ProductController extends Controller
         $query = Product::query();
 
         if (empty($search) && empty($type)) {
-            return response()->json([data =>[],'message' => 'Nothing to search']);
+            return response()->json([data => [], 'message' => 'Nothing to search']);
         }
 
 
@@ -137,15 +137,14 @@ class ProductController extends Controller
         return response()->json($products);
     }
 
-    public function getById(Request $request)
+    public function getById($id)
     {
-        $ids = $request->input('id');
+        $ids = $id;
 
         if (!$ids) {
-            return []; // فقط آرایه خالی برگردان
+            return [];
         }
 
-        // اگر عدد یا رشته منفرد است → تبدیل به آرایه
         if (!is_array($ids)) {
             if (is_string($ids)) {
                 $ids = explode(',', $ids);
@@ -158,8 +157,9 @@ class ProductController extends Controller
 
         $products = Product::whereIn('id', $ids)->get();
 
-        return $products; // collection برگردان
+        return response()->json($products);
     }
+
 }
 
 

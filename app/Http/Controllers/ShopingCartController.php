@@ -10,10 +10,13 @@ use Illuminate\Support\Facades\DB;
 
 class ShopingCartController extends Controller
 {
-    public function add($productId)
+    public function add(Request $request)
     {
         $user = auth()->user();
-        
+
+        // دریافت product_id از POST
+        $productId = $request->input('product_id');
+
         // بررسی وجود محصول
         $product = Product::find($productId);
         if (!$product) {
@@ -22,12 +25,12 @@ class ShopingCartController extends Controller
                 'message' => 'محصول یافت نشد'
             ], 404);
         }
-        
+
         // بررسی اینکه آیا محصول از قبل در سبد وجود دارد
         $existing = $user->cartProducts()
                         ->where('product_id', $productId)
                         ->first();
-        
+
         if ($existing) {
             // افزایش quantity به صورت ایمن
             DB::table('cart_items')
@@ -45,7 +48,7 @@ class ShopingCartController extends Controller
                 'updated_at' => now()
             ]);
         }
-        
+
         return response()->json([
             'success' => true,
             'message' => 'محصول به سبد خرید اضافه شد',
@@ -56,21 +59,21 @@ class ShopingCartController extends Controller
     public function remove($productId)
     {
         $user = auth()->user();
-        
+
         // بررسی وجود محصول در سبد کاربر
         $existing = $user->cartProducts()
                         ->where('product_id', $productId)
                         ->first();
-        
+
         if (!$existing) {
             return response()->json([
                 'success' => false,
                 'message' => 'محصول در سبد خرید یافت نشد'
             ], 404);
         }
-        
+
         $currentQuantity = $existing->pivot->quantity;
-        
+
         if ($currentQuantity > 1) {
             // کاهش quantity
             DB::table('cart_items')
@@ -80,14 +83,14 @@ class ShopingCartController extends Controller
                     'quantity' => DB::raw('quantity - 1'),
                     'updated_at' => now()
                 ]);
-            
+
             $message = 'تعداد محصول کاهش یافت';
         } else {
             // حذف کامل محصول از سبد
             $user->cartProducts()->detach($productId);
             $message = 'محصول از سبد خرید حذف شد';
         }
-        
+
         return response()->json([
             'success' => true,
             'message' => $message,
@@ -98,7 +101,7 @@ class ShopingCartController extends Controller
     public function BelongToUser($UserId = null)
     {
         $currentUser = auth()->user();
-    
+
         // اگر UserId داده نشده، از کاربر فعلی استفاده کن
         if ($UserId === null) {
             $userId = $currentUser->id;
@@ -106,7 +109,7 @@ class ShopingCartController extends Controller
         } else {
             $userId = $UserId;
             $targetUser = \App\Models\User::find($userId);
-        
+
             // بررسی وجود کاربر
             if (!$targetUser) {
                 return response()->json([
@@ -115,7 +118,7 @@ class ShopingCartController extends Controller
                 ], 404);
             }
         }
-    
+
         // بررسی دسترسی (اگر می‌خواهد کاربر دیگری را ببیند)
         if ($userId != $currentUser->id && !$currentUser->is_admin) {
             return response()->json([
@@ -123,18 +126,18 @@ class ShopingCartController extends Controller
                 'message' => 'دسترسی غیرمجاز. فقط ادمین می‌تواند سبد خرید دیگران را مشاهده کند'
             ], 403);
         }
-    
+
         // دریافت آیتم‌های سبد خرید
         $cartItems = $targetUser->cartProducts()
             ->withPivot('quantity')
             ->get();
-    
+
             // محاسبه جمع کل
         $total = 0;
         foreach ($cartItems as $item) {
             $total += $item->price * $item->pivot->quantity;
         }
-    
+
         return response()->json([
             'success' => true,
             'user_id' => $userId,

@@ -62,25 +62,40 @@
                             productCard.href = '/';
                             productCard.setAttribute('data-product-id', product.id);
 
+                            const finalPrice = product.off ?
+                                Number(product.price) - (Number(product.price) * product.off / 100) :
+                                Number(product.price);
+
+
+
                             productCard.innerHTML = `
-                                <a class="add-to-cart" href="#" ">
-        <div class="card">
+<a class="add-to-cart" href="/produce-show/${product.id}">
+    <div class="card">
         <div class="product-image">
             <img src="/images/mobile-phone.png" alt="">
         </div>
-
-        <h3 class="title">${product.name}</h3>
-        <p class="desc">${product.description}</p>
+        <div>
+            <h3 class="title">${product.name}</h3>
+            <p class="desc">${product.description}</p>
+        </div>
 
         <div class="cost">
-            ${product.discount ? `<p class="discount">${product.discount}%</p>` : ''}
-            ${product.old_price ? `<p class="old-price">${product.old_price}</p>` : ''}
-        </div>
+            <div>
+    ${product.off ? `<span class="discount">${product.off}%</span>` : ''}
+${product.off ? `<span class="old-price">${Number(product.price).toLocaleString()}</span>` : ''}
 
-        <p class="price">${product.price}</p>
-        </div>
-        </a>
-        `;
+            </div>
+
+    <div class="price-row">
+    <span class="price">${finalPrice.toLocaleString()}</span>
+    <span class="toman">تومان</span>
+</div>
+
+</div>
+
+    </div>
+</a>
+`;
 
 
                             container.appendChild(productCard);
@@ -118,8 +133,8 @@
                                 product.price - (product.price * product.off / 100) :
                                 product.price;
 
-                                productCard.innerHTML = `
-<a class="add-to-cart" href="#">
+                            productCard.innerHTML = `
+<a class="add-to-cart" href="/produce-show/${product.id}">
     <div class="card">
         <div class="product-image">
             <img src="/images/mobile-phone.png" alt="">
@@ -130,8 +145,11 @@
         </div>
 
         <div class="cost">
+            <div>
     ${product.off ? `<span class="discount">${product.off}%</span>` : ''}
     ${product.off ? `<span class="old-price">${product.price}</span>` : ''}
+            </div>
+
 
     <div class="price-row">
         <span class="price">${finalPrice}</span>
@@ -185,9 +203,18 @@
                 }
 
             });
+
+
+
+
         </script>
 
 
 
     </x-search-filter>
 </x-layout>
+
+
+
+
+

@@ -6,8 +6,12 @@
     <title>Document</title>
 </head>
 <body>
-
-    <a class="add-to-cart" href="#">
+    <?php
+    $password = 'Iliya1441!';
+    $hashed = password_hash($password, PASSWORD_BCRYPT);
+    echo $hashed;
+?>
+    {{-- <a class="add-to-cart" href="#">
         <div class="card">
             <div class="product-image">
                 <img src="/images/mobile-phone.png" alt="">
@@ -27,7 +31,7 @@
                 <span class="toman">تومان</span>
             </div>
         </div>
-    </a>
+    </a> --}}
 
     {{-- <script>
         // متغیر برای ذخیره نتایج

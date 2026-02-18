@@ -1,19 +1,19 @@
-
-
-
+// 1️⃣ bootstrap + axios
+import './bootstrap';
 import axios from 'axios';
 window.axios = axios;
 
+// 2️⃣ Alpine
 import Alpine from 'alpinejs';
 window.Alpine = Alpine;
 Alpine.start();
 
-import './bootstrap';
+// 3️⃣ بقیه ماژول‌ها
 import './admin-dashboard';
 import './show-&-edit-products';
+import './produce-show';
 
-// =========== csrf token for axios ==========
-
+// 4️⃣ CSRF
 window.axios.defaults.headers.common['X-CSRF-TOKEN'] =
     document.querySelector('meta[name="csrf-token"]').content;
 

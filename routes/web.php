@@ -16,6 +16,20 @@ use App\Http\Middleware\Verified;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
+
+// use App\Models\User;
+// use Illuminate\Support\Facades\Hash;
+
+// $user = User::create([
+//     'username' => 'iliya',       // حتما اینجا مقدار بده
+//     'fullName' => 'mmd',
+//     'email' => 'iliya@example.com',
+//     'phone' => '123456789',
+//     'userpassword' => Hash::make('mypassword123'),
+//     'role' => 'owner',
+// ]);
+
+
 // Home route
 Route::get('/', function () {
     return view('home');
@@ -153,10 +167,11 @@ Route::get('/admin/comments-data', function () {
     ]);
 })->name('admin.comments-data');
 
+
 // Product views
-Route::get('/produce-show', function () {
-    return view('produce-show');
-});
+Route::get('/produce-show/{id}', function ($id) {
+    return view('produce-show',compact('id'));
+})->name('produce-show');
 
 Route::get('/add-product', function (Request $request) {
     $category = session('categoryinput');
@@ -264,7 +279,7 @@ Route::group(['prefix' => 'admin'], function () {
 });
 
 Route::group(['prefix' => 'profile'], function () {
-    Route::get('/shoping-cart/add/{id}', [ShopingCartController::class, 'add'])->name('AddToShopingCart');
+    Route::post('/shoping-cart/add', [ShopingCartController::class, 'add'])->name('AddToShopingCart');
 
     Route::get('/shoping-cart/remove/{id}', [ShopingCartController::class, 'remove'])->name('RemoveAsShopingCart');
 
@@ -273,8 +288,8 @@ Route::group(['prefix' => 'profile'], function () {
 });
 
 
-Route::get('test', function (Request $request) {
-
+Route::Post('test', function (Request $request) {
+    // dd($request->all());
     return view('test');
 })->name('test');
 
