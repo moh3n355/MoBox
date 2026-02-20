@@ -26,7 +26,7 @@
                     </div>
                     <div class="search-cat">
                         <div class="liveInputDisplay" style="font-weight:bold;"></div>
-                        <div data-value="airpod" data-type="AirpadKeys" >در دسته ایرپاد و هندزفری</div>
+                        <div data-value="airpod" data-type="AirpadKeys">در دسته ایرپاد و هندزفری</div>
                     </div>
                 </div>
             </form>
@@ -44,14 +44,10 @@
         <div class="nav-item">
             <a href="#" class="nav-link" id="categories">دسته‌بندی</a>
             <div class="dropdown-menu" id="dropmenu-categories">
-                <a href="#">موبایل</a>
-                <a href="#">لپتاپ</a>
-                <a href="#">لوازم جانبی</a>
-                <a href="#">....</a>
-                <a href="#">....</a>
-                <a href="#">....</a>
-                <a href="#">....</a>
-                <a href="#">....</a>
+                <a href="{{ route('products') }}">موبایل و تلفن همراه</a>
+                <a href="#">لپتاپ و اولترابوک</a>
+                <a href="#">ساعت هوشمند</a>
+                <a href="#">ایرپاد و هندزفری</a>
             </div>
         </div>
 
@@ -79,7 +75,7 @@
         <div class="contain-cart-profile">
             <a href="{{ route('shopping-cart') }}" class="shopping-cart">
                 <i class="fas fa-shopping-cart"></i>
-                <span class="cart-badge" id="cart-count"></span>
+                <span class="cart-badge" id="cart-count">0</span>
             </a>
 
             <div class="user-icon" id="userMenuBtn">
@@ -109,44 +105,34 @@
 <script>
     document.addEventListener('DOMContentLoaded', () => {
 
+        // ===== Theme Toggle =====
         const toggle = document.getElementById('themeToggle');
-        if (!toggle) return;
+        if (toggle) {
+            const saved = localStorage.getItem('theme');
+            if (saved === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
 
-        const saved = localStorage.getItem('theme');
-
-        if (saved === 'dark') {
-            document.documentElement.setAttribute('data-theme', 'dark');
+            toggle.addEventListener('click', () => {
+                const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+                if (isDark) {
+                    document.documentElement.removeAttribute('data-theme');
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    localStorage.setItem('theme', 'dark');
+                }
+            });
         }
 
-        toggle.addEventListener('click', () => {
-            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-
-            if (isDark) {
-                document.documentElement.removeAttribute('data-theme');
-                localStorage.setItem('theme', 'light');
-            } else {
-                document.documentElement.setAttribute('data-theme', 'dark');
-                localStorage.setItem('theme', 'dark');
-            }
-        });
-
-
-
-        // ============================ search section ==========================================
-
+        // ===== Search Box Dropdown =====
         const input = document.getElementById('searchInput');
         const dropdown = document.getElementById('categoryDropdown');
         const categoryInput = document.getElementById('categoryInput');
         const typeInput = document.getElementById('typeInput');
-
         const searchForm = document.getElementById('search_form');
-
         const liveInputs = dropdown.querySelectorAll('.liveInputDisplay');
 
-        // ابتدا مخفی
         dropdown.style.display = 'none';
 
-        // وقتی کاربر تایپ می‌کنه → متن رو در همه liveInputDisplay ها نمایش بده
         input.addEventListener('input', () => {
             const value = input.value.trim();
             if (value.length > 0) {
@@ -157,14 +143,12 @@
             }
         });
 
-        // کلیک بیرون → بستن
-        document.addEventListener('click', (e) => {
+        document.addEventListener('click', e => {
             if (!e.target.closest('.search-box')) dropdown.style.display = 'none';
         });
 
-        // انتخاب دسته → ارسال فرم
         dropdown.querySelectorAll('div[data-value]').forEach(item => {
-            item.addEventListener('click', (e) => {
+            item.addEventListener('click', e => {
                 e.preventDefault();
                 categoryInput.value = item.dataset.value;
                 typeInput.value = item.dataset.type;
@@ -172,20 +156,72 @@
                 searchForm.submit();
             });
         });
+
+        // ===== Nav & User Dropdowns =====
+
+        const dropdownMap = [{
+                button: document.getElementById('categories'),
+                menu: document.getElementById('dropmenu-categories')
+            },
+            {
+                button: document.getElementById('content-us'),
+                menu: document.getElementById('dropmenu-content-us')
+            },
+            {
+                button: document.getElementById('userMenuBtn'),
+                menu: document.getElementById('user-profile')
+            }
+        ];
+
+        function closeAllDropdowns() {
+            dropdownMap.forEach(item => {
+                if (item.menu) item.menu.classList.remove('active');
+            });
+        }
+
+        dropdownMap.forEach(item => {
+            if (!item.button || !item.menu) return;
+
+            item.button.addEventListener('click', e => {
+                e.stopPropagation();
+
+                // فقط اگر لینک بود prevent کن
+                if (item.button.tagName === 'A') {
+                    e.preventDefault();
+                }
+
+                const isActive = item.menu.classList.contains('active');
+                closeAllDropdowns();
+                if (!isActive) item.menu.classList.add('active');
+            });
+
+            // جلوگیری از بسته شدن هنگام کلیک داخل منو
+            item.menu.addEventListener('click', e => {
+                e.stopPropagation();
+            });
+        });
+
+
+        document.addEventListener('click', closeAllDropdowns);
+
+
+        // ===== Cart Count Update =====
+        update_cart_counter();
+
     });
 
 
-    // ============================ cart section ==========================================
-//     document.addEventListener('DOMContentLoaded', () => {
+    const cart_counter = document.getElementById('cart-count');
 
-//     const cart_counter = document.getElementById('cart-count');
-
-// // تابع بروزرسانی شمارنده
-// function updateCartCounter(count) {
-//     if (cart_counter) {
-//         cart_counter.textContent = count;
-//     }
-// }
-
-//     });
+    async function update_cart_counter() {
+        if (!cart_counter) return;
+        try {
+            const res = await axios.post('/profile/shopping-cart/BelongToUser');
+            const response = res.data;
+            if (!response.success) throw new Error(response.message);
+            cart_counter.textContent = response.item_count;
+        } catch (err) {
+            console.error(err);
+        }
+    }
 </script>

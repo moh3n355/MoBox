@@ -131,6 +131,7 @@
     <script>
         // ===================== tab manage ================
         document.addEventListener('DOMContentLoaded', () => {
+
             const tabs = document.querySelectorAll('.ps-tab-horizontal');
             const panels = document.querySelectorAll('.ps-tab-panel');
 
@@ -278,64 +279,91 @@
         // ================= add cart function ==============
 
         async function addCart(produce_id) {
-                const btn = document.getElementById('addToCart');
+            const btn = document.getElementById('addToCart');
 
-                const color = document.querySelector('.ps-color-dot.active')?.dataset.color || '';
-                const variant = document.querySelector('.ps-variant-btn.active')?.dataset.variant || '';
+            const color = document.querySelector('.ps-color-dot.active')?.dataset.color || '';
+            const variant = document.querySelector('.ps-variant-btn.active')?.dataset.variant || '';
 
-                const payload = {
-                    product_id: produce_id,
-                    color,
-                    variant,
-                };
+            const payload = {
+                product_id: produce_id,
+                color,
+                variant,
+            };
 
-                try {
-                    const res = await axios.post('/profile/shoping-cart/add', payload);
-                    const response = res.data;
 
-                    console.log(response);
+            try {
+                const res = await axios.post('/profile/shopping-cart/add', payload);
+                const response = res.data;
 
-                    if (response.success === true) {
-
-                        // updateCartCounter(response.);
-                        // حالت موفق
-                        btn.disabled = true;
-                        btn.classList.remove('ps-btn-primary');
-                        btn.classList.add('ps-btn-success');
-                        btn.innerHTML = '✔ اضافه شد';
-
-                        // بازگشت به حالت عادی بعد 2 ثانیه
-                        setTimeout(() => {
-                            btn.disabled = false;
-                            btn.classList.remove('ps-btn-success');
-                            btn.classList.add('ps-btn-primary');
-                            btn.innerHTML = '<span>افزودن به سبد خرید</span>';
-                        }, 2000);
-                    }
-
-                } catch (err) {
-
-                    console.error(err);
-
+                if (!response.success) {
+                    throw new Error(response.message);
                 }
 
+                //update cart Count
+                update_cart_counter();
+
+
+
+                Swal.fire({
+                    toast: true,
+                    icon: "success",
+                    title: response.message,
+                    text: `${response.cart_count} محصول در سبد خرید`,
+                    background: "#3b82f6",
+                    color: "#fff",
+                    showConfirmButton: false,
+                    iconColor: "chartreuse",
+                    position: "center",
+                    timer: 2000
+                });
+
+                btn.disabled = true;
+                btn.classList.remove('ps-btn-primary');
+                btn.classList.add('ps-btn-success');
+                btn.innerHTML = '✔ اضافه شد';
+
+                setTimeout(() => {
+                    btn.disabled = false;
+                    btn.classList.remove('ps-btn-success');
+                    btn.classList.add('ps-btn-primary');
+                    btn.innerHTML = '<span>افزودن به سبد خرید</span>';
+                }, 2000);
+
+                // console.log(update_cart_counter());
+
+            } catch (err) {
+
+                const msg = err?.response?.data?.message || err.message || "خطا";
+
+                Swal.fire({
+                    toast: true,
+                    icon: "error",
+                    title: msg,
+                    background: "#3b82f6",
+                    color: "#fff",
+                    showConfirmButton: false,
+                    position: "center",
+                    timer: 2000
+                });
             }
 
-                // ===================== lisener for actions =========================
+        }
 
-                document.addEventListener('DOMContentLoaded', () => {
-                    const path = window.location.pathname;
-                    const produce_id = path.split('/').pop();
+        // ===================== lisener for actions =========================
 
-                    // بارگذاری محصول
-                    loadProduct(produce_id);
+        document.addEventListener('DOMContentLoaded', () => {
+            const path = window.location.pathname;
+            const produce_id = path.split('/').pop();
 
-                    // مدیریت افزودن به سبد خرید
-                    document.getElementById('addToCart').addEventListener('click', () => {
-                        addCart(produce_id);
-                    });
+            // بارگذاری محصول
+            loadProduct(produce_id);
 
-                });
+            // مدیریت افزودن به سبد خرید
+            document.getElementById('addToCart').addEventListener('click', () => {
+                addCart(produce_id);
+            });
+
+        });
     </script>
 
 

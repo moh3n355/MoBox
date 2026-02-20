@@ -35,7 +35,7 @@ class ShopingCartController extends Controller
         if ($currentQty >= $product->amount) {
             return response()->json([
                 'success' => false,
-                'message' => 'موجودی این محصول به حداکثر رسیده'
+                'message' => 'موجودی انبار به اتمام رسید'
             ]);
         }
 
@@ -61,14 +61,14 @@ class ShopingCartController extends Controller
             'cart_count' => $user->cartProducts()->sum('cart_items.quantity')
         ]);
     }
-        public function remove($productId)
+    public function remove($productId)
     {
         $user = auth()->user();
 
         // بررسی وجود محصول در سبد کاربر
         $existing = $user->cartProducts()
-                        ->where('product_id', $productId)
-                        ->first();
+            ->where('product_id', $productId)
+            ->first();
 
         if (!$existing) {
             return response()->json([
@@ -137,7 +137,7 @@ class ShopingCartController extends Controller
             ->withPivot('quantity')
             ->get();
 
-            // محاسبه جمع کل
+        // محاسبه جمع کل
         $total = 0;
         foreach ($cartItems as $item) {
             $total += $item->price * $item->pivot->quantity;
@@ -149,7 +149,9 @@ class ShopingCartController extends Controller
             'user_name' => $targetUser->name,
             'cart_items' => $cartItems,
             'total' => $total,
-            'item_count' => $cartItems->count(),
+            'item_count' => $cartItems->sum(function ($item) {
+                return $item->pivot->quantity;
+            }),
             'is_current_user' => ($userId == $currentUser->id)
         ]);
     }
