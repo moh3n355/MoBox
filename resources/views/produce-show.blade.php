@@ -292,6 +292,7 @@
                 try {
                     const res = await axios.post('/profile/shoping-cart/add', payload);
                     const response = res.data;
+
                     console.log(response);
 
                     if (response.success === true) {
@@ -331,8 +332,6 @@
 
                     // مدیریت افزودن به سبد خرید
                     document.getElementById('addToCart').addEventListener('click', () => {
-                        console.log(produce_id);
-
                         addCart(produce_id);
                     });
 

@@ -13,11 +13,8 @@ class ShopingCartController extends Controller
     public function add(Request $request)
     {
         $user = auth()->user();
-
-        // دریافت product_id از POST
         $productId = $request->input('product_id');
 
-        // بررسی وجود محصول
         $product = Product::find($productId);
         if (!$product) {
             return response()->json([
@@ -26,13 +23,23 @@ class ShopingCartController extends Controller
             ], 404);
         }
 
-        // بررسی اینکه آیا محصول از قبل در سبد وجود دارد
-        $existing = $user->cartProducts()
-                        ->where('product_id', $productId)
-                        ->first();
+        // رکورد سبد
+        $existing = DB::table('cart_items')
+            ->where('user_id', $user->id)
+            ->where('product_id', $productId)
+            ->first();
+
+        $currentQty = $existing ? $existing->quantity : 0;
+
+        //  چک موجودی
+        if ($currentQty >= $product->amount) {
+            return response()->json([
+                'success' => false,
+                'message' => 'موجودی این محصول به حداکثر رسیده'
+            ]);
+        }
 
         if ($existing) {
-            // افزایش quantity به صورت ایمن
             DB::table('cart_items')
                 ->where('user_id', $user->id)
                 ->where('product_id', $productId)
@@ -41,7 +48,6 @@ class ShopingCartController extends Controller
                     'updated_at' => now()
                 ]);
         } else {
-            // اضافه کردن جدید
             $user->cartProducts()->attach($productId, [
                 'quantity' => 1,
                 'created_at' => now(),
@@ -55,8 +61,7 @@ class ShopingCartController extends Controller
             'cart_count' => $user->cartProducts()->sum('cart_items.quantity')
         ]);
     }
-
-    public function remove($productId)
+        public function remove($productId)
     {
         $user = auth()->user();
 
