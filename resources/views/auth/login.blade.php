@@ -49,6 +49,8 @@
             <div class="terms">
                 ورود شما به معنای پذیرش شرایط و قوانین حریم خصوصی است
             </div>
+
+            <input type="hidden" name="intended" value="{{ request('intended') }}">
         </form>
 
     </main>

@@ -1,7 +1,21 @@
 // 1️⃣ bootstrap + axios
 import './bootstrap';
 import axios from 'axios';
+
 window.axios = axios;
+
+axios.interceptors.response.use(
+    response => response,
+    error => {
+        if (error.response && (error.response.status === 401 || error.response.status === 419)) {
+            const currentUrl = encodeURIComponent(window.location.href);
+            window.location.href = `/auth/login?intended=${currentUrl}`;
+        }
+        return Promise.reject(error);
+    }
+);
+
+
 
 // 2️⃣ Alpine
 import Alpine from 'alpinejs';

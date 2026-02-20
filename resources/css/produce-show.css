@@ -250,6 +250,12 @@
 .ps-btn-primary:hover {
     background: #2563eb;
 }
+.ps-btn-success {
+    background: #afbab3 !important;
+    color: #fff;
+    cursor: default;
+}
+
 
 /* ویژگی‌ها */
 .ps-features {

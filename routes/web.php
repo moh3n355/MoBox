@@ -17,17 +17,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 
-// use App\Models\User;
-// use Illuminate\Support\Facades\Hash;
 
-// $user = User::create([
-//     'username' => 'iliya',       // حتما اینجا مقدار بده
-//     'fullName' => 'mmd',
-//     'email' => 'iliya@example.com',
-//     'phone' => '123456789',
-//     'userpassword' => Hash::make('mypassword123'),
-//     'role' => 'owner',
-// ]);
 
 
 // Home route
@@ -279,7 +269,8 @@ Route::group(['prefix' => 'admin'], function () {
 });
 
 Route::group(['prefix' => 'profile'], function () {
-    Route::post('/shoping-cart/add', [ShopingCartController::class, 'add'])->name('AddToShopingCart');
+    Route::post('/shoping-cart/add', [ShopingCartController::class, 'add'])->name('AddToShopingCart')
+    ->middleware('auth');;
 
     Route::get('/shoping-cart/remove/{id}', [ShopingCartController::class, 'remove'])->name('RemoveAsShopingCart');
 

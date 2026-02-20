@@ -79,7 +79,7 @@
         <div class="contain-cart-profile">
             <a href="{{ route('shopping-cart') }}" class="shopping-cart">
                 <i class="fas fa-shopping-cart"></i>
-                <span class="cart-badge">3</span>
+                <span class="cart-badge" id="cart-count"></span>
             </a>
 
             <div class="user-icon" id="userMenuBtn">
@@ -132,46 +132,60 @@
 
 
 
-// ============================ search section ==========================================
+        // ============================ search section ==========================================
 
-    const input = document.getElementById('searchInput');
-    const dropdown = document.getElementById('categoryDropdown');
-    const categoryInput = document.getElementById('categoryInput');
-    const typeInput = document.getElementById('typeInput');
+        const input = document.getElementById('searchInput');
+        const dropdown = document.getElementById('categoryDropdown');
+        const categoryInput = document.getElementById('categoryInput');
+        const typeInput = document.getElementById('typeInput');
 
-    const searchForm = document.getElementById('search_form');
+        const searchForm = document.getElementById('search_form');
 
-    const liveInputs = dropdown.querySelectorAll('.liveInputDisplay');
+        const liveInputs = dropdown.querySelectorAll('.liveInputDisplay');
 
-    // ابتدا مخفی
-    dropdown.style.display = 'none';
+        // ابتدا مخفی
+        dropdown.style.display = 'none';
 
-    // وقتی کاربر تایپ می‌کنه → متن رو در همه liveInputDisplay ها نمایش بده
-    input.addEventListener('input', () => {
-        const value = input.value.trim();
-        if (value.length > 0) {
-            liveInputs.forEach(div => div.textContent = value);
-            dropdown.style.display = 'block';
-        } else {
-            dropdown.style.display = 'none';
-        }
-    });
+        // وقتی کاربر تایپ می‌کنه → متن رو در همه liveInputDisplay ها نمایش بده
+        input.addEventListener('input', () => {
+            const value = input.value.trim();
+            if (value.length > 0) {
+                liveInputs.forEach(div => div.textContent = value);
+                dropdown.style.display = 'block';
+            } else {
+                dropdown.style.display = 'none';
+            }
+        });
 
-    // کلیک بیرون → بستن
-    document.addEventListener('click', (e) => {
-        if (!e.target.closest('.search-box')) dropdown.style.display = 'none';
-    });
+        // کلیک بیرون → بستن
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.search-box')) dropdown.style.display = 'none';
+        });
 
-    // انتخاب دسته → ارسال فرم
-    dropdown.querySelectorAll('div[data-value]').forEach(item => {
-        item.addEventListener('click', (e) => {
-            e.preventDefault();
-            categoryInput.value = item.dataset.value;
-            typeInput.value = item.dataset.type;
-            dropdown.style.display = 'none';
-            searchForm.submit();
+        // انتخاب دسته → ارسال فرم
+        dropdown.querySelectorAll('div[data-value]').forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                categoryInput.value = item.dataset.value;
+                typeInput.value = item.dataset.type;
+                dropdown.style.display = 'none';
+                searchForm.submit();
+            });
         });
     });
-});
 
+
+    // ============================ cart section ==========================================
+//     document.addEventListener('DOMContentLoaded', () => {
+
+//     const cart_counter = document.getElementById('cart-count');
+
+// // تابع بروزرسانی شمارنده
+// function updateCartCounter(count) {
+//     if (cart_counter) {
+//         cart_counter.textContent = count;
+//     }
+// }
+
+//     });
 </script>

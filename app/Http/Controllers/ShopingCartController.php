@@ -52,7 +52,7 @@ class ShopingCartController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'محصول به سبد خرید اضافه شد',
-            'cart_count' => $user->cartProducts()->count()
+            'cart_count' => $user->cartProducts()->sum('cart_items.quantity')
         ]);
     }
 
