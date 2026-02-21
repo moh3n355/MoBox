@@ -211,6 +211,8 @@ Route::get('/products', function (Request $request) {
 
     dump(session()->all());
 
+
+        // dump(session()->all());
     $type = session()->get('set_filters.params.type');
 
     $filters = config($type);
