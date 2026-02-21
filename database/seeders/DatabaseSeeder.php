@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
 
 
          // ایجاد 10 محصول فیک
-        for ($i = 0; $i < 30; $i++) {
+        for ($i = 0; $i < 90; $i++) {
             DB::table('products')->insert([
                 'name' => $faker->word() . ' ' . $faker->randomElement(['Pro', 'Air', 'Max']),
                 'price' => $faker->numberBetween(1000000, 100000000),
