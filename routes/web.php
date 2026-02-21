@@ -209,7 +209,10 @@ Route::post('/test-upload', function (Request $request) {
 // Products page
 Route::get('/products', function (Request $request) {
 
+<<<<<<< HEAD
         // dump(session()->all());
+=======
+>>>>>>> f8d2a1bdae11cb5bf0c066a24eb7673e419485c7
     $type = session()->get('set_filters.params.type');
 
     $filters = config($type);
