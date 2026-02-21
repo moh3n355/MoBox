@@ -58,7 +58,7 @@ class DatabaseSeeder extends Seeder
                 'color' => $faker->randomElement(['red','blue','black','white']),
                 'amount' => $faker->numberBetween(0,50),
                 'off' => $faker->numberBetween(0,30),
-                'type' => $faker->randomElement(['laptop','mobile','watch','airpad']),
+                'type' => $faker->randomElement(['labtopkeys','mobilekeys','watchkeys','airpadkeys']),
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
