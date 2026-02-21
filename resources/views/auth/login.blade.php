@@ -32,7 +32,6 @@
 
                 <label for="password">رمز عبور:</label>
                 <input type="password" name="password" value="{{ old('password') }}" required id="password"
-                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
                     title="رمز عبور باید حداقل ۸ کاراکتر باشد و شامل حداقل یک حرف بزرگ، یک حرف کوچک، یک عدد و یک کاراکتر خاص (@$!%*?&) باشد">
                 @error('password')
                     <span class="error-forms">{{ $message }}</span>
