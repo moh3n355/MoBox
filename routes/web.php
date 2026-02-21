@@ -31,7 +31,7 @@ Route::get('/exit', function () {
 })->name('exit');
 
 // Auth group
-Route::group(['prefix' => 'auth'], function () {
+Route::group(['prefix' => 'auth', 'middleware' => 'guest'], function () {
 
     Route::get('/login', function () {
         return view('auth.login', ['type' => 'login']);
