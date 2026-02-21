@@ -1,84 +1,220 @@
-
-
 <x-layout>
 
     <x-search-filter :filters="$filters">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Product Card</title>
-        @vite(['resources/css/products.css', 'resources/js/products.js'])
 
-    </head>
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Product Card</title>
+            @vite(['resources/css/products.css', 'resources/js/app.js'])
 
-    @php
-        dump($filters);
-    @endphp
+        </head>
 
-    {{-- <div id="productsContainer">
-        @foreach($products as $product)
-        <a class="add-to-cart" href="/" data-product-id="{{ $product['id'] }}">
-            <div class="card">
-                <div class="product-image">
-                    <img src="{{ $product['image'] }}" alt="{{ $product['name'] }}">
-                </div>
-                <h3 class="title">{{ $product['name'] }}</h3>
-                <p class="desc">{{ $product['desc'] }}</p>
 
-                <div class="cost">
-                    @if(!empty($product['discount']))
-                        <p class="discount">{{ $product['discount'] }}%</p>
-                    @endif
 
-                    @if(!empty($product['old_price']))
-                        <p class="old-price">{{ $product['old_price'] }}</p>
-                    @endif
-                </div>
+        <div class="products-grid" id="productsContainer"></div> <!-- محل نمایش محصولات -->
 
-                <p class="price">{{ $product['price'] }}</p>
+
+
+
+
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+
+
+                const searchTerm = @json(session('set_filters.params.search'));
+                const category = @json(session('set_filters.params.category'));
+                const filters = @json(session('set_filters.filters') ?? 's');
+                const set_filters = @json(session('set_filters') ?? []);
+                let products = [];
+
+
+
+
+                async function getProducts_with_search() {
+                    try {
+
+                        const response = await fetch(`/products/search?search=${searchTerm}&category=${category}`, {
+                            method: 'GET',
+                            headers: {
+                                'Accept': 'application/json'
+                            }
+                        });
+
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+
+                        products = await response.json();
+
+                        // نمایش محصولات روی صفحه
+                        const container = document.getElementById('productsContainer');
+                        container.innerHTML = ''; // خالی کردن قبل از اضافه کردن
+
+                        products.forEach(product => {
+                            const productCard = document.createElement('a');
+                            productCard.className = 'add-to-cart';
+                            productCard.href = '/';
+                            productCard.setAttribute('data-product-id', product.id);
+
+                            const finalPrice = product.off ?
+                                Number(product.price) - (Number(product.price) * product.off / 100) :
+                                Number(product.price);
+
+
+
+                            productCard.innerHTML = `
+<a class="add-to-cart" href="/produce-show/${product.id}">
+    <div class="card">
+        <div class="product-image">
+            <img src="/images/mobile-phone.png" alt="">
+        </div>
+        <div>
+            <h3 class="title">${product.name}</h3>
+            <p class="desc">${product.description}</p>
+        </div>
+
+        <div class="cost">
+            <div>
+    ${product.off ? `<span class="discount">${product.off}%</span>` : ''}
+${product.off ? `<span class="old-price">${Number(product.price).toLocaleString()}</span>` : ''}
+
             </div>
-        </a>
-        @endforeach
-    </div> --}}
 
-   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <div class="price-row">
+    <span class="price">${finalPrice.toLocaleString()}</span>
+    <span class="toman">تومان</span>
+</div>
 
-<script>
+</div>
 
-        // متغیر برای ذخیره نتایج
-        let products = [];
+    </div>
+</a>
+`;
 
-        // تابع ساده برای fetch کردن JSON
-        async function getProducts() {
-            try {
-                const response = await fetch(`/products/search?search=${}&category=labtop`, {
-                    method: 'GET',
-                    headers: {
-                        'Accept': 'application/json' // مهم برای دریافت JSON
+
+                            container.appendChild(productCard);
+                        });
+
+                    } catch (error) {
+                        console.error('خطا در دریافت اطلاعات:', error);
                     }
-                });
-
-                // بررسی وضعیت پاسخ
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
                 }
 
-                // دریافت JSON
-                products = await response.json();
 
-                // نمایش در کنسول
-                console.log('نتایج JSON:', products);
+                async function getProducts_with_filter(params) {
+                    try {
+                        const response = await axios.post('{{ route('filter') }}', {
 
-            } catch (error) {
-                console.error('خطا در دریافت اطلاعات:', error);
-            }
-        }
+                            set_filters
 
-        // صدا زدن تابع
-        getProducts();
-</script>
+                        });
+
+                        const products = response.data;
+
+                        console.log(products);
+
+                        const container = document.getElementById('productsContainer');
+                        container.innerHTML = ''; // خالی کردن قبل از اضافه کردن
 
 
-</x-search-filter>
+                        products.forEach(product => {
+                            const productCard = document.createElement('a');
+                            productCard.className = 'add-to-cart';
+                            productCard.href = '/';
+                            productCard.setAttribute('data-product-id', product.id);
+
+                            const finalPrice = product.off ?
+                                product.price - (product.price * product.off / 100) :
+                                product.price;
+
+                            productCard.innerHTML = `
+<a class="add-to-cart" href="/produce-show/${product.id}">
+    <div class="card">
+        <div class="product-image">
+            <img src="/images/mobile-phone.png" alt="">
+        </div>
+        <div>
+            <h3 class="title">${product.name}</h3>
+            <p class="desc">${product.description}</p>
+        </div>
+
+        <div class="cost">
+            <div>
+    ${product.off ? `<span class="discount">${product.off}%</span>` : ''}
+    ${product.off ? `<span class="old-price">${product.price}</span>` : ''}
+            </div>
+
+
+    <div class="price-row">
+        <span class="price">${finalPrice}</span>
+        <span class="toman">تومان</span>
+    </div>
+</div>
+
+    </div>
+</a>
+`;
+
+
+
+
+                            container.appendChild(productCard);
+                        });
+                    } catch (error) {
+                        console.error('خطا در دریافت اطلاعات:', error.response?.data || error.message);
+                    }
+
+                }
+
+
+                async function show_begin_products() {
+                    console.log('succes mother  fucker');
+                    const container = document.getElementById('productsContainer');
+                    container.style = 'grid-template-columns: 1fr;'
+                    container.innerHTML = ''; // خالی کردن قبل از اضافه کردن
+                    const productCard = document.createElement('div');
+                    productCard.style = 'font-weight: 900 ;';
+                    productCard.className = 'add-to-cart';
+                    productCard.setAttribute('data-product-id', '2');
+
+                    productCard.innerHTML = `
+
+        <div class="card">
+          <h3 class="title">لطفا یک دسته بندی انتخاب کنید</h3>
+            `;
+                    container.appendChild(productCard);
+
+                }
+
+                if (Object.values(filters).some(v => v !== null && v !== '') && filters !== 's') {
+                    getProducts_with_filter();
+
+                } else if (category || searchTerm) {
+                    getProducts_with_search();
+
+                } else {
+                    show_begin_products();
+                }
+
+            });
+
+
+
+
+        </script>
+
+
+
+    </x-search-filter>
 </x-layout>
+
+
+
+
+

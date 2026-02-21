@@ -3,30 +3,30 @@
     <nav class="nav">
 
         <div class="search-box">
-            <form action="{{ route('products') }}" method="GET" id="search_form">
+            <form action="{{ route('set_filters') }}" method="GET" id="search_form">
                 <button type="submit"><i class="fas fa-search"></i></button>
 
                 <input type="text" name="search" placeholder="جستجو..." autocomplete="off" id="searchInput">
-
                 <input type="hidden" name="category" id="categoryInput">
+                <input type="hidden" name="type" id="typeInput">
 
                 <div class="dropdown" id="categoryDropdown">
                     <!-- دسته‌بندی‌ها -->
                     <div class="search-cat">
                         <div class="liveInputDisplay" style="font-weight:bold;"></div>
-                        <div data-value="laptop">در دسته لپتاپ و اولترابوک</div>
+                        <div data-value="laptop" data-type="LabtopKeys">در دسته لپتاپ و اولترابوک</div>
                     </div>
                     <div class="search-cat">
                         <div class="liveInputDisplay" style="font-weight:bold;"></div>
-                        <div data-value="mobile">در دسته موبایل و تبلت</div>
+                        <div data-value="mobile" data-type="MobileKeys">در دسته موبایل و تبلت</div>
                     </div>
                     <div class="search-cat">
                         <div class="liveInputDisplay" style="font-weight:bold;"></div>
-                        <div data-value="watch">در دسته ساعت هوشمند</div>
+                        <div data-value="watch" data-type="WatchKeys">در دسته ساعت هوشمند</div>
                     </div>
                     <div class="search-cat">
                         <div class="liveInputDisplay" style="font-weight:bold;"></div>
-                        <div data-value="audio">در دسته ایرپاد و هندزفری</div>
+                        <div data-value="airpod" data-type="AirpadKeys">در دسته ایرپاد و هندزفری</div>
                     </div>
                 </div>
             </form>
@@ -44,14 +44,10 @@
         <div class="nav-item">
             <a href="#" class="nav-link" id="categories">دسته‌بندی</a>
             <div class="dropdown-menu" id="dropmenu-categories">
-                <a href="#">موبایل</a>
-                <a href="#">لپتاپ</a>
-                <a href="#">لوازم جانبی</a>
-                <a href="#">....</a>
-                <a href="#">....</a>
-                <a href="#">....</a>
-                <a href="#">....</a>
-                <a href="#">....</a>
+                <a href="{{ route('products') }}">موبایل و تلفن همراه</a>
+                <a href="#">لپتاپ و اولترابوک</a>
+                <a href="#">ساعت هوشمند</a>
+                <a href="#">ایرپاد و هندزفری</a>
             </div>
         </div>
 
@@ -79,7 +75,7 @@
         <div class="contain-cart-profile">
             <a href="{{ route('shopping-cart') }}" class="shopping-cart">
                 <i class="fas fa-shopping-cart"></i>
-                <span class="cart-badge">3</span>
+                <span class="cart-badge" id="cart-count">0</span>
             </a>
 
             <div class="user-icon" id="userMenuBtn">
@@ -101,7 +97,6 @@
         </div>
     @endif
 
-    </div>
 
 
 
@@ -110,26 +105,123 @@
 <script>
     document.addEventListener('DOMContentLoaded', () => {
 
+        // ===== Theme Toggle =====
         const toggle = document.getElementById('themeToggle');
-        if (!toggle) return;
+        if (toggle) {
+            const saved = localStorage.getItem('theme');
+            if (saved === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
 
-        const saved = localStorage.getItem('theme');
-
-        if (saved === 'dark') {
-            document.documentElement.setAttribute('data-theme', 'dark');
+            toggle.addEventListener('click', () => {
+                const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+                if (isDark) {
+                    document.documentElement.removeAttribute('data-theme');
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    localStorage.setItem('theme', 'dark');
+                }
+            });
         }
 
-        toggle.addEventListener('click', () => {
-            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        // ===== Search Box Dropdown =====
+        const input = document.getElementById('searchInput');
+        const dropdown = document.getElementById('categoryDropdown');
+        const categoryInput = document.getElementById('categoryInput');
+        const typeInput = document.getElementById('typeInput');
+        const searchForm = document.getElementById('search_form');
+        const liveInputs = dropdown.querySelectorAll('.liveInputDisplay');
 
-            if (isDark) {
-                document.documentElement.removeAttribute('data-theme');
-                localStorage.setItem('theme', 'light');
+        dropdown.style.display = 'none';
+
+        input.addEventListener('input', () => {
+            const value = input.value.trim();
+            if (value.length > 0) {
+                liveInputs.forEach(div => div.textContent = value);
+                dropdown.style.display = 'block';
             } else {
-                document.documentElement.setAttribute('data-theme', 'dark');
-                localStorage.setItem('theme', 'dark');
+                dropdown.style.display = 'none';
             }
         });
 
+        document.addEventListener('click', e => {
+            if (!e.target.closest('.search-box')) dropdown.style.display = 'none';
+        });
+
+        dropdown.querySelectorAll('div[data-value]').forEach(item => {
+            item.addEventListener('click', e => {
+                e.preventDefault();
+                categoryInput.value = item.dataset.value;
+                typeInput.value = item.dataset.type;
+                dropdown.style.display = 'none';
+                searchForm.submit();
+            });
+        });
+
+        // ===== Nav & User Dropdowns =====
+
+        const dropdownMap = [{
+                button: document.getElementById('categories'),
+                menu: document.getElementById('dropmenu-categories')
+            },
+            {
+                button: document.getElementById('content-us'),
+                menu: document.getElementById('dropmenu-content-us')
+            },
+            {
+                button: document.getElementById('userMenuBtn'),
+                menu: document.getElementById('user-profile')
+            }
+        ];
+
+        function closeAllDropdowns() {
+            dropdownMap.forEach(item => {
+                if (item.menu) item.menu.classList.remove('active');
+            });
+        }
+
+        dropdownMap.forEach(item => {
+            if (!item.button || !item.menu) return;
+
+            item.button.addEventListener('click', e => {
+                e.stopPropagation();
+
+                // فقط اگر لینک بود prevent کن
+                if (item.button.tagName === 'A') {
+                    e.preventDefault();
+                }
+
+                const isActive = item.menu.classList.contains('active');
+                closeAllDropdowns();
+                if (!isActive) item.menu.classList.add('active');
+            });
+
+            // جلوگیری از بسته شدن هنگام کلیک داخل منو
+            item.menu.addEventListener('click', e => {
+                e.stopPropagation();
+            });
+        });
+
+
+        document.addEventListener('click', closeAllDropdowns);
+
+
+        // ===== Cart Count Update =====
+        update_cart_counter();
+
     });
+
+
+    const cart_counter = document.getElementById('cart-count');
+
+    async function update_cart_counter() {
+        if (!cart_counter) return;
+        try {
+            const res = await axios.post('/profile/shopping-cart/BelongToUser');
+            const response = res.data;
+            if (!response.success) throw new Error(response.message);
+            cart_counter.textContent = response.item_count;
+        } catch (err) {
+            console.error(err);
+        }
+    }
 </script>

@@ -10,20 +10,22 @@ use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
-    Public function check(Request $request){
-        $UserNameInputed = $request->input('username');
-        $UserPassInputed = $request->input('password');
+    public function check(Request $request)
+    {
+        $username = $request->input('username');
+        $password = $request->input('password');
 
-        $user = new User();
+        $user = User::where('username', $username)->first();
 
-        $user = User::where('username', $UserNameInputed)->first();
+        if ($user && Hash::check($password, $user->userpassword)) {
+            Auth::login($user);
 
-        if($user && Hash::check($UserPassInputed, $user->userpassword)){
-            auth::login($user);
-            return redirect()->route('home');
+            if ($request->filled('intended')) {
+                session(['url.intended' => $request->input('intended')]);
+            }
+
+            return redirect()->intended(route('home'));
         }
-        else{
-            return back()->withErrors(['password' => 'رمز یا نام کاربری اشتباه است']);
-        }
+        return back()->withErrors(['password' => 'رمز یا نام کاربری اشتباه است']);
     }
 }

@@ -16,7 +16,7 @@ return [
     'storage' => ['256GB','512GB','1TB','2TB'],
     'ram' => ['2GB','4GB','6GB','8GB','16GB','32GB','64GB'],
     'cache' => [],
-    'network' => [],
+    'network' => ['5G','4G','3G','LTE','2G'],
     'ports' => [],
     'sim_card' => [],
     'fingerprint_sensor' => [],

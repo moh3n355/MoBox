@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'brand' => ['Apple','Samsung','Lenovo','Hp','Microsoft'],
     'release_date' => [],
     'weight' => [],
     'dimensions' => [],

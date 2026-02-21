@@ -16,6 +16,10 @@ use App\Http\Middleware\Verified;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
+
+
+
+
 // Home route
 Route::get('/', function () {
     return view('home');
@@ -153,10 +157,11 @@ Route::get('/admin/comments-data', function () {
     ]);
 })->name('admin.comments-data');
 
+
 // Product views
-Route::get('/produce-show', function () {
-    return view('produce-show');
-});
+Route::get('/produce-show/{id}', function ($id) {
+    return view('produce-show',compact('id'));
+})->name('produce-show');
 
 Route::get('/add-product', function (Request $request) {
     $category = session('categoryinput');
@@ -201,36 +206,56 @@ Route::post('/test-upload', function (Request $request) {
 // Products page
 Route::get('/products', function (Request $request) {
 
-    $filters = config($request['type']);
-    session(['type' => $request['type']]);
+        dump(session()->all());
+    $type = session()->get('set_filters.params.type');
+
+    $filters = config($type);
+
+
     return view('products', compact('filters'));
 })->name('products');
 
-Route::get('/form', function () {
-    return view('form');
-})->name('form');
 
 // Products group
 Route::group(['prefix' => 'products'], function () {
 
-    Route::get('mainfull_filters', function (Request $request)
-    {
+    Route::get('set_filters', function (Request $request) {
 
-        $filters = $request->all();
-        $config = config(session()->get('type'));
-        $DynamicKeys = [];
 
-        foreach ($filters as $key => $value) {
-            if (array_key_exists($key, $config)) {
-                $DynamicKeys[$key] = $value;
-                unset($filters[$key]);
-            }
+
+        if ($request->filled('type')) {
+            session(['set_filters.type' => $request->type]);
         }
-        $filters['filters'] = $DynamicKeys;
-        return redirect()->route('filter', $filters);
-    })->name('mainfull_filters');
 
-    Route::get('/filter', [ProductController::class, 'filter'])->name('filter');
+        if ($request->filled('category')) {
+            session(['set_filters.category' => $request->category]);
+        }
+
+        if ($request->filled('search')) {
+            session(['set_filters.search' => $request->search]);
+        }
+
+        $set_filters = $request->except(['_token']);
+        // dd($set_filters);
+        $data = [
+          'filters' => $set_filters,
+            'params' => [
+              'type' =>  $set_filters['type'] ?? null,
+              'category' => $set_filters['category'] ?? null,
+              'search' => $set_filters['search'] ?? null
+            ]
+        ];
+        unset($data['filters']['type'], $data['filters']['category'], $data['filters']['search']);
+
+
+        session(['set_filters' => $data]);
+
+
+
+        return redirect()->route('products');
+    })->name('set_filters');
+
+    Route::post('/filter', [ProductController::class, 'filter'])->name('filter');
 
     Route::get('/search', [ProductController::class, 'search'])->name('search');
 
@@ -242,20 +267,19 @@ Route::group(['prefix' => 'admin'], function () {
 });
 
 Route::group(['prefix' => 'profile'], function () {
-    Route::get('/shoping-cart/add/{id}', [ShopingCartController::class, 'add'])->name('AddToShopingCart');
+    Route::post('/shopping-cart/add', [ShopingCartController::class, 'add'])->name('AddToShopingCart')
+    ->middleware('auth');;
 
-    Route::get('/shoping-cart/remove/{id}', [ShopingCartController::class, 'remove'])->name('RemoveAsShopingCart');
+    Route::get('/shopping-cart/remove/{id}', [ShopingCartController::class, 'remove'])->name('RemoveAsShopingCart');
 
-    Route::get('/shoping-cart/BelongToUser', [ShopingCartController::class, 'BelongToUser'])->name('ProuductBelongToUser');
+    Route::post('/shopping-cart/BelongToUser', [ShopingCartController::class, 'BelongToUser'])->name('ProuductBelongToUser');
 
 });
 
 
-Route::get('test', function (Request $request)
-{
-
-return view('test');
+Route::Post('test', function (Request $request) {
+    // dd($request->all());
+    return view('test');
 })->name('test');
-
 
 

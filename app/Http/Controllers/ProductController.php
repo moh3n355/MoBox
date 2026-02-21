@@ -5,30 +5,44 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
-use App\Http\Controllers\ProductController;
+// use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
     public function filter(Request $request)
     {
-        $type = session()->get('type');
-        $data = $request->all(); // اینجا تمام آرایه فرستاده شده رو میگیریم
-            // dd(vars: $data);
-// dd($type);
+
+        // return (session()->all());
+
+        $set_filters = $request->input('set_filters', []);
+
+
+
+
+
+        $type = session()->get('set_filters.params.category');
+        $data = $set_filters['filters']; // اینجا تمام آرایه فرستاده شده رو میگیریم
+
+
+
+
+
         $query = Product::query();
+
+        // return $query->where('type', $type)->get();        ;
 
         // فیلتر نوع محصول
         if (!empty($type)) {
             $query->where('type', $type);
         }
 
-     // فقط موجودی
+        // فقط موجودی
         if (!empty($data['available'])) {
             $query->where('amount', '>', 0);
         }
 
-      // قیمت
+        // قیمت
         if (!empty($data['min_price'])) {
             // dd($data['min_price']);
             $query->where('price', '>=', $data['min_price']);
@@ -38,83 +52,99 @@ class ProductController extends Controller
             $query->where('price', '<=', $data['max_price']);
         }
 
-     // فیلتر داینامیک JSON
-     //باید key ها دقیقا هم نام های تعریف شده در config باشد
-        if (!empty($data['filters'])) {
-            foreach ($data['filters'] as $key => $value) {
-             if (is_array($value)) {
-                 $query->where(function($q) use ($key, $value) {
-                     foreach ($value as $item) {
-                         $q->orWhereJsonContains("data->$key", $item);
-                     }
-                  });
-             } else {
-                  $query->whereJsonContains("data->$key", $value);
-              }
-          }
+        // فیلتر داینامیک JSON
+        //باید key ها دقیقا هم نام های تعریف شده در config باشد
+        // if (!empty($data['filters'])) {
+        foreach ($data as $key => $value) {
+
+            // رد کردن min و max چون جدا پردازش شدن
+            if (in_array($key, ['min_price', 'max_price'])) {
+                continue;
+            }
+
+            if (!empty($value)) {
+
+                if (is_array($value)) {
+                    $query->where(function ($q) use ($key, $value) {
+                        foreach ($value as $item) {
+                            $q->orWhereJsonContains("data->$key", $item);
+                        }
+                    });
+                } else {
+                    $query->whereJsonContains("data->$key", $value);
+                }
+            }
         }
 
-      // مرتب‌سازی
+        // }
+
+        // مرتب‌سازی
         switch ($data['sort'] ?? '') {
             case 'newest':
-                $query->latest('created_at'); break;
+                $query->latest('created_at');
+                break;
             case 'cheapest':
-                $query->orderBy('price','asc'); break;
+                $query->orderBy('price', 'asc');
+                break;
             case 'expensive':
-                $query->orderBy('price','desc'); break;
+                $query->orderBy('price', 'desc');
+                break;
             default:
                 $query->latest('created_at');
         }
+
 
         return $query->get();
     }
 
     public function search(Request $request)
     {
+
         $search = $request->input('search', null);
-        $type   = $request->input('type', null); // فیلتر type
+        $type = $request->input('category', null); // فیلتر type
 
-    $query = Product::query();
+        $query = Product::query();
 
-    if (empty($search)) {
-        return response()->json(['data' => [], 'message' => 'Nothing to search']);
-    }
-
-    // فیلتر type اگر ارسال شده
-    if (!empty($type)) {
-        $query->where('type', $type);
-    }
-
-    $tokens = preg_split('/\s+/', $search, -1, PREG_SPLIT_NO_EMPTY);
-    $rankSqlParts = [];
-
-    foreach ($tokens as $i => $token) {
-        $token = trim($token);
-        if (!$token) continue;
-        $rankSqlParts[] = "CASE WHEN name LIKE '%{$token}%' THEN ".(count($tokens) - $i)." ELSE 0 END";
-        $rankSqlParts[] = "CASE WHEN data LIKE '%{$token}%' THEN ".((count($tokens) - $i)/2)." ELSE 0 END";
-    }
-
-    if (!empty($rankSqlParts)) {
-        $rankSql = implode(' + ', $rankSqlParts);
-        $query->selectRaw("*, ($rankSql) as rank")
-              ->orderByDesc('rank');
-    }
-
-    $products = $query->get();
-
-    return response()->json($products);
-}
-
-   public function getById(Request $request)
-    {
-        $ids = $request->input('id');
-
-        if (!$ids) {
-            return []; // فقط آرایه خالی برگردان
+        if (empty($search) && empty($type)) {
+            return response()->json([data => [], 'message' => 'Nothing to search']);
         }
 
-        // اگر عدد یا رشته منفرد است → تبدیل به آرایه
+
+        // فیلتر type اگر ارسال شده
+        if (!empty($type)) {
+            $query->where('type', $type);
+        }
+
+        $tokens = preg_split('/\s+/', $search, -1, PREG_SPLIT_NO_EMPTY);
+        $rankSqlParts = [];
+
+        foreach ($tokens as $i => $token) {
+            $token = trim($token);
+            if (!$token)
+                continue;
+            $rankSqlParts[] = "CASE WHEN name LIKE '%{$token}%' THEN " . (count($tokens) - $i) . " ELSE 0 END";
+            $rankSqlParts[] = "CASE WHEN data LIKE '%{$token}%' THEN " . ((count($tokens) - $i) / 2) . " ELSE 0 END";
+        }
+
+        if (!empty($rankSqlParts)) {
+            $rankSql = implode(' + ', $rankSqlParts);
+            $query->selectRaw("*, ($rankSql) as rank")
+                ->orderByDesc('rank');
+        }
+
+        $products = $query->get();
+
+        return response()->json($products);
+    }
+
+    public function getById($id)
+    {
+        $ids = $id;
+
+        if (!$ids) {
+            return [];
+        }
+
         if (!is_array($ids)) {
             if (is_string($ids)) {
                 $ids = explode(',', $ids);
@@ -127,8 +157,9 @@ class ProductController extends Controller
 
         $products = Product::whereIn('id', $ids)->get();
 
-        return $products; // collection برگردان
+        return response()->json($products);
     }
+
 }
 
 

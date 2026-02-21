@@ -7,25 +7,35 @@
     <section class="categories-slider">
         <button class="cat-nav left">❯</button>
 
-        <div class="categories-track">
+        <form id="categoryform" action="{{ route('set_filters') }}" method="GET">
+            <div class="categories-track">
 
-            <a href="{{ route('products', ['type' => 'MobileKeys']) }}" class="category-item">
-                <img src="/images/mobile.png" alt="">
-                <span>موبایل و تبلت</span>
-            </a>
-            <a href="{{ route('products', ['type' => 'LabtopKeys']) }}" class="category-item">
-                <img src="/images/laptop3.png" alt="">
-                <span>لپتاپ و اولترابوک</span>
-            </a>
-            <a href="{{ route('products', ['type' => 'WatchKeys']) }}" class="category-item">
-                <img src="/images/smartwatch.png" alt="">
-                <span>ساعت هوشمند</span>
-            </a>
-            <a href="{{ route('products', ['type' => 'AirPadKeys']) }}" class="category-item" value="airpods">
-                <img src="/images/airpod.png" alt="">
-                <span>ایرپاد و هندزفری</span>
-            </a>
-        </div>
+                <input type="hidden" name="type" id="typeInput">
+                <input type="hidden" name="category" id="categoryInput">
+
+                <button type="button" class="category-item" data-type="MobileKeys" data-category="mobile">
+                    <img src="/images/mobile.png" alt="">
+                    <span>موبایل و تبلت</span>
+                </button>
+
+                <button type="button" class="category-item" data-type="LabtopKeys" data-category="laptop">
+                    <img src="/images/laptop3.png" alt="">
+                    <span>لپتاپ و اولترابوک</span>
+                </button>
+
+                <button type="button" class="category-item" data-type="WatchKeys" data-category="watch">
+                    <img src="/images/smartwatch.png" alt="">
+                    <span>ساعت هوشمند</span>
+                </button>
+
+                <button type="button" class="category-item" data-type="AirPadKeys" data-category="airPad">
+                    <img src="/images/airpod.png" alt="">
+                    <span>ایرپاد و هندزفری</span>
+                </button>
+
+
+            </div>
+        </form>
 
         <button class="cat-nav right">❮</button>
     </section>
@@ -53,8 +63,11 @@
 
             {{-- filter ha --}}
 
-            <form id="filterForm" action={{ route('mainfull_filters') }} method="get">
+            <form id="filterForm" action={{ route('set_filters') }} method="get">
                 {{-- @csrf --}}
+
+                <input type="hidden" name="type" value="{{ session('set_filters.params.type') }}">
+                <input type="hidden" name="category" value="{{ session('set_filters.params.category') }}">
 
                 @foreach ($filters as $group => $items)
                     @if (!empty($items) && $group != 'category')
@@ -72,7 +85,7 @@
                                 @foreach ($items as $item)
                                     <label class="filter-option">
                                         <input type="checkbox" name="{{ $group }}[]" value="{{ $item }}"
-                                            {{ in_array($item, request($group, [])) ? 'checked' : '' }}>
+                                            {{ in_array($item, session('set_filters.filters.' . $group, [])) ? 'checked' : '' }}>
                                         {{ $item }}
                                         <span class="checkmark"></span>
                                     </label>
@@ -96,9 +109,11 @@
                     <div class="filter-options" x-show="open" x-transition x-cloak>
                         <div class="price-range">
                             <div class="price-inputs">
-                                <input type="number" name="min_price" id="min-price" placeholder="حداقل قیمت">
+                                <input type="number" name="min_price" id="min-price"
+                                    value="{{ session('set_filters.filters.min_price') }}" placeholder="حداقل قیمت">
                                 <span>تا</span>
-                                <input type="number" name="max_price" id="max-price" placeholder="حداکثر قیمت">
+                                <input type="number" name="max_price" id="max-price"
+                                    value="{{ session('set_filters.filters.max_price') }}" placeholder="حداکثر قیمت">
                             </div>
                         </div>
                     </div>
@@ -117,7 +132,7 @@
 
                     <div class="filter-options" x-show="open" x-transition x-cloak>
                         <label class="filter-option">
-                            <input type="checkbox" name="discont" value="true">
+                            <input type="checkbox" name="off" value="true">
                             <span class="checkmark"></span>
                         </label>
                     </div>
@@ -148,11 +163,11 @@
                 </div>
             </div>
 
-            <div class="products-grid">
+            {{-- <div class="products-grid"> --}}
 
-                {{ $slot }}
+            {{ $slot }}
 
-            </div>
+            {{-- </div> --}}
 
         </main>
     </div>
@@ -176,123 +191,55 @@
             });
         });
 
-        document.querySelectorAll('#filterForm input[type="checkbox"]').forEach(cb => {
-            cb.addEventListener('change', () => {
-                document.getElementById('filterForm').submit();
+        function mergeCategoryIntoFilterAndSubmit(clickedCategoryBtn = null) {
+            const filterForm = document.getElementById('filterForm');
+
+            // حذف hidden های قبلی merge شده
+            filterForm.querySelectorAll('.merged-from-category').forEach(e => e.remove());
+
+            let type = '';
+            let category = '';
+
+            if (clickedCategoryBtn) {
+                // مستقیم از dataset دکمه می‌گیریم
+                type = clickedCategoryBtn.dataset.type || '';
+                category = clickedCategoryBtn.dataset.category || '';
+            } else {
+                // اگر تغییر checkbox است، مقدار session blade استفاده شود
+                type = '{{ session('set_filters.params.type') }}';
+                category = '{{ session('set_filters.params.category') }}';
+            }
+
+            // اضافه کردن hidden ها به filterForm
+            const hiddenType = document.createElement('input');
+            hiddenType.type = 'hidden';
+            hiddenType.name = 'type';
+            hiddenType.value = type;
+            hiddenType.classList.add('merged-from-category');
+            filterForm.appendChild(hiddenType);
+
+            const hiddenCategory = document.createElement('input');
+            hiddenCategory.type = 'hidden';
+            hiddenCategory.name = 'category';
+            hiddenCategory.value = category;
+            hiddenCategory.classList.add('merged-from-category');
+            filterForm.appendChild(hiddenCategory);
+
+            filterForm.submit();
+        }
+
+        // event listener برای کلیک روی category
+        document.querySelectorAll('#categoryform .category-item').forEach(btn => {
+            btn.addEventListener('click', function() {
+                mergeCategoryIntoFilterAndSubmit(this);
             });
         });
 
-
-const form = document.getElementById('filterForm');
-const productsGrid = document.querySelector('.products-grid');
-const sortSelect = document.getElementById('sort-select');
-
-// جمع‌آوری داده‌ها و ساخت payload
-function buildPayload() {
-    const filters = {}; // کل فیلترها داخل این شیء
-    // چک‌باکس‌ها
-    form.querySelectorAll('input[type="checkbox"]').forEach(cb => {
-        if (!cb.checked) return;
-
-        const name = cb.name.replace('[]','');
-
-        // موجودی
-        if (name === 'available') {
-            filters.available = true;
-            return;
-        }
-
-        // تخفیف
-        if (name === 'discont') {
-            filters.discont = true;
-            return;
-        }
-
-        // فیلترهای داینامیک مثل RAM، حافظه، و غیره
-        if (!filters[name]) filters[name] = [];
-        filters[name].push(cb.value);
-    });
-
-    // محدوده قیمت
-    const minPrice = form.querySelector('input[name="min_price"]')?.value;
-    const maxPrice = form.querySelector('input[name="max_price"]')?.value;
-    if (minPrice) filters.min_price = Number(minPrice);
-    if (maxPrice) filters.max_price = Number(maxPrice);
-
-    // مرتب‌سازی
-    if (sortSelect && sortSelect.value) {
-        filters.sort = sortSelect.value;
-    }
-
-    // تمام فیلترها داخل یک key به نام filters
-    return { filters };
-}
-
-// ارسال فیلترها با fetch
-function sendFilters() {
-    const payload = buildPayload();
-
-    fetch("{{ route('filter') }}", {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': '{{ csrf_token() }}',
-            'Accept': 'application/json'
-        },
-        body: JSON.stringify(payload)
-    })
-    .then(res => res.json())
-    .then(products => renderProducts(products))
-    .catch(err => console.error('Filter error:', err));
-}
-
-// رندر محصولات در صفحه
-function renderProducts(products) {
-    productsGrid.innerHTML = '';
-
-    if (!products.length) {
-        productsGrid.innerHTML = `<div class="empty"><p>محصولی با این فیلتر پیدا نشد</p></div>`;
-        return;
-    }
-
-    products.forEach(p => {
-        productsGrid.innerHTML += `
-            <article class="product-card">
-                <h3>${p.name}</h3>
-                <p>${Number(p.price).toLocaleString()} تومان</p>
-            </article>
-        `;
-    });
-}
-
-// debounce برای جلوگیری از ارسال request زیاد
-function debounce(fn, delay) {
-    let timeout;
-    return function() {
-        clearTimeout(timeout);
-        timeout = setTimeout(fn, delay);
-    };
-}
-
-// همه رویدادها
-// چک‌باکس‌ها
-form.querySelectorAll('input[type="checkbox"]').forEach(cb => {
-    cb.addEventListener('change', debounce(sendFilters, 300));
-});
-
-// محدوده قیمت
-form.querySelectorAll('input[type="number"]').forEach(input => {
-    input.addEventListener('input', debounce(sendFilters, 500));
-});
-
-// مرتب‌سازی
-if (sortSelect) {
-    sortSelect.addEventListener('change', sendFilters);
-}
-
-// جلوگیری از submit فرم (کل فرم فقط JS)
-form.addEventListener('submit', e => e.preventDefault());
-</script>
+        // event listener برای تغییر checkbox ها
+        document.querySelectorAll('#filterForm input[type="checkbox"]').forEach(cb => {
+            cb.addEventListener('change', () => mergeCategoryIntoFilterAndSubmit());
+        });
+    </script>
 
 
 </div>

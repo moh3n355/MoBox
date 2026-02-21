@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
 
-    // گالری
+    // گالری تصاویر
     const mainImage = document.getElementById('mainProductImage');
-    const thumbs = document.querySelectorAll('.thumb');
+    const thumbs = document.querySelectorAll('.ps-thumb');
 
     thumbs.forEach(thumb => {
         thumb.addEventListener('click', function() {
@@ -28,8 +28,8 @@ document.addEventListener('DOMContentLoaded', function() {
         if (val > 1) qtyInput.value = val - 1;
     });
 
-    // رنگ
-    const colorDots = document.querySelectorAll('.color-dot');
+    // انتخاب رنگ
+    const colorDots = document.querySelectorAll('.ps-color-dot');
     colorDots.forEach(dot => {
         dot.addEventListener('click', function() {
             colorDots.forEach(d => d.classList.remove('active'));
@@ -37,8 +37,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // مدل
-    const variantBtns = document.querySelectorAll('.variant-btn');
+    // انتخاب حافظه/مدل
+    const variantBtns = document.querySelectorAll('.ps-variant-btn');
     variantBtns.forEach(btn => {
         btn.addEventListener('click', function() {
             variantBtns.forEach(b => b.classList.remove('active'));
@@ -47,8 +47,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // تب‌ها
-    const tabButtons = document.querySelectorAll('.tab-horizontal');
-    const tabPanels = document.querySelectorAll('.tab-panel');
+    const tabButtons = document.querySelectorAll('.ps-tab-horizontal');
+    const tabPanels = document.querySelectorAll('.ps-tab-panel');
 
     tabButtons.forEach(button => {
         button.addEventListener('click', function() {
@@ -60,17 +60,15 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // فرم افزودن به سبد خرید
+    // افزودن به سبد خرید
     const addToCartBtn = document.getElementById('addToCart');
 
     addToCartBtn.addEventListener('click', function() {
-        const selectedColor = document.querySelector('.color-dot.active').getAttribute(
-            'data-color');
-        const selectedVariant = document.querySelector('.variant-btn.active').getAttribute(
-            'data-variant');
+        const selectedColor = document.querySelector('.ps-color-dot.active').getAttribute('data-color');
+        const selectedVariant = document.querySelector('.ps-variant-btn.active').getAttribute('data-variant');
         const quantity = qtyInput.value;
 
-        // مقداردهی فرم
+        // مقداردهی فرم مخفی
         document.querySelector('input[name=color]').value = selectedColor;
         document.querySelector('input[name=variant]').value = selectedVariant;
         document.querySelector('input[name=quantity]').value = quantity;

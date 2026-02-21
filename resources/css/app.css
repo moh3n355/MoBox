@@ -1,9 +1,13 @@
+@import "@fortawesome/fontawesome-free/css/all.min.css";
+
+
 @import "../theme/theme-core.css";
 @import "./admin-dashboard.css";
  @import "./products.css";
 @import "./show-&-edit-products.css";
 @import "./search-filter.css";
 @import "./shopping-cart.css";
+@import "./produce-show.css";
 
 /* === Reset & Base === */
 * {
@@ -67,7 +71,7 @@ header {
     display: none;
     position: absolute;
     top: 120%;
-    right: 0;
+    inset-inline-end: 0;
     background: var(--bg-secondary);
     box-shadow: 0 4px 12px var(--shadow-color);
     border-radius: 8px;
@@ -75,6 +79,9 @@ header {
     min-width: 140px;
     flex-direction: column;
     z-index: 1000;
+}
+.dropdown-menu.active {
+    display: flex; /* وقتی active شد نمایش داده شود */
 }
 
 .dropdown-menu a {
@@ -90,9 +97,9 @@ header {
 }
 
 /* نمایش منو هنگام هاور */
-.nav-item:hover .dropdown-menu {
+/* .nav-item:hover .dropdown-menu {
     display: flex;
-}
+} */
 
 /* === Search Box === */
 .search-box {
@@ -199,12 +206,12 @@ header {
     font-size: 1.2rem;
 }
 
-.user-icon:hover #user-profile {
+/* .user-icon:hover #user-profile {
     display: flex;
-}
+} */
 
 /* === User Menu === */
-#user-profile {
+/* #user-profile {
     display: none;
     position: absolute;
     top: 130%;
@@ -214,7 +221,7 @@ header {
     box-shadow: 0 4px 10px var(--shadow-color);
     overflow: hidden;
     flex-direction: column;
-}
+} */
 
 #user-profile a {
     padding: 0.6rem 1rem;

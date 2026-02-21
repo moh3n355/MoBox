@@ -6,8 +6,34 @@
     <title>Document</title>
 </head>
 <body>
+    <?php
+    $password = 'Iliya1441!';
+    $hashed = password_hash($password, PASSWORD_BCRYPT);
+    echo $hashed;
+?>
+    {{-- <a class="add-to-cart" href="#">
+        <div class="card">
+            <div class="product-image">
+                <img src="/images/mobile-phone.png" alt="">
+            </div>
+            <div>
+                <h3 class="title">${product.name}</h3>
+                <p class="desc">${product.description}</p>
+            </div>
 
-    <script>
+            <div class="cost">
+                ${product.off ? `<p class="discount">${product.off}%</p>` : ''}
+                ${product.off ? `<p class="old-price">${product.price}</p>` : ''}
+            </div>
+
+            <div class="price-row">
+                <span class="price">${finalPrice}</span>
+                <span class="toman">تومان</span>
+            </div>
+        </div>
+    </a> --}}
+
+    {{-- <script>
         // متغیر برای ذخیره نتایج
         let products = [];
 
@@ -39,7 +65,7 @@
 
         // صدا زدن تابع
         getProducts();
-    </script>
+    </script> --}}
 
 
 </body>
