@@ -37,7 +37,7 @@
 
 
         <div class="nav-item">
-            <a href="#" class="nav-link" id="home">خانه</a>
+            <a href="{{ route('home') }}" class="nav-link" id="home">خانه</a>
         </div>
 
 
