@@ -209,7 +209,7 @@ Route::post('/test-upload', function (Request $request) {
 // Products page
 Route::get('/products', function (Request $request) {
 
-        dump(session()->all());
+        // dump(session()->all());
     $type = session()->get('set_filters.params.type');
 
     $filters = config($type);
@@ -273,7 +273,7 @@ Route::group(['prefix' => 'profile'], function () {
     Route::post('/shopping-cart/add', [ShopingCartController::class, 'add'])->name('AddToShopingCart')
     ->middleware('auth');;
 
-    Route::get('/shopping-cart/remove/{id}', [ShopingCartController::class, 'remove'])->name('RemoveAsShopingCart');
+    Route::post('/shopping-cart/remove/{id}', [ShopingCartController::class, 'remove'])->name('RemoveAsShopingCart');
 
     Route::post('/shopping-cart/BelongToUser', [ShopingCartController::class, 'BelongToUser'])->name('ProuductBelongToUser');
 
