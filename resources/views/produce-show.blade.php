@@ -202,7 +202,8 @@
                 // رنگ‌ها
                 const colorContainer = document.querySelector('.ps-color-picker');
                 colorContainer.innerHTML = '';
-                const colors = product.data.colors || [product.color];
+
+                const colors = product.data['رنگ‌ها'] || [product.color];
                 colors.forEach((c, idx) => {
                     const btn = document.createElement('button');
                     btn.className = 'ps-color-dot' + (idx === 0 ? ' active' : '');
@@ -219,14 +220,16 @@
                 // RAM و حافظه داخلی
                 const variantContainer = document.querySelector('.ps-variants');
                 variantContainer.innerHTML = '';
-                const variants = product.data.variants || [{
-                    ram: product.data.ram,
-                    storage: product.data.storage
+
+                const variants = product.data["نسخه ها"] || [{
+                    ram: product.data["رم"],
+                    storage: product.data["حافظه"]
                 }];
+
                 variants.forEach((v, idx) => {
                     const btn = document.createElement('button');
                     btn.className = 'ps-variant-btn' + (idx === 0 ? ' active' : '');
-                    const variantText = (typeof v === 'object') ? `${v.ram} / ${v.storage}` : v;
+                    const variantText = (typeof v === 'object') ? `${v['رم']} / ${v['حافظه']}` : v;
                     btn.dataset.variant = variantText;
                     btn.textContent = variantText;
 
