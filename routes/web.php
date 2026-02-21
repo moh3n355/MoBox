@@ -59,6 +59,9 @@ Route::group(['prefix' => 'auth'], function () {
     })->middleware(Verified::class)
         ->name('set-username-password');
 
+    Route::post('/put-username-password', [RigesterController::class, 'PutData']
+    )->name('put-username-password');
+
     Route::get('/forgot', function () {
         return view('auth.forgot', ['type' => 'forgot']);
     })->name('forgot');
